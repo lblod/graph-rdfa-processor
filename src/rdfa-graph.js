@@ -1,52 +1,57 @@
-import Node from './node';
+import Node from "./node";
 
 export class RDFaGraph {
   constructor() {
     var dataContext = this;
     this.curieParser = {
       trim: function(str) {
-        return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+        return str.replace(/^\s\s*/, "").replace(/\s\s*$/, "");
       },
-      parse: function(value,resolve) {
+      parse: function(value, resolve) {
         value = this.trim(value);
-        if (value.charAt(0)=='[' && value.charAt(value.length-1)==']') {
-          value = value.substring(1,value.length-1);
+        if (value.charAt(0) == "[" && value.charAt(value.length - 1) == "]") {
+          value = value.substring(1, value.length - 1);
         }
         var colon = value.indexOf(":");
-        if (colon>=0) {
-          var prefix = value.substring(0,colon);
-          if (prefix=="") {
+        if (colon >= 0) {
+          var prefix = value.substring(0, colon);
+          if (prefix == "") {
             // default prefix
             var uri = dataContext.prefixes[""];
-            return uri ? uri+value.substring(colon+1) : null;
-          } else if (prefix=="_") {
+            return uri ? uri + value.substring(colon + 1) : null;
+          } else if (prefix == "_") {
             // blank node
-            return "_:"+value.substring(colon+1);
+            return "_:" + value.substring(colon + 1);
           } else if (DocumentData.NCNAME.test(prefix)) {
             var uri = dataContext.prefixes[prefix];
             if (uri) {
-              return uri+value.substring(colon+1);
+              return uri + value.substring(colon + 1);
             }
           }
         }
 
         return resolve ? dataContext.baseURI.resolve(value) : value;
-      }
+      },
     };
-    this.base =  null;
+    this.base = null;
     this.toString = function(requestOptions) {
-      var options = requestOptions && requestOptions.shorten ? { graph: this, shorten: true, prefixesUsed: {} } : null;
+      var options =
+        requestOptions && requestOptions.shorten
+          ? { graph: this, shorten: true, prefixesUsed: {} }
+          : null;
       if (requestOptions && requestOptions.blankNodePrefix) {
         options.filterBlankNode = function(id) {
-          return "_:"+requestOptions.blankNodePrefix+id.substring(2);
-        }
+          return "_:" + requestOptions.blankNodePrefix + id.substring(2);
+        };
       }
       if (requestOptions && requestOptions.numericalBlankNodePrefix) {
         var onlyNumbers = /^[0-9]+$/;
         options.filterBlankNode = function(id) {
           var label = id.substring(2);
-          return onlyNumbers.test(label) ? "_:"+requestOptions.numericalBlankNodePrefix+label : id;
-        }
+          return onlyNumbers.test(label)
+            ? "_:" + requestOptions.numericalBlankNodePrefix + label
+            : id;
+        };
       }
       var s = "";
       for (var subject in this.subjects) {
@@ -54,13 +59,17 @@ export class RDFaGraph {
         s += snode.toString(options);
         s += "\n";
       }
-      var prolog = requestOptions && requestOptions.baseURI ? "@base <"+baseURI+"> .\n" : "";
+      var prolog =
+        requestOptions && requestOptions.baseURI
+          ? "@base <" + baseURI + "> .\n"
+          : "";
       if (options && options.shorten) {
         for (var prefix in options.prefixesUsed) {
-          prolog += "@prefix "+prefix+": <"+this.prefixes[prefix]+"> .\n";
+          prolog +=
+            "@prefix " + prefix + ": <" + this.prefixes[prefix] + "> .\n";
         }
       }
-      return prolog.length==0 ? s : prolog+"\n"+s;
+      return prolog.length == 0 ? s : prolog + "\n" + s;
     };
     this.blankNodeCounter = 0;
     this.clear = function() {
@@ -68,7 +77,7 @@ export class RDFaGraph {
       this.prefixes = {};
       this.terms = {};
       this.blankNodeCounter = 0;
-    }
+    };
     this.clear();
     this.prefixes[""] = "http://www.w3.org/1999/xhtml/vocab#";
 
@@ -113,11 +122,12 @@ export class RDFaGraph {
     this.prefixes["schema"] = "http://schema.org/";
 
     // terms
-    this.terms["describedby"] = "http://www.w3.org/2007/05/powder-s#describedby";
+    this.terms["describedby"] =
+      "http://www.w3.org/2007/05/powder-s#describedby";
     this.terms["license"] = "http://www.w3.org/1999/xhtml/vocab#license";
     this.terms["role"] = "http://www.w3.org/1999/xhtml/vocab#role";
 
-    Object.defineProperty(this,"tripleCount",{
+    Object.defineProperty(this, "tripleCount", {
       enumerable: true,
       configurable: false,
       get: function() {
@@ -129,33 +139,33 @@ export class RDFaGraph {
           }
         }
         return count;
-      }
+      },
     });
   }
 
   newBlankNode() {
     this.blankNodeCounter++;
-    return "_:"+this.blankNodeCounter;
+    return "_:" + this.blankNodeCounter;
   }
 
   expand(curie) {
-    return this.curieParser.parse(curie,true);
+    return this.curieParser.parse(curie, true);
   }
 
-  shorten(uri,prefixesUsed) {
+  shorten(uri, prefixesUsed) {
     for (prefix in this.prefixes) {
       var mapped = this.prefixes[prefix];
-      if (uri.indexOf(mapped)==0) {
+      if (uri.indexOf(mapped) == 0) {
         if (prefixesUsed) {
           prefixesUsed[prefix] = mapped;
         }
-        return prefix+":"+uri.substring(mapped.length);
+        return prefix + ":" + uri.substring(mapped.length);
       }
     }
     return null;
   }
 
-  add(subject,predicate,object,options) {
+  add(subject, predicate, object, options) {
     if (!subject || !predicate || !object) {
       return;
     }
@@ -163,13 +173,13 @@ export class RDFaGraph {
     predicate = this.expand(predicate);
     var snode = this.subjects[subject];
     if (!snode) {
-      snode = new RDFaSubject(this,subject);
+      snode = new RDFaSubject(this, subject);
       this.subjects[subject] = snode;
     }
     if (options && options.origin) {
       snode.origins.push(options.origin);
     }
-    if (predicate=="http://www.w3.org/1999/02/22-rdf-syntax-ns#type") {
+    if (predicate == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type") {
       snode.types.push(object);
     }
     var pnode = snode.predicates[predicate];
@@ -181,27 +191,31 @@ export class RDFaGraph {
     if (typeof object == "string") {
       pnode.objects.push({
         type: RDFaProcessor.PlainLiteralURI,
-        value: object
+        value: object,
       });
     } else {
       pnode.objects.push({
-        type: object.type ? this.expand(object.type) : RDFaProcessor.PlainLiteralURI,
+        type: object.type
+          ? this.expand(object.type)
+          : RDFaProcessor.PlainLiteralURI,
         value: object.value ? object.value : "",
         origin: object.origin,
-        language: object.language
+        language: object.language,
       });
     }
   }
 
-  addCollection(subject,predicate,objectList,options) {
+  addCollection(subject, predicate, objectList, options) {
     if (!subject || !predicate || !objectList) {
       return;
     }
 
     var lastSubject = subject;
     var lastPredicate = predicate;
-    for (var i=0; i < objectList.length; i++) {
-      var object = { type: options && options.type ? options.type : "rdf:PlainLiteral"};
+    for (var i = 0; i < objectList.length; i++) {
+      var object = {
+        type: options && options.type ? options.type : "rdf:PlainLiteral",
+      };
       if (options && options.language) {
         object.language = options.language;
       }
@@ -209,7 +223,7 @@ export class RDFaGraph {
         object.datatype = options.datatype;
       }
       if (typeof objectList[i] == "object") {
-        object.value = objectList[i].value ?  objectList[i].value : "";
+        object.value = objectList[i].value ? objectList[i].value : "";
         if (objectList[i].type) {
           object.type = objectList[i].type;
         }
@@ -220,18 +234,24 @@ export class RDFaGraph {
           object.datatype = objectList[i].datatype;
         }
       } else {
-        object.value = objectList[i]
+        object.value = objectList[i];
       }
       var bnode = this.newBlankNode();
-      this.add(lastSubject,lastPredicate,{ type: "rdf:object", value: bnode});
-      this.add(bnode,"rdf:first",object);
+      this.add(lastSubject, lastPredicate, {
+        type: "rdf:object",
+        value: bnode,
+      });
+      this.add(bnode, "rdf:first", object);
       lastSubject = bnode;
       lastPredicate = "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest";
     }
-    this.add(lastSubject,lastPredicate,{ type: "rdf:object", value: "http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"});
+    this.add(lastSubject, lastPredicate, {
+      type: "rdf:object",
+      value: "http://www.w3.org/1999/02/22-rdf-syntax-ns#nil",
+    });
   }
 
-  remove(subject,predicate) {
+  remove(subject, predicate) {
     if (!subject) {
       this.subjects = {};
       return;
@@ -248,29 +268,29 @@ export class RDFaGraph {
     predicate = this.expand(predicate);
     delete snode.predicates[predicate];
   }
-};
+}
 
 export class RDFaSubject {
-  constructor(graph,subject) {
+  constructor(graph, subject) {
     this.graph = graph;
     // TODO: subject or id?
-    this.subject = subject
+    this.subject = subject;
     this.id = subject;
-    this.predicates =  {};
+    this.predicates = {};
     this.origins = [];
     this.types = [];
   }
 
   toString(options) {
     var s = null;
-    if (this.subject.substring(0,2)=="_:") {
+    if (this.subject.substring(0, 2) == "_:") {
       if (options && options.filterBlankNode) {
         s = options.filterBlankNode(this.subject);
       } else {
         s = this.subject;
       }
     } else if (options && options.shorten) {
-      s = this.graph.shorten(this.subject,options.prefixesUsed);
+      s = this.graph.shorten(this.subject, options.prefixesUsed);
       if (!s) {
         s = "<" + this.subject + ">";
       }
@@ -296,24 +316,39 @@ export class RDFaSubject {
       var pnode = this.predicates[predicate];
       var p = { predicate: predicate, objects: [] };
       o.predicates[predicate] = p;
-      for (var i=0; i < pnode.objects.length; i++) {
+      for (var i = 0; i < pnode.objects.length; i++) {
         var object = pnode.objects[i];
         if (object.type == RDFaProcessor.XMLLiteralURI) {
           var serializer = new XMLSerializer();
           var value = "";
-          for (var x=0; x < object.value.length; x++) {
-            if (object.value[x].nodeType==Node.ELEMENT_NODE) {
+          for (var x = 0; x < object.value.length; x++) {
+            if (object.value[x].nodeType == Node.ELEMENT_NODE) {
               value += serializer.serializeToString(object.value[x]);
-            } else if (object.value[x].nodeType==Node.TEXT_NODE) {
+            } else if (object.value[x].nodeType == Node.TEXT_NODE) {
               value += object.value[x].nodeValue;
             }
           }
-          p.objects.push({ type: object.type, value: value, language: object.language });
-        } else if (object.type==RDFaProcessor.HTMLLiteralURI) {
-          var value = object.value.length==0 ? "" : object.value[0].parentNode.innerHTML;
-          p.objects.push({ type: object.type, value: value, language: object.language });
+          p.objects.push({
+            type: object.type,
+            value: value,
+            language: object.language,
+          });
+        } else if (object.type == RDFaProcessor.HTMLLiteralURI) {
+          var value =
+            object.value.length == 0
+              ? ""
+              : object.value[0].parentNode.innerHTML;
+          p.objects.push({
+            type: object.type,
+            value: value,
+            language: object.language,
+          });
         } else {
-          p.objects.push({ type: object.type, value: object.value, language: object.language });
+          p.objects.push({
+            type: object.type,
+            value: object.value,
+            language: object.language,
+          });
         }
       }
     }
@@ -322,18 +357,18 @@ export class RDFaSubject {
 
   getValues() {
     var values = [];
-    for (var i=0; i < arguments.length; i++) {
-      var property = this.graph.curieParser.parse(arguments[i],true)
-        var pnode = this.predicates[property];
+    for (var i = 0; i < arguments.length; i++) {
+      var property = this.graph.curieParser.parse(arguments[i], true);
+      var pnode = this.predicates[property];
       if (pnode) {
-        for (var j=0; j < pnode.objects.length; j++) {
+        for (var j = 0; j < pnode.objects.length; j++) {
           values.push(pnode.objects[j].value);
         }
       }
     }
     return values;
   }
-};
+}
 
 export class RDFaPredicate {
   constructor(predicate) {
@@ -343,95 +378,133 @@ export class RDFaPredicate {
   }
 
   toString(options) {
-     var s = null;
-     if (options && options.shorten && options.graph) {
-        s = options.graph.shorten(this.predicate,options.prefixesUsed);
-        if (!s) {
-           s = "<" + this.predicate + ">"
-        }
-     } else {
-        s = "<" + this.predicate + ">"
-     }
-     s += " ";
-     for (var i=0; i < this.objects.length; i++) {
-        if (i>0) {
-           s += ", ";
-        }
-        if (this.objects[i].type == "http://www.w3.org/1999/02/22-rdf-syntax-ns#object") {
-           if (this.objects[i].value.substring(0,2) == "_:") {
-              if (options && options.filterBlankNode) {
-                 s += options.filterBlankNode(this.objects[i].value);
-              } else {
-                 s += this.objects[i].value;
-              }
-           } else if (options && options.shorten && options.graph) {
-              u = options.graph.shorten(this.objects[i].value,options.prefixesUsed);
-              if (u) {
-                 s += u;
-              } else {
-                 s += "<" + this.objects[i].value + ">";
-              }
-           } else {
-              s += "<" + this.objects[i].value + ">";
-           }
-        } else if (this.objects[i].type=="http://www.w3.org/2001/XMLSchema#integer" ||
-                   this.objects[i].type=="http://www.w3.org/2001/XMLSchema#decimal" ||
-                   this.objects[i].type=="http://www.w3.org/2001/XMLSchema#double" ||
-                   this.objects[i].type=="http://www.w3.org/2001/XMLSchema#boolean") {
-          s +=  '"' + this.objects[i].value + '"' + "^^<" + this.objects[i].type + ">";
-        } else if (this.objects[i].type=="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral") {
-           var serializer = new XMLSerializer();
-           var value = "";
-           for (var x=0; x < this.objects[i].value.length; x++) {
-              if (this.objects[i].value[x].nodeType==Node.ELEMENT_NODE) {
-                 var prefixMap = RDFaPredicate.getPrefixMap(this.objects[i].value[x]);
-                 var prefixes = [];
-                 for (var prefix in prefixMap) {
-                    prefixes.push(prefix);
-                 }
-                 prefixes.sort();
-                 var e = this.objects[i].value[x].cloneNode(true);
-                 for (var p=0; p < prefixes.length; p++) {
-                    e.setAttributeNS("http://www.w3.org/2000/xmlns/",prefixes[p].length==0 ? "xmlns" : "xmlns:"+prefixes[p],prefixMap[prefixes[p]]);
-                 }
-                 value += serializer.serializeToString(e);
-              } else if (this.objects[i].value[x].nodeType==Node.TEXT_NODE) {
-                 value += this.objects[i].value[x].nodeValue;
-              }
-           }
-           s += '"""'+value.replace(/"""/g,"\\\"\\\"\\\"")+'"""^^<http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral>';
-        } else if (this.objects[i].type=="http://www.w3.org/1999/02/22-rdf-syntax-ns#HTML") {
-           // We can use innerHTML as a shortcut from the parentNode if the list is not empty
-           if (this.objects[i].value.length==0) {
-              s += '""""""^^<http://www.w3.org/1999/02/22-rdf-syntax-ns#HTML>';
-           } else {
-              s += '"""'+this.objects[i].value[0].parentNode.innerHTML.replace(/"""/g,"\\\"\\\"\\\"")+'"""^^<http://www.w3.org/1999/02/22-rdf-syntax-ns#HTML>';
-           }
+    var s = null;
+    if (options && options.shorten && options.graph) {
+      s = options.graph.shorten(this.predicate, options.prefixesUsed);
+      if (!s) {
+        s = "<" + this.predicate + ">";
+      }
+    } else {
+      s = "<" + this.predicate + ">";
+    }
+    s += " ";
+    for (var i = 0; i < this.objects.length; i++) {
+      if (i > 0) {
+        s += ", ";
+      }
+      if (
+        this.objects[i].type ==
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#object"
+      ) {
+        if (this.objects[i].value.substring(0, 2) == "_:") {
+          if (options && options.filterBlankNode) {
+            s += options.filterBlankNode(this.objects[i].value);
+          } else {
+            s += this.objects[i].value;
+          }
+        } else if (options && options.shorten && options.graph) {
+          u = options.graph.shorten(
+            this.objects[i].value,
+            options.prefixesUsed,
+          );
+          if (u) {
+            s += u;
+          } else {
+            s += "<" + this.objects[i].value + ">";
+          }
         } else {
-           var l = this.objects[i].value.toString();
-           if (l.indexOf("\n")>=0 || l.indexOf("\r")>=0) {
-              s += '"""' + l.replace(/"""/g,"\\\"\\\"\\\"") + '"""';
-           } else {
-              s += '"' + l.replace(/"/g,"\\\"") + '"';
-           }
-           if (this.objects[i].type!="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral") {
-               s += "^^<"+this.objects[i].type+">";
-           } else if (this.objects[i].language) {
-               s += "@"+this.objects[i].language;
-           }
+          s += "<" + this.objects[i].value + ">";
         }
-     }
-     return s;
+      } else if (
+        this.objects[i].type == "http://www.w3.org/2001/XMLSchema#integer" ||
+        this.objects[i].type == "http://www.w3.org/2001/XMLSchema#decimal" ||
+        this.objects[i].type == "http://www.w3.org/2001/XMLSchema#double" ||
+        this.objects[i].type == "http://www.w3.org/2001/XMLSchema#boolean"
+      ) {
+        s +=
+          '"' +
+          this.objects[i].value +
+          '"' +
+          "^^<" +
+          this.objects[i].type +
+          ">";
+      } else if (
+        this.objects[i].type ==
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral"
+      ) {
+        var serializer = new XMLSerializer();
+        var value = "";
+        for (var x = 0; x < this.objects[i].value.length; x++) {
+          if (this.objects[i].value[x].nodeType == Node.ELEMENT_NODE) {
+            var prefixMap = RDFaPredicate.getPrefixMap(
+              this.objects[i].value[x],
+            );
+            var prefixes = [];
+            for (var prefix in prefixMap) {
+              prefixes.push(prefix);
+            }
+            prefixes.sort();
+            var e = this.objects[i].value[x].cloneNode(true);
+            for (var p = 0; p < prefixes.length; p++) {
+              e.setAttributeNS(
+                "http://www.w3.org/2000/xmlns/",
+                prefixes[p].length == 0 ? "xmlns" : "xmlns:" + prefixes[p],
+                prefixMap[prefixes[p]],
+              );
+            }
+            value += serializer.serializeToString(e);
+          } else if (this.objects[i].value[x].nodeType == Node.TEXT_NODE) {
+            value += this.objects[i].value[x].nodeValue;
+          }
+        }
+        s +=
+          '"""' +
+          value.replace(/"""/g, '\\"\\"\\"') +
+          '"""^^<http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral>';
+      } else if (
+        this.objects[i].type ==
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#HTML"
+      ) {
+        // We can use innerHTML as a shortcut from the parentNode if the list is not empty
+        if (this.objects[i].value.length == 0) {
+          s += '""""""^^<http://www.w3.org/1999/02/22-rdf-syntax-ns#HTML>';
+        } else {
+          s +=
+            '"""' +
+            this.objects[i].value[0].parentNode.innerHTML.replace(
+              /"""/g,
+              '\\"\\"\\"',
+            ) +
+            '"""^^<http://www.w3.org/1999/02/22-rdf-syntax-ns#HTML>';
+        }
+      } else {
+        var l = this.objects[i].value.toString();
+        if (l.indexOf("\n") >= 0 || l.indexOf("\r") >= 0) {
+          s += '"""' + l.replace(/"""/g, '\\"\\"\\"') + '"""';
+        } else {
+          s += '"' + l.replace(/"/g, '\\"') + '"';
+        }
+        if (
+          this.objects[i].type !=
+          "http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral"
+        ) {
+          s += "^^<" + this.objects[i].type + ">";
+        } else if (this.objects[i].language) {
+          s += "@" + this.objects[i].language;
+        }
+      }
+    }
+    return s;
   }
-};
+}
 
 RDFaPredicate.getPrefixMap = function(e) {
   var prefixMap = {};
   while (e.attributes) {
-    for (var i=0; i < e.attributes.length; i++) {
-      if (e.attributes[i].namespaceURI=="http://www.w3.org/2000/xmlns/") {
+    for (var i = 0; i < e.attributes.length; i++) {
+      if (e.attributes[i].namespaceURI == "http://www.w3.org/2000/xmlns/") {
         var prefix = e.attributes[i].localName;
-        if (e.attributes[i].localName=="xmlns") {
+        if (e.attributes[i].localName == "xmlns") {
           prefix = "";
         }
         if (!(prefix in prefixMap)) {

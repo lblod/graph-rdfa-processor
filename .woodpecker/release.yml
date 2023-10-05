@@ -1,0 +1,15 @@
+steps:
+  install:
+    image: codeberg.org/woodpecker-plugins/node-pm
+    settings:
+      run: build
+      with: yarn
+  release:
+    image: plugins/npm
+    settings:
+      token:
+        from_secret: npm_access_token
+      access: public
+when:
+  event: tag
+  ref: refs/tags/v*
