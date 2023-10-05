@@ -962,8 +962,11 @@ export default class RDFaProcessor extends URIResolver {
                   value: content,
                   language: language,
                 });
-                if (this.target.specialHtmlPredicates.includes(predicate)) {
-                  this.addTriple(current, newSubject, predicate + "HTML", {
+                const specialPredicate = this.target.specialHtmlPredicates.find(
+                  (sp) => sp.source === predicate,
+                );
+                if (specialPredicate) {
+                  this.addTriple(current, newSubject, specialPredicate.target, {
                     type: RDFaProcessor.HTMLLiteralURI,
                     value: current.childNodes,
                   });

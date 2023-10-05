@@ -29,7 +29,13 @@ describe("getRDFaGraph", function() {
 
     let graph = getRDFaGraph(document, {
       baseURI: "http://localhost",
-      specialHtmlPredicates: ["http://www.w3.org/ns/prov#value"],
+      specialHtmlPredicates: [
+        {
+          source: "http://www.w3.org/ns/prov#value",
+          target:
+            "http://lblod.data.gift/vocabularies/besluit/extractedDecisionContent",
+        },
+      ],
     });
     writeFileSync("/tmp/x.out", graph.toString(), "utf8");
   });
