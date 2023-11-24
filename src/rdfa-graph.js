@@ -4,10 +4,10 @@ export class RDFaGraph {
   constructor() {
     var dataContext = this;
     this.curieParser = {
-      trim: function(str) {
+      trim: function (str) {
         return str.replace(/^\s\s*/, "").replace(/\s\s*$/, "");
       },
-      parse: function(value, resolve) {
+      parse: function (value, resolve) {
         value = this.trim(value);
         if (value.charAt(0) == "[" && value.charAt(value.length - 1) == "]") {
           value = value.substring(1, value.length - 1);
@@ -34,19 +34,19 @@ export class RDFaGraph {
       },
     };
     this.base = null;
-    this.toString = function(requestOptions) {
+    this.toString = function (requestOptions) {
       var options =
         requestOptions && requestOptions.shorten
           ? { graph: this, shorten: true, prefixesUsed: {} }
           : null;
       if (requestOptions && requestOptions.blankNodePrefix) {
-        options.filterBlankNode = function(id) {
+        options.filterBlankNode = function (id) {
           return "_:" + requestOptions.blankNodePrefix + id.substring(2);
         };
       }
       if (requestOptions && requestOptions.numericalBlankNodePrefix) {
         var onlyNumbers = /^[0-9]+$/;
-        options.filterBlankNode = function(id) {
+        options.filterBlankNode = function (id) {
           var label = id.substring(2);
           return onlyNumbers.test(label)
             ? "_:" + requestOptions.numericalBlankNodePrefix + label
@@ -72,7 +72,7 @@ export class RDFaGraph {
       return prolog.length == 0 ? s : prolog + "\n" + s;
     };
     this.blankNodeCounter = 0;
-    this.clear = function() {
+    this.clear = function () {
       this.subjects = {};
       this.prefixes = {};
       this.terms = {};
@@ -130,7 +130,7 @@ export class RDFaGraph {
     Object.defineProperty(this, "tripleCount", {
       enumerable: true,
       configurable: false,
-      get: function() {
+      get: function () {
         var count = 0;
         for (var s in this.subjects) {
           var snode = this.subjects[s];
@@ -307,7 +307,7 @@ export class RDFaSubject {
       s += " " + this.predicates[predicate].toString(options);
     }
     s += " .";
-    return s;
+    return s.replaceAll("\\", "\\\\");
   }
 
   toObject() {
@@ -498,7 +498,7 @@ export class RDFaPredicate {
   }
 }
 
-RDFaPredicate.getPrefixMap = function(e) {
+RDFaPredicate.getPrefixMap = function (e) {
   var prefixMap = {};
   while (e.attributes) {
     for (var i = 0; i < e.attributes.length; i++) {

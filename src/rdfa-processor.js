@@ -913,9 +913,7 @@ export default class RDFaProcessor extends URIResolver {
             content = typedResource;
           } else {
             content = current.textContent;
-            if (content.includes("\\")) {
-              content = content.replaceAll("\\", "\\\\");
-            }
+
             if (this.inHTMLMode && current.localName == "time") {
               datatype = RDFaProcessor.deriveDateTimeType(content);
             }
