@@ -307,7 +307,7 @@ export class RDFaSubject {
       s += " " + this.predicates[predicate].toString(options);
     }
     s += " .";
-    return s.replaceAll("\\", "\\\\");
+    return s;
   }
 
   toObject() {
@@ -459,7 +459,9 @@ export class RDFaPredicate {
         }
         s +=
           '"""' +
-          value.replace(/"""/g, '\\"\\"\\"') +
+          value
+            .replace(/([^\\]|^)(\\)(?!\\)/g, "$1\\\\")
+            .replace(/"""/g, '\\"\\"\\"') +
           '"""^^<http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral>';
       } else if (
         this.objects[i].type ==
@@ -471,18 +473,25 @@ export class RDFaPredicate {
         } else {
           s +=
             '"""' +
-            this.objects[i].value[0].parentNode.innerHTML.replace(
-              /"""/g,
-              '\\"\\"\\"',
-            ) +
+            this.objects[i].value[0].parentNode.innerHTML
+              .replace(/([^\\]|^)(\\)(?!\\)/g, "$1\\\\")
+              .replace(/"""/g, '\\"\\"\\"') +
             '"""^^<http://www.w3.org/1999/02/22-rdf-syntax-ns#HTML>';
         }
       } else {
         var l = this.objects[i].value.toString();
         if (l.indexOf("\n") >= 0 || l.indexOf("\r") >= 0) {
-          s += '"""' + l.replace(/"""/g, '\\"\\"\\"') + '"""';
+          s +=
+            '"""' +
+            l
+              .replace(/([^\\]|^)(\\)(?!\\)/g, "$1\\\\")
+              .replace(/"""/g, '\\"\\"\\"') +
+            '"""';
         } else {
-          s += '"' + l.replace(/"/g, '\\"') + '"';
+          s +=
+            '"' +
+            l.replace(/([^\\]|^)(\\)(?!\\)/g, "$1\\\\").replace(/"/g, '\\"') +
+            '"';
         }
         if (
           this.objects[i].type !=

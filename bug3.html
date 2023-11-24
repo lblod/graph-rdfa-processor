@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    
+
+    <title>Raadpleegomgeving - Open Data - Besluitenlijst</title>
+    
+
+    <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="_ctx" />
+
+    
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" />
+
+    <link rel="stylesheet" href="/lib/datatables/css/datatables.min.css" />
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/lib/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="/lib/datetimepicker/css/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" href="/lib/select2/css/select2.min.css" />
+    <link rel="stylesheet" href="/lib/select2/css/select2-bootstrap4.min.css" />
+    <link rel="stylesheet" href="/lib/select2/css/select2-readonly.css" />
+    <link rel="stylesheet" href="/lib/bootstrap-multiselect/css/bootstrap-multiselect.min.css" />
+    <link rel="stylesheet" href="/consult.css" />
+
+    <!-- GVSUP-1791 - remove when IE11 is not used anymore -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+
+    <script src="/lib/less/less.min.js"></script>
+    <script src="/lib/jquery/jquery-3.4.1.min.js"></script>
+    <script src="/lib/jquery-mustache/jquery.mustache.js"></script>
+    <script src="/lib/jquery-pagination/jquery-pagination.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/lib/bootbox/bootbox.min.js"></script>
+    <script src="/lib/underscore/underscore.min.js"></script>
+    <script src="/lib/datatables/js/datatables.min.js"></script>
+    <script src="/lib/moment/moment-with-locales.min.js"></script>
+    <script src="/lib/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="/lib/select2/js/select2.min.js"></script>
+    <script src="/lib/select2/i18n/select2.nl.js"></script>
+    <script src="/lib/bootstrap-multiselect/js/bootstrap-multiselect.js"></script>
+    <script src="//sdk.companywebcast.com/sdk/player/client.js"></script>
+
+    
+    
+
+    <!-- Matomo -->
+    
+    <!-- End Matomo Code -->
+
+    <script>
+        var _contextPath = '';
+        $(document).ready(function () {
+            var _ctxContent = $('meta[name=_ctx]').attr('content');
+            _contextPath = _ctxContent ? _ctxContent : '';
+        });
+    </script>
+
+    <script src="/js/consult.js"></script>
+</head>
+<body>
+    <nav>
+    <div class="container">
+        <div class="logo">
+            <a class="navi-logo" href="/"><img src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHQAAABGCAYAAAAdKLCBAAARzklEQVR42u2cd1xVRxbH9/+1JhohamIvqCjYjYrGXmNvK7Bq7LoKSgAFRSnSFOyKqKAsGl1RoyhgSdUU0zZFTVGjsSSKXelydn7nlndfg/ceL4bs587nMx+8be7c+c7vnJkz8/wb6cmuVPgwjw54LKf3pmynoicF4kzpn1yjUnr0KI9WJx6nyPhM+puOyL708OfblOaykHaL/K73NirOK/xT6/P4ST7Frj5Gs/3SaMbidB2o3UAv3WaYSn7XN5mK8wufs1Kldz0RMOPWSDCnC5hTAvbqQCsKVFUqm9/naGYf51GsCUzvwLd1oM4AKil1G5XkFz2XOkCZDNNfhvmWBHNi8H4dqONA/TRZHL/sR+/OTKGSgj8WKnxmXMJxmsXK3EP/1MAcu/SADrTiChVAXf0o9dVFlNIkgE7N3yX71D8A5mPAhJn9N71pAeaI0IM60IoBXcDKVGDubBlI292D6cTif1Oxk5XKAyABE8pUYE42gTlk2SEdaIVMLsP0l2C6STC3eS6hpI4hlBO8h0oKi50Es4DixTxzlj+UmS7BDHqbJgiYYwTMNwTMwQJmv7B3dKCOzEMVn8nKbCors60Ms1MIbekWSpt7LKfjy/ZRUYUGSqWymVVgysoM2mcRZq+VR3WgDgGtK2A2kGG6BUnKbK/AXEabBMyNvVfQ+r7hlBl+gEqKHFPqk6cFFCcrc5qizEAJ5mgZ5iABs6+A2VPA7BKuR4ocMrlGMNsaw9ysgbl2QCQlDF5FR6IPUbFd5reUngqYq9dlyzBNlZkhK/Mww/SSYXpEHteB2g308m0JZitzmJuMYEYxzNXDYyh+ZBwdin+HimyECp+pwgwwDIAmBP9HKDPDojLbCZgto7J1oPamB1du0w6LMMNMlBmtwowZvZpWjUugA4mZVMzmt9RqOC8vr1DAzKKZsjJ9Bcx/CGWOh5kNsQ6zhYDZMDpHB+oIUCOYr0kwNwBmP0mZiUMAM5biNDCjJq6l8Mnrad+GLBmqeXr6tJDWrM+WYAYYYLIyBczhKswjZjAbCJgvx5zQgdoN9Jc7EszOsjJ7GmAmwsyawVxDkRMTGeYKn420bMpm2rPlhMb8lqoDIJjZmf7pxspcooV5WIXZOfwYtRUwm2tg1tGBOgD06h3a2llWJmC+vlJS5kALMMcDpqTMMN8NDHPpm1speMY2Sks6RcXFJQYzuz6HlTk1wBjmKBnmwOWH6fUV71APwIwwhukae5JcRK4TqwN1CKgpzMSBkTbDDJqRRG/NSqZFc3fQzu3v0uUrdygeMBeZw4Qyh8kw+4RJMDspylyVTa8qMIUyXWSoOlA70/2rubTJy4Iy35BhjjHAXMkwN1KoCnMbBQDmnB20cH4KzV+QSnOxMM0w95JP4F6apFHmsGUyzBVHBMxM6hSRSe4CZjPAjDEoU5t1oPYCvZYrw4yQYcbIyowXMNcYlOmthZnEMN+atV0DcxfN8dstYKbTVOEzfd562yLM1xWYQpmmMOvoQJ0A9Ndc2cyuooShMSbKTKDISessKtMcZpoEU5hZn0AJ5jgLyuwuYHaMAMwsCWa0ZWXqQCsANHFQpAozVgMzYpIws4oyp26mJVDmTBnmXEswDWZWhRlqrMyOQpltoiSYr8BXavylDtQJ6d71uwKm7DNHxTPMKAXmZC3MrQwzQMD0FzAXCJjzBEysZRpgGpQ5UsAcKuaYA2SYr8nKbCPMbFOGWbYydaAVAKrAjAbMCQZlLtcqEwOg2aYw04xhBu8XMA+wMocKM9tfwOwNmOGZ1CFCUmYTAbO+UKUtMHWgjgC9cVfAjFNhss/03mAF5k4VJm8ZWWTYzDUxeB+N1SjTAPMow2wdaT9MHahDQO9R9FjZzP5jHa2AMv8JmFtkn5lsBnO2Gcz9AuYBGhlqMLO9VxxVlSnBzGGYLnbA1IE6kO4KoFETEoWZXSeZWQEzRFZmoDWYi02VadgyoipzpQxTY2bthakDdQTozXusTANMoczpkjIXKzD/JWAu3C3D3GOsTOz/CQFM+Mx3JGUKmO0FzFYyzHoOwtSBOpByb96XYW6i0GkGmOoAiGHu4rVMZc+s8WauDBoi1Nk/7DD1EjC7hTsPpg7UEaC37jPMEBlmoFaZwszOFcrU7v9RlDlGganZ/9NVA7NxdMVh6kAdSA/vPWGYwSrMHeQ/D2Y2lWHO9re0ZzZD9ZkMc4UE01PAdIvKFjBzqK4TYOpAHUhY8lq5IEVVpp+A+S8Bcx4r07CbHdssDcrU7MyTzawCs5GACWXWjz9NQ9POUcipHyj5i2u0/7ubtE/kreeu0ZKTF2mIuFYv/pQKro4O1Hlp15aTRjBNzay1bZZesjI9GGYWw/RKPktJ565S7lPlF2zWt6fczSuilK+uU9+UT3WFOjP9ePEGLRKDHwXmTBmmrxnMDCNldg0/JmBiM1cWdd/4Ab39zXXK50Vu+36KWFTyjA6e/426JJ0xU6oO1IFUWlpKqakfWIBpvpvdaJulgOkek0OrhFl9kF8kMEqKLLX7t6XSE/dFGYuzL+hAnZHyC4ooYfMpdf+PYZulsgHadM9sFvmmfUYXf39EzvxxMNCm/fcGNVhzmrMOtAKpoLCY0g5/SVNC/sMwx1jYM9tV+MuJyWco+8ItKham0vm/85YUfu7GfTp77Z4O1Bnp+u2HtPfkeVqy/QOamniCvNeepHk7z1Jiznk6dyWXip89v5/r60CdqBL+WypndXT6fP+XFB3o/1nSgepA9aQD1ZMOVE+VEGhhYSEVFBTw3z+rjMePH9Pdu3crVIe/FFAPDw9S8vvvv2/xprVr16r3+Pr62lTwgwcPyLO9JzVp0oTatWtH9+7ds7tyT548oW7dulFjUUabNm3o5s2btk0ixLThyJEjNGDAAGrQoAHVq1ePmjVrRuPHj6ejR49ScbHln/N99913pG0Pa3n37t1mzz579oxGjhzJ1zt16mS1XqNGjeJ7OnTsYHb97Nmz/Cyud+/enb755hv7gVatWpWU3LlzZ3r69KnRDZcuXaKXXnqJr1cR+fU+fWwqeMeOHXy/UvbWrVvtrty+ffvU56tUqUKrV6+26bktW7ZQ9erV5TpX4Xpo6+Lj42Pxuc8//9zwPm2uZsi4tm7dOotAPT09+Z4XX3zRYvm4p32H9lxGjZo1ja59++231LBRQ65vrVov0uHDhx1TqBYocnR0tHoRPXn06NFqg9oKFM91e62bUSN27NjRqjKs9eY+4l3aurVu3ZrNb3mWoW7duvzu2rVr04IFCyg8PJyVgeNq1apRWlpauUBbtWpFkyZNspgzMzOdCvTy5cvUvEVzrvMLL7xA+/fvd9zkmgJ1dXWlH374gS+iYDQAw7QD6HvvvacqpHmLFtzrqop8+vRpmyuGxlXKaCHK4PqJxjp06FCZz3366adqR5o9e7ZRB/n+++8pNjaWSkpKygU6b948uxrSfqA1+NyNGzfEuQ7cRjUF5J07d1bMhyofUKtWLfVj3hgxgu7cucMNKZmAWty4tgKdPHmyWuaZM2eoVu1a/Cx8GBrWljRr1iwuA42DMqAulDF06FBuGGvpyy+/lIFWITc3Nzp16hQVFRXZ3ImeJ1AM1nr06MH1Rftu3ry54oMi5QP69etHY8aMUXs3nLLig2CGXV1dbAJ69epVNhtQ9NSpUxng2LFj+VkA/vHHH8ut1K1bt8hFfh+eRZoyZQofV6tejf2NtZSXl8cgq8pWARamUaNGXJeDBw/yQMsWoBhEofOYZkv+0xGgADhw4ED1ffPnz7e5s9sEtH///nTlyhV65ZVXjEwwPkLbwOUBDQsLUyusjJqPHTum+uGQkJByK4XBj9Kxjh8/zudQFmCig8EvlpU+/vhjGar0Tu1fNPonn3xSLlBree7cuU4BqrgxpVzMBq5du+ZcoMroVDmHwQUUdfv2bZuAYs7XtGlT9dlt27axT4ApcXFx4fNQy8OHD8tUmLu7u+rP8SzKSEpKovr16/N5/EWdypvy7N27l7y9vfmdKliRGzduTPfv3y8TaMOGDalXr15mGT7YGUDZggjrgWmZVjwVnS+bAYW/GSF8KM5t2rSJz0lAXcsFitGjttdph//ac2U5fgx6jJ43KU/J69evt/kj0UlycnKobdu2al1gNcoCCiWqS2Ga7Cwfirxy5Uru3PCjyrmIiAjnAlWG0fCnSm+xBShGjr1695b8nOh58KMYtdV8Qco4xnnFP1sb2AwZMoTvwb38fE3pWaU8HnWL3o3GszbYgaoTEhPNpjhRUVFqB8vIyPjTB0VKG2D0XadOHa4X2gqzBKcCVZSqJFuAIspRvUYNbuxp06bRr7/+apThH8ZPGK8q5KOPPjIrA4MdZTQ9YcIEfsa0HAxuqsiDHcW/alNWVpY0KBNleHh68Bx0z549lCgAw/Ti3egYFy9etAoUz3bp0oWWLl1qMWdnZzs9sLB9+3YeI/xdfFvLli153OJUoNpkC1CpoaWyPvvsM4v3nDx5UlUpojWmJgyDHUWdmG5YShjQMHRhihEsMC0DIT/4vypWzD3ynDlzLJpP80iRubnHuWXLllkHWtW+eaj2GsKqSmRr7LixNk+3jIBijogMh1wW0FcbvMrTDgy1TdPvv//O8VJcx8DBmjmFCUfPx/swmtaO6hDrxWAF1zp17mw1qoSyvXp58X11xEDr559/NrsHMV+MtuEzoUZ0gBrCemAqEhcXR/n5+VbnsPgGzrWtZ/g+S/XibxPPur78stW6d+3ale/BINNSO7fz8OB3YN6NEKa+fGYSPkQjIfKFzmMtQqQvn+lJB6qn5wT00aNHTgk5/b8mDExMlxQrNVA4cky87Umpqak8Tfkj0i+//EKrVq2qNA104sQJmjlz5l8HKHYCoAdaU6mlCMmixYsrtGanLds0YZV+2LBhNt9vrY7a47KiPOWVibmurbs0KgVQTGKXLFnC0ZuJEydygF75IGy1wPy0T98+tGHDBh4lIj7r1qoVL2Bj8RuBcG20aKHfQvrtt9/4+MKFC0ZqW7NmDc8jEcFBiMvLy4uGDx9Ou3bt4mPsjsC2EUyRULYSBsMzmHPifj8/P17ERkIIEYF8LIQjFPjhhx/yM1iE7tmzJ19Hx+vbry/fgzmqkr7++msaN24c34cwnxIbxi6J2LhY/m5ElrRAsUVl+vTpHOCotEAx30HAOTc3lyIjI9XlqoMHM6h3794cnMeQH6qBqUVQ+83pb/KWkuvXr5uZ66CgII56IIWGhpKbW0tuLMwrsVcGc1ZEW3x8fbhhfvrpJ248AMM8FZEeHKNs1AnvhhVBOAzHmNRPmzaVyw8MDOSOiGkJxgKA17hJY55PYn7aoUMH6iGAXbp8mYMdzZo34zVIrPW2cW9Dx44f42N8Pyby6MRYKvRs357hIc6qAEVkC+7JUoSrUgFFOExZeUDjtRcfg4RF6oULF1J6ejrngIAADscpER1rJhc7BqAuTN6xxgpVYgUH56EIqBPbOxQVK2FDAEX64osvjExucnIyq1apB1ZdmjdvzqspAKosICChTlp/FxQcbLR+OXjwYC4f9yEgrpSJjop2QIcBUK1VAVCs/sBqfPXVV5Xf5GJXAnq3EmFBr0ZC46NnxsTE8EfiL8xReUDRy7t268pLV1ArlAZAUBYaD0CxVqmYTSQ0lDWgAAaziPcrGZBQDoBqd+ChTtq10uVhyylJuAglYRUJSkU9sLtOWyY6HjoJvnWdZiUHQLFrEfFpdPCydktUaqDwlSPkrShQGwYr58+f52sIq6EBYG6xBmqaAA8qOnfuHB/Dp+E9ylZO+Czcg8EYwHr7eNPIUSP5Gkw81ghRNu7HSkTrNq353YCIPTjKakT5QMMsAsWuCnQqmGaUiUA44sxIALreBCg6Nuo6aNAg2rhxY+UGCj+pbMuAf1Niuph/YaUCvRMxUcRwlakKfBZ28bXzaEspqSlmhWLAAZUpoTbshcUeIWVECROP4Dx28WHraFBwEM2YMYOvwdfi37imBKix1AX/5d7WnWHDhCPBNGqXwbAbD51NHYQlJFD6nnT1GAMa1A0Jvrp799fYnKIOgIj6wSKkpBi+CZ3H39+f/w2fj/aCFams6X9E8kNBnqQRUgAAAABJRU5ErkJggg==" alt="Logo Raadpleegomgeving" /></a>
+        </div>
+        <div class="menu">
+            <span class="menu-item">
+                <a href="/"><i class="fal fa-home"></i><span class="d-none d-lg-inline-block">Startpagina</span></a>
+            </span>
+            <span class="menu-item">
+                <a href="/zittingen/lijst" class="calendar-link"><i class="fal fa-calendar-alt"></i><span class="d-none d-lg-inline-block">Kalender</span></a>
+            </span>
+            <span class="menu-item">
+                <a href="/bekendmakingen"><i class="far fa-bell"></i><span class="d-none d-lg-inline-block">Bekendmakingen</span></a>
+            </span>
+            
+            <span class="menu-item d-lg-none">
+                <a href="/zoeken"><i class="far fa-search"></i><span class="d-none d-lg-inline-block">Zoeken</span></a>
+            </span>
+            <div class="search menu-item d-none d-lg-inline-block">
+                <label for="search-field" class="sr-only">Zoeken</label>
+                <input type="text" autocomplete="off" id="search-field" />
+                <i class="far fa-search"></i>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section>
+        <div class="container">
+        <a href="/zittingen/23.0803.8753.2557" id="return-link"><span class="sr-only">Terug</span><i class="fal fa-arrow-circle-left"></i></a>
+        <div vocab="http://data.vlaanderen.be/ns/besluit#" prefix="eli: http://data.europa.eu/eli/ontology# besluitDocumentType: https://data.vlaanderen.be/id/concept/BesluitDocumentType/ foaf: http://xmlns.com/foaf/0.1/" resource="#" typeof="foaf:Document">
+            <div typeof="foaf:Document besluitDocumentType:3fa67785-ffdc-4b30-8880-2b99d97b4dee" resource="https://data.maaseik.be/id/lblod/besluitenlijst/23.0803.8753.2557">
+                <span property="eli:date_publication" datatype="xsd:date" content="2023-10-18"></span>
+            </div>
+        </div>
+        <div class="publication-date">
+            Gepubliceerd op 18/10/2023
+        </div>
+        
+        <div><div class="opendata-html" vocab="http://data.vlaanderen.be/ns/besluit#" prefix="eli: http://data.europa.eu/eli/ontology# prov: http://www.w3.org/ns/prov# mandaat: http://data.vlaanderen.be/ns/mandaat# persoon: https://data.vlaanderen.be/ns/persoon# org: http://www.w3.org/ns/org# besluit: http://data.vlaanderen.be/ns/besluit# skos: http://www.w3.org/2004/02/skos/core# besluitDocumentType: https://data.vlaanderen.be/id/concept/BesluitDocumentType/">
+    <div class="opendata-meeting" typeof="besluit:Zitting" resource="https://data.maaseik.be/id/zittingen/23.0803.8753.2557/besluitenlijst">
+        <div property="besluit:heeftBesluitenlijst" typeof="foaf:Document besluitDocumentType:3fa67785-ffdc-4b30-8880-2b99d97b4dee" resource="https://data.maaseik.be/id/lblod/besluitenlijst/23.0803.8753.2557">
+            <span property="eli:passed_by" resource="http://data.lblod.info/id/bestuursorganen/20ca09d7-e2bf-4e30-a2a2-d51d20246c10"></span>
+            <div property="prov:value" datatype="xsd:string">
+                <div typeof="besluit:Zitting" resource="https://data.maaseik.be/id/zittingen/23.0803.8753.2557/besluitenlijst">
+                    <h1 class="return-header" property="dc:title" datatype="xsd:string">
+                        <span>Besluitenlijst&nbsp;</span>
+                        <span class="organ" property="besluit:isGehoudenDoor" typeof="besluit:Bestuursorgaan" resource="http://data.lblod.info/id/bestuursorganen/20ca09d7-e2bf-4e30-a2a2-d51d20246c10">
+                            <span property="skos:prefLabel">Vast Bureau</span>
+                            <span property="mandaat:isTijdspecialisatieVan" typeof="besluit:Bestuursorgaan" resource="http://data.lblod.info/id/bestuursorganen/b29e8d29-b456-40d9-a96e-4a69b3c47d1d">
+                                <span property="skos:prefLabel" content="Vast Bureau"></span>
+                            </span>
+                        </span>
+                    </h1>
+                    <div class="opendata-meetinginformation">
+                        <span class="opendata-meetingdate" property="besluit:geplandeStart" datatype="xsd:dateTime" content="2023-10-09T14:00:00.000+02:00">ma 09/10/2023 - 14:00</span>
+                        <span class="opendata-meetinglocation" property="prov:atLocation" datatype="xsd:string">ACM</span>
+                        <span class="opendata-meetingstarttime" property="prov:startedAtTime" datatype="xsd:dateTime" content="2023-10-09T16:05:07.000+02:00"></span>
+                        <span class="opendata-meetingendtime" property="prov:endedAtTime" datatype="xsd:dateTime" content="2023-10-09T16:10:21.000+02:00"></span>
+                        <p class="opendata-meetingdescription"></p>
+                    </div>
+                    <div class="opendata-meeting-items">
+                        <ul>
+                            <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.0929.2734.4108">
+                                <div style="display: none;" property="besluit:Agendapunt.type" typeof="skos:Concept" resource="http://lblod.data.gift/concepts/bdf68a65-ce15-42c8-ae1b-19eeb39e20d0"></div>
+                                <div class="position">
+                                    <span class="label">1.</span>
+                                </div>
+                                <h2 class="title" property="dc:title" datatype="xsd:string">2023_VB_00432 - Agenda en notulen vast bureau d.d. 2 oktober 2023.   - Goedkeuring</h2>
+                                <div typeof="besluit:Stemming" class="positive opendata-meetingitem-decision" resource="https://data.maaseik.be/id/stemmingen/23.0929.2734.4108">
+                                    <span property="besluit:gevolg" lang="nl">Goedgekeurd</span>
+                                </div>
+                                
+                                <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                                
+                            </li>
+                            <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.0929.7858.4379">
+                                <div style="display: none;" property="besluit:Agendapunt.type" typeof="skos:Concept" resource="http://lblod.data.gift/concepts/bdf68a65-ce15-42c8-ae1b-19eeb39e20d0"></div>
+                                <div class="position">
+                                    <span class="label">2.</span>
+                                </div>
+                                <h2 class="title" property="dc:title" datatype="xsd:string">2023_VB_00433 - Definitieve agenda raad voor maatschappelijk welzijn d.d. 23 oktober 2023. - Vaststelling</h2>
+                                <div typeof="besluit:Stemming" class="positive opendata-meetingitem-decision" resource="https://data.maaseik.be/id/stemmingen/23.0929.7858.4379">
+                                    <span property="besluit:gevolg" lang="nl">Goedgekeurd</span>
+                                </div>
+                                
+                                <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                                <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.0929.2734.4108">
+                            </li>
+                            <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.1004.6773.7998">
+                                <div style="display: none;" property="besluit:Agendapunt.type" typeof="skos:Concept" resource="http://lblod.data.gift/concepts/bdf68a65-ce15-42c8-ae1b-19eeb39e20d0"></div>
+                                <div class="position">
+                                    <span class="label">3.</span>
+                                </div>
+                                <h2 class="title" property="dc:title" datatype="xsd:string">2023_VB_00434 - Betaalopdracht OCMW dienstjaar 2023 - Goedkeuring</h2>
+                                <div typeof="besluit:Stemming" class="positive opendata-meetingitem-decision" resource="https://data.maaseik.be/id/stemmingen/23.1004.6773.7998">
+                                    <span property="besluit:gevolg" lang="nl">Goedgekeurd</span>
+                                </div>
+                                
+                                <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                                <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.0929.7858.4379">
+                            </li>
+                            <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.1004.8504.4882">
+                                <div style="display: none;" property="besluit:Agendapunt.type" typeof="skos:Concept" resource="http://lblod.data.gift/concepts/bdf68a65-ce15-42c8-ae1b-19eeb39e20d0"></div>
+                                <div class="position">
+                                    <span class="label">4.</span>
+                                </div>
+                                <h2 class="title" property="dc:title" datatype="xsd:string">2023_VB_00435 - OCMW - Bestellijst - Kennisneming</h2>
+                                <div typeof="besluit:Stemming" class="positive opendata-meetingitem-decision" resource="https://data.maaseik.be/id/stemmingen/23.1004.8504.4882">
+                                    <span property="besluit:gevolg" lang="nl">Kennis genomen</span>
+                                </div>
+                                
+                                <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                                <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.1004.6773.7998">
+                            </li>
+                            <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.1004.8410.5681">
+                                <div style="display: none;" property="besluit:Agendapunt.type" typeof="skos:Concept" resource="http://lblod.data.gift/concepts/bdf68a65-ce15-42c8-ae1b-19eeb39e20d0"></div>
+                                <div class="position">
+                                    <span class="label">5.</span>
+                                </div>
+                                <h2 class="title" property="dc:title" datatype="xsd:string">2023_VB_00436 - Verduidelijking begrip &quot;materiële feitelijke handelingen&quot; door leidend ambtenaar en delegatie van &quot;rechtshandelingen&quot; inzake de uitvoering van een overheidsopdracht aan de algemeen directeur - Goedkeuring</h2>
+                                <div typeof="besluit:Stemming" class="positive opendata-meetingitem-decision" resource="https://data.maaseik.be/id/stemmingen/23.1004.8410.5681">
+                                    <span property="besluit:gevolg" lang="nl">Goedgekeurd</span>
+                                </div>
+                                
+                                <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                                <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.1004.8504.4882">
+                            </li>
+                            <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.0928.7053.2138">
+                                <div style="display: none;" property="besluit:Agendapunt.type" typeof="skos:Concept" resource="http://lblod.data.gift/concepts/bdf68a65-ce15-42c8-ae1b-19eeb39e20d0"></div>
+                                <div class="position">
+                                    <span class="label">6.</span>
+                                </div>
+                                <h2 class="title" property="dc:title" datatype="xsd:string">2023_VB_00437 - Ondertekening van FAS (Federal Authentication Service) overeenkomst om met de nieuwe ZEBRA toepassing van dienst thuiszorg toegang te verkrijgen tot de online diensten van FOD BOSA DG DT. - Kennisneming</h2>
+                                <div typeof="besluit:Stemming" class="positive opendata-meetingitem-decision" resource="https://data.maaseik.be/id/stemmingen/23.0928.7053.2138">
+                                    <span property="besluit:gevolg" lang="nl">Kennis genomen</span>
+                                </div>
+                                
+                                <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                                <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.1004.8410.5681">
+                            </li>
+                            <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.0914.0997.7380">
+                                <div style="display: none;" property="besluit:Agendapunt.type" typeof="skos:Concept" resource="http://lblod.data.gift/concepts/bdf68a65-ce15-42c8-ae1b-19eeb39e20d0"></div>
+                                <div class="position">
+                                    <span class="label">7.</span>
+                                </div>
+                                <h2 class="title" property="dc:title" datatype="xsd:string">2023_VB_00438 - Aanstelling bepaalde duur zorgkundige - Goedkeuring</h2>
+                                <div typeof="besluit:Stemming" class="positive opendata-meetingitem-decision" resource="https://data.maaseik.be/id/stemmingen/23.0914.0997.7380">
+                                    <span property="besluit:gevolg" lang="nl">Goedgekeurd</span>
+                                </div>
+                                
+                                <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="false"></span>
+                                <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.0928.7053.2138">
+                            </li>
+                            <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.0914.5986.0658">
+                                <div style="display: none;" property="besluit:Agendapunt.type" typeof="skos:Concept" resource="http://lblod.data.gift/concepts/bdf68a65-ce15-42c8-ae1b-19eeb39e20d0"></div>
+                                <div class="position">
+                                    <span class="label">8.</span>
+                                </div>
+                                <h2 class="title" property="dc:title" datatype="xsd:string">2023_VB_00439 - Aanstelling onbepaalde duur zorgkundige - Goedkeuring</h2>
+                                <div typeof="besluit:Stemming" class="positive opendata-meetingitem-decision" resource="https://data.maaseik.be/id/stemmingen/23.0914.5986.0658">
+                                    <span property="besluit:gevolg" lang="nl">Goedgekeurd</span>
+                                </div>
+                                
+                                <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="false"></span>
+                                <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.0914.0997.7380">
+                            </li>
+                            <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.0914.9097.7361">
+                                <div style="display: none;" property="besluit:Agendapunt.type" typeof="skos:Concept" resource="http://lblod.data.gift/concepts/bdf68a65-ce15-42c8-ae1b-19eeb39e20d0"></div>
+                                <div class="position">
+                                    <span class="label">9.</span>
+                                </div>
+                                <h2 class="title" property="dc:title" datatype="xsd:string">2023_VB_00440 - Aanstelling onbepaalde duur zorgkundige - Goedkeuring</h2>
+                                <div typeof="besluit:Stemming" class="positive opendata-meetingitem-decision" resource="https://data.maaseik.be/id/stemmingen/23.0914.9097.7361">
+                                    <span property="besluit:gevolg" lang="nl">Goedgekeurd</span>
+                                </div>
+                                
+                                <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="false"></span>
+                                <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.0914.5986.0658">
+                            </li>
+                            <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.0914.4180.9741">
+                                <div style="display: none;" property="besluit:Agendapunt.type" typeof="skos:Concept" resource="http://lblod.data.gift/concepts/bdf68a65-ce15-42c8-ae1b-19eeb39e20d0"></div>
+                                <div class="position">
+                                    <span class="label">10.</span>
+                                </div>
+                                <h2 class="title" property="dc:title" datatype="xsd:string">2023_VB_00441 - Aanstelling onbepaalde duur zorgkundige - Goedkeuring</h2>
+                                <div typeof="besluit:Stemming" class="positive opendata-meetingitem-decision" resource="https://data.maaseik.be/id/stemmingen/23.0914.4180.9741">
+                                    <span property="besluit:gevolg" lang="nl">Goedgekeurd</span>
+                                </div>
+                                
+                                <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="false"></span>
+                                <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.0914.9097.7361">
+                            </li>
+                            <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.0914.1562.5846">
+                                <div style="display: none;" property="besluit:Agendapunt.type" typeof="skos:Concept" resource="http://lblod.data.gift/concepts/bdf68a65-ce15-42c8-ae1b-19eeb39e20d0"></div>
+                                <div class="position">
+                                    <span class="label">11.</span>
+                                </div>
+                                <h2 class="title" property="dc:title" datatype="xsd:string">2023_VB_00442 - Bijkomende aanstelling onbepaalde duur zorgkundige - Goedkeuring</h2>
+                                <div typeof="besluit:Stemming" class="positive opendata-meetingitem-decision" resource="https://data.maaseik.be/id/stemmingen/23.0914.1562.5846">
+                                    <span property="besluit:gevolg" lang="nl">Goedgekeurd</span>
+                                </div>
+                                
+                                <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                                <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.0914.4180.9741">
+                            </li>
+                            <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.0914.0086.8047">
+                                <div style="display: none;" property="besluit:Agendapunt.type" typeof="skos:Concept" resource="http://lblod.data.gift/concepts/bdf68a65-ce15-42c8-ae1b-19eeb39e20d0"></div>
+                                <div class="position">
+                                    <span class="label">12.</span>
+                                </div>
+                                <h2 class="title" property="dc:title" datatype="xsd:string">2023_VB_00443 - Bijkomende aanstelling onbepaalde duur zorgkundige - Goedkeuring</h2>
+                                <div typeof="besluit:Stemming" class="positive opendata-meetingitem-decision" resource="https://data.maaseik.be/id/stemmingen/23.0914.0086.8047">
+                                    <span property="besluit:gevolg" lang="nl">Goedgekeurd</span>
+                                </div>
+                                
+                                <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                                <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.0914.1562.5846">
+                            </li>
+                            <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.0914.4853.9390">
+                                <div style="display: none;" property="besluit:Agendapunt.type" typeof="skos:Concept" resource="http://lblod.data.gift/concepts/bdf68a65-ce15-42c8-ae1b-19eeb39e20d0"></div>
+                                <div class="position">
+                                    <span class="label">13.</span>
+                                </div>
+                                <h2 class="title" property="dc:title" datatype="xsd:string">2023_VB_00444 - Bijkomende aanstelling onbepaalde duur zorgkundige - Goedkeuring</h2>
+                                <div typeof="besluit:Stemming" class="positive opendata-meetingitem-decision" resource="https://data.maaseik.be/id/stemmingen/23.0914.4853.9390">
+                                    <span property="besluit:gevolg" lang="nl">Goedgekeurd</span>
+                                </div>
+                                
+                                <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                                <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.0914.0086.8047">
+                            </li>
+                            <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.0927.6098.5870">
+                                <div style="display: none;" property="besluit:Agendapunt.type" typeof="skos:Concept" resource="http://lblod.data.gift/concepts/bdf68a65-ce15-42c8-ae1b-19eeb39e20d0"></div>
+                                <div class="position">
+                                    <span class="label">14.</span>
+                                </div>
+                                <h2 class="title" property="dc:title" datatype="xsd:string">2023_VB_00445 - Ontslagname zorgkundige CDV het Maashuisje ingevolge opname rustpensioen. - Kennisneming</h2>
+                                <div typeof="besluit:Stemming" class="positive opendata-meetingitem-decision" resource="https://data.maaseik.be/id/stemmingen/23.0927.6098.5870">
+                                    <span property="besluit:gevolg" lang="nl">Kennis genomen</span>
+                                </div>
+                                
+                                <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="false"></span>
+                                <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.0914.4853.9390">
+                            </li>
+                            <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.0928.6148.8284">
+                                <div style="display: none;" property="besluit:Agendapunt.type" typeof="skos:Concept" resource="http://lblod.data.gift/concepts/bdf68a65-ce15-42c8-ae1b-19eeb39e20d0"></div>
+                                <div class="position">
+                                    <span class="label">15.</span>
+                                </div>
+                                <h2 class="title" property="dc:title" datatype="xsd:string">2023_VB_00446 - Consolidatie arbeidsongeval zonder blijvende arbeidsongeschiktheid  - Goedkeuring</h2>
+                                <div typeof="besluit:Stemming" class="positive opendata-meetingitem-decision" resource="https://data.maaseik.be/id/stemmingen/23.0928.6148.8284">
+                                    <span property="besluit:gevolg" lang="nl">Goedgekeurd</span>
+                                </div>
+                                
+                                <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="false"></span>
+                                <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.0927.6098.5870">
+                            </li>
+                            <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.0928.0658.1562">
+                                <div style="display: none;" property="besluit:Agendapunt.type" typeof="skos:Concept" resource="http://lblod.data.gift/concepts/bdf68a65-ce15-42c8-ae1b-19eeb39e20d0"></div>
+                                <div class="position">
+                                    <span class="label">16.</span>
+                                </div>
+                                <h2 class="title" property="dc:title" datatype="xsd:string">2023_VB_00447 - Consolidatie arbeidsongeval zonder blijvende arbeidsongeschiktheid  - Goedkeuring</h2>
+                                <div typeof="besluit:Stemming" class="positive opendata-meetingitem-decision" resource="https://data.maaseik.be/id/stemmingen/23.0928.0658.1562">
+                                    <span property="besluit:gevolg" lang="nl">Goedgekeurd</span>
+                                </div>
+                                
+                                <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="false"></span>
+                                <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.0928.6148.8284">
+                            </li>
+                            <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.1004.0682.8472">
+                                <div style="display: none;" property="besluit:Agendapunt.type" typeof="skos:Concept" resource="http://lblod.data.gift/concepts/bdf68a65-ce15-42c8-ae1b-19eeb39e20d0"></div>
+                                <div class="position">
+                                    <span class="label">17.</span>
+                                </div>
+                                <h2 class="title" property="dc:title" datatype="xsd:string">2023_VB_00448 - Fietspolicy - Goedkeuring</h2>
+                                <div typeof="besluit:Stemming" class="positive opendata-meetingitem-decision" resource="https://data.maaseik.be/id/stemmingen/23.1004.0682.8472">
+                                    <span property="besluit:gevolg" lang="nl">Goedgekeurd</span>
+                                </div>
+                                
+                                <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                                <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.0928.0658.1562">
+                            </li>
+                            <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.1004.6591.8039">
+                                <div style="display: none;" property="besluit:Agendapunt.type" typeof="skos:Concept" resource="http://lblod.data.gift/concepts/bdf68a65-ce15-42c8-ae1b-19eeb39e20d0"></div>
+                                <div class="position">
+                                    <span class="label">18.</span>
+                                </div>
+                                <h2 class="title" property="dc:title" datatype="xsd:string">2023_VB_00449 - Procedure voor het beheren van de documenten van het kwaliteitshandboek van de dienst gezinszorg en aanvullende thuiszorg - Goedkeuring</h2>
+                                <div typeof="besluit:Stemming" class="positive opendata-meetingitem-decision" resource="https://data.maaseik.be/id/stemmingen/23.1004.6591.8039">
+                                    <span property="besluit:gevolg" lang="nl">Goedgekeurd</span>
+                                </div>
+                                
+                                <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                                <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.1004.0682.8472">
+                            </li>
+                            <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.1004.4922.3860">
+                                <div style="display: none;" property="besluit:Agendapunt.type" typeof="skos:Concept" resource="http://lblod.data.gift/concepts/bdf68a65-ce15-42c8-ae1b-19eeb39e20d0"></div>
+                                <div class="position">
+                                    <span class="label">19.</span>
+                                </div>
+                                <h2 class="title" property="dc:title" datatype="xsd:string">2023_VB_00450 - Procedure voor het beheren van de documenten van het kwaliteitshandboek  van het CDV het Maashuisje - Goedkeuring</h2>
+                                <div typeof="besluit:Stemming" class="positive opendata-meetingitem-decision" resource="https://data.maaseik.be/id/stemmingen/23.1004.4922.3860">
+                                    <span property="besluit:gevolg" lang="nl">Goedgekeurd</span>
+                                </div>
+                                
+                                <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                                <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.1004.6591.8039">
+                            </li>
+                            <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.1004.0099.2301">
+                                <div style="display: none;" property="besluit:Agendapunt.type" typeof="skos:Concept" resource="http://lblod.data.gift/concepts/bdf68a65-ce15-42c8-ae1b-19eeb39e20d0"></div>
+                                <div class="position">
+                                    <span class="label">20.</span>
+                                </div>
+                                <h2 class="title" property="dc:title" datatype="xsd:string">2023_VB_00451 - Procedure voor het beheren van de documenten van het kwaliteitshandboek van het woonzorgcentrum De Maaspoorte - Goedkeuring</h2>
+                                <div typeof="besluit:Stemming" class="positive opendata-meetingitem-decision" resource="https://data.maaseik.be/id/stemmingen/23.1004.0099.2301">
+                                    <span property="besluit:gevolg" lang="nl">Goedgekeurd</span>
+                                </div>
+                                
+                                <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                                <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.1004.4922.3860">
+                            </li>
+                            <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.0929.2495.7540">
+                                <div style="display: none;" property="besluit:Agendapunt.type" typeof="skos:Concept" resource="http://lblod.data.gift/concepts/bdf68a65-ce15-42c8-ae1b-19eeb39e20d0"></div>
+                                <div class="position">
+                                    <span class="label">21.</span>
+                                </div>
+                                <h2 class="title" property="dc:title" datatype="xsd:string">2023_VB_00452 - Ten laste nemen kosten kinesitherapie - Goedkeuring</h2>
+                                <div typeof="besluit:Stemming" class="positive opendata-meetingitem-decision" resource="https://data.maaseik.be/id/stemmingen/23.0929.2495.7540">
+                                    <span property="besluit:gevolg" lang="nl">Goedgekeurd</span>
+                                </div>
+                                
+                                <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                                <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.1004.0099.2301">
+                            </li>
+                            <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.1004.6016.9959">
+                                <div style="display: none;" property="besluit:Agendapunt.type" typeof="skos:Concept" resource="http://lblod.data.gift/concepts/bdf68a65-ce15-42c8-ae1b-19eeb39e20d0"></div>
+                                <div class="position">
+                                    <span class="label">22.</span>
+                                </div>
+                                <h2 class="title" property="dc:title" datatype="xsd:string">2023_VB_00453 - Schenking van een matras aan MosaRT - Goedkeuring</h2>
+                                <div typeof="besluit:Stemming" class="positive opendata-meetingitem-decision" resource="https://data.maaseik.be/id/stemmingen/23.1004.6016.9959">
+                                    <span property="besluit:gevolg" lang="nl">Goedgekeurd</span>
+                                </div>
+                                
+                                <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                                <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.0929.2495.7540">
+                            </li>
+                            <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.1006.9254.4403">
+                                <div style="display: none;" property="besluit:Agendapunt.type" typeof="skos:Concept" resource="http://lblod.data.gift/concepts/bdf68a65-ce15-42c8-ae1b-19eeb39e20d0"></div>
+                                <div class="position">
+                                    <span class="label">23.</span>
+                                </div>
+                                <h2 class="title" property="dc:title" datatype="xsd:string">2023_VB_00454 - Jaarverslag Sociale Dienst 2022 - Kennisneming</h2>
+                                <div typeof="besluit:Stemming" class="positive opendata-meetingitem-decision" resource="https://data.maaseik.be/id/stemmingen/23.1006.9254.4403">
+                                    <span property="besluit:gevolg" lang="nl">Kennis genomen</span>
+                                </div>
+                                
+                                <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                                <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.maaseik.be/id/agendapunten/23.1004.6016.9959">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div></div>
+    </div>
+    </section>
+    <footer>
+    
+
+    <div class="container">
+        <div class="copyright">
+            &copy;&nbsp;<a href="https://www.greenvalleybelgium.be" target="_blank">Green Valley Belgium</a>
+        </div>
+        <div class="contact"><p>Administratief Centrum Maaseik Lekkerstraat 10, 3680 Maaseik<br>T 089 560 560,&nbsp;<a href="mailto:info@maaseik.be">info@maaseik.be</a><br>www.maaseik.be</p><p>
+<br></p></div>
+    </div>
+</footer>
+    <script>
+        (function ($) {
+            $(document).ready(function () {
+                $('#return-link').prependTo($("h1.return-header"));
+                $('.publication-date').prependTo($("div.opendata-meetinginformation"));
+            });
+        })(jQuery);
+    </script>
+</body>
+</html>
