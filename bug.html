@@ -1,0 +1,2617 @@
+<!doctype html>
+<html lang="nl">
+
+<head>
+  <title>Raadpleegomgeving - Open Data - Agendapunt</title>
+
+  <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="_ctx" />
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" />
+
+  <link rel="stylesheet" href="/lib/datatables/css/datatables.min.css" />
+  <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/lib/fontawesome/css/all.min.css" />
+  <link rel="stylesheet" href="/lib/datetimepicker/css/bootstrap-datetimepicker.min.css" />
+  <link rel="stylesheet" href="/lib/select2/css/select2.min.css" />
+  <link rel="stylesheet" href="/lib/select2/css/select2-bootstrap4.min.css" />
+  <link rel="stylesheet" href="/lib/select2/css/select2-readonly.css" />
+  <link rel="stylesheet" href="/lib/bootstrap-multiselect/css/bootstrap-multiselect.min.css" />
+  <link rel="stylesheet" href="/consult.css" />
+
+  <!-- GVSUP-1791 - remove when IE11 is not used anymore -->
+  <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+
+  <script src="/lib/less/less.min.js"></script>
+  <script src="/lib/jquery/jquery-3.4.1.min.js"></script>
+  <script src="/lib/jquery-mustache/jquery.mustache.js"></script>
+  <script src="/lib/jquery-pagination/jquery-pagination.js"></script>
+  <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/lib/bootbox/bootbox.min.js"></script>
+  <script src="/lib/underscore/underscore.min.js"></script>
+  <script src="/lib/datatables/js/datatables.min.js"></script>
+  <script src="/lib/moment/moment-with-locales.min.js"></script>
+  <script src="/lib/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+  <script src="/lib/select2/js/select2.min.js"></script>
+  <script src="/lib/select2/i18n/select2.nl.js"></script>
+  <script src="/lib/bootstrap-multiselect/js/bootstrap-multiselect.js"></script>
+  <script src="//sdk.companywebcast.com/sdk/player/client.js"></script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XESFNK6WJK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-XESFNK6WJK");
+  </script>
+
+  <!-- Matomo -->
+
+  <!-- End Matomo Code -->
+
+  <script>
+    var _contextPath = "";
+    $(document).ready(function () {
+      var _ctxContent = $("meta[name=_ctx]").attr("content");
+      _contextPath = _ctxContent ? _ctxContent : "";
+    });
+  </script>
+
+  <script src="/js/consult.js"></script>
+  <script src="/js/meetingitem.js"></script>
+</head>
+
+<body>
+  <nav>
+    <div class="container">
+      <div class="logo">
+        <a class="navi-logo" href="/"><img
+            src="data:image/png;base64, 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"
+            alt="Logo Raadpleegomgeving" /></a>
+      </div>
+      <div class="menu">
+        <span class="menu-item">
+          <a href="/"><i class="fal fa-home"></i><span class="d-none d-lg-inline-block">Startpagina</span></a>
+        </span>
+        <span class="menu-item">
+          <a href="/zittingen/kalender" class="calendar-link"><i class="fal fa-calendar-alt"></i><span
+              class="d-none d-lg-inline-block">Kalender</span></a>
+        </span>
+
+        <span class="menu-item">
+          <a href="https://channel.royalcast.com/stadgent" target="_blank"><i class="fal fa-video"></i><span
+              class="d-none d-lg-inline-block">Webcast</span></a>
+        </span>
+        <span class="menu-item d-lg-none">
+          <a href="/zoeken"><i class="far fa-search"></i><span class="d-none d-lg-inline-block">Zoeken</span></a>
+        </span>
+        <div class="search menu-item d-none d-lg-inline-block">
+          <label for="search-field" class="sr-only">Zoeken</label>
+          <input type="text" autocomplete="off" id="search-field" />
+          <i class="far fa-search"></i>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <a href="/zittingen/23.0216.4366.5659" id="return-link"><span class="sr-only">Terug</span><i
+              class="fal fa-arrow-circle-left"></i></a>
+          <div vocab="http://data.vlaanderen.be/ns/besluit#"
+            prefix="eli: http://data.europa.eu/eli/ontology# prov: http://www.w3.org/ns/prov# besluit: http://data.vlaanderen.be/ns/besluit# foaf: http://xmlns.com/foaf/0.1/"
+            resource="#" typeof="foaf:Document">
+            <div property="prov:generated" typeof="besluit:Besluit"
+              resource="https://data.gent.be/id/besluiten/23.1109.1944.5282">
+              <span property="eli:date_publication" datatype="xsd:date" content="2023-11-17"></span>
+            </div>
+          </div>
+          <div class="publication-decision-date">
+            <div class="publication-date">Gepubliceerd op 17/11/2023</div>
+          </div>
+          <div id="meetingitem-document" class="meetingitem-document">
+            <i class="far fa-download"></i>
+            <a href="/document/6555fc4354c8627a0ec8bb1d">Besluit</a>
+          </div>
+          <div>
+            <div vocab="http://data.vlaanderen.be/ns/besluit#"
+              prefix="lblod: http://data.lblod.info/vocabularies/lblod/ eli: http://data.europa.eu/eli/ontology# prov: http://www.w3.org/ns/prov# mandaat: http://data.vlaanderen.be/ns/mandaat# besluit: http://data.vlaanderen.be/ns/besluit# generiek: http://data.vlaanderen.be/ns/generiek# person: http://www.w3.org/ns/person# persoon: https://data.vlaanderen.be/ns/persoon# dct: http://purl.org/dc/terms/ skos: http://www.w3.org/2004/02/skos/core# org: http://www.w3.org/ns/org# foaf: http://xmlns.com/foaf/0.1/ ext: http://mu.semte.ch/vocabularies/ext/ besluitType: https://data.vlaanderen.be/id/concept/BesluitType/ lblodBesluit: http://lblod.data.gift/vocabularies/besluit/ elod: http://linkedeconomy.org/ontology#"
+              resource="#" typeof="foaf:Document besluit:Besluit">
+              <div typeof="besluit:Zitting" resource="https://data.gent.be/id/zittingen/23.0216.4366.5659">
+                <span property="besluit:geplandeStart" datatype="xsd:dateTime"
+                  content="2023-11-16T08:32:00.000+01:00"></span>
+                <span property="prov:atLocation" datatype="xsd:string" content="2023-11-16 09:30:00.0"></span>
+                <span property="prov:startedAtTime" datatype="xsd:dateTime"
+                  content="2023-11-16T09:30:00.000+01:00"></span>
+                <span property="prov:endedAtTime" datatype="xsd:dateTime"
+                  content="2023-11-16T10:10:00.000+01:00"></span>
+
+                <span property="besluit:behandelt" typeof="besluit:Agendapunt"
+                  resource="https://data.gent.be/id/agendapunten/23.1109.1944.5282"></span>
+                <div class="opendata-meetingitem" property="ext:behandelt" typeof="besluit:BehandelingVanAgendapunt"
+                  resource="https://data.gent.be/id/behandelingen-van-agendapunten/23.1109.1944.5282">
+                  <span property="besluit:openbaar" datatype="xsd:boolean" content="true"></span>
+                  <span property="dc:subject" typeof="besluit:Agendapunt"
+                    resource="https://data.gent.be/id/agendapunten/23.1109.1944.5282">
+                    <h1 class="return-header">
+                      2023_CBS_10861 - OMV_2023101163 R - aanvraag
+                      omgevingsvergunning voor het aanleggen van een zwembad,
+                      het bouwen van een poolhouse, het verwijderen van
+                      bestaande verharding en het aanleggen van nieuwe
+                      verharding - met openbaar onderzoek - Vogelheide, 9052
+                      Gent - Vergunning
+                    </h1>
+                  </span>
+
+                  <div class="opendata-meetinginformation">
+                    <div property="dc:title" class="opendata-meetingorgan" datatype="xsd:string">
+                      <div resource="https://data.gent.be/id/zittingen/23.0216.4366.5659">
+                        <span property="besluit:isGehoudenDoor" typeof="besluit:Bestuursorgaan"
+                          resource="http://data.lblod.info/id/bestuursorganen/196d3dc10bb71196ea971bb5ff315083742e9a458d97b51bc31e2320b8d9de7c">
+                          <span property="skos:prefLabel">college van burgemeester en schepenen</span>
+                          <span property="mandaat:isTijdspecialisatieVan" typeof="besluit:Bestuursorgaan"
+                            resource="http://data.lblod.info/id/bestuursorganen/c55fc5e892d9540e8d2463b4377e1f4b2caad04b280118f9fc408e5df61f5737">
+                            <span property="skos:prefLabel" content="college van burgemeester en schepenen"></span>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div>
+                      <span class="opendata-meetingdate">do 16/11/2023 - 08:32</span>
+                      <span class="opendata-meetinglocation">Collegezaal - Stadhuis</span>
+                    </div>
+                    <div class="opendata-treatedtime">
+                      <span>Datum beslissing</span>:
+                      <span>do 16/11/2023 - 09:49</span>
+                    </div>
+                    <div typeof="besluit:Stemming" class="positive opendata-meetingitem-decision"
+                      resource="https://data.gent.be/id/stemmingen/23.1109.1944.5282">
+                      <span property="besluit:onderwerp" lang="nl"
+                        content="2023_CBS_10861 - OMV_2023101163 R - aanvraag omgevingsvergunning voor het aanleggen van een zwembad, het bouwen van een poolhouse, het verwijderen van bestaande verharding en het aanleggen van nieuwe verharding  - met openbaar onderzoek - Vogelheide, 9052 Gent - Vergunning"></span>
+                      <span property="besluit:gevolg" lang="nl">Goedgekeurd</span>
+                    </div>
+                  </div>
+
+                  <div class="opendata-meetingitem-composition" property="ext:aanwezigenTable">
+                    <h2>Samenstelling</h2>
+                    <div class="h5-section">
+                      <h3>Wie is verantwoordelijk voor deze materie?</h3>
+                      <span>Filip Watteeuw</span>
+                    </div>
+                    <div class="h5-section">
+                      <h3>Aanwezig</h3>
+                      <span typeof="mandaat:Mandataris"
+                        resource="http://data.lblod.info/id/mandatarissen/5C38AFD857753A000A000465"
+                        property="besluit:heeftAanwezige">
+                        <span property="mandaat:isBestuurlijkeAliasVan" class="opendata-person"
+                          resource="http://data.lblod.info/id/personen/adacf5aca3071ad0fe77642c2ddd1878cf7dc2db8584e1d3bc8ffb388dd0e5f3">
+                          <span property="persoon:gebruikteVoornaam">Filip</span>&nbsp;<span
+                            property="foaf:familyName">Watteeuw</span><span>, schepen</span><span>;</span>
+                        </span> </span><span typeof="mandaat:Mandataris"
+                        resource="http://data.lblod.info/id/mandatarissen/5C389A0057753A000A0002D1"
+                        property="besluit:heeftAanwezige">
+                        <span property="mandaat:isBestuurlijkeAliasVan" class="opendata-person"
+                          resource="http://data.lblod.info/id/personen/0afb06dab0146b43a2afedfc701a45d96e81d269544988c8a05246c89b3a912b">
+                          <span property="persoon:gebruikteVoornaam">Sofie</span>&nbsp;<span
+                            property="foaf:familyName">Bracke</span><span>, schepen-voorzitter</span><span>;</span>
+                        </span> </span><span typeof="mandaat:Mandataris"
+                        resource="http://data.lblod.info/id/mandatarissen/628E3F70470F7A0008000128"
+                        property="besluit:heeftAanwezige">
+                        <span property="mandaat:isBestuurlijkeAliasVan" class="opendata-person"
+                          resource="http://data.lblod.info/id/personen/999ac04568524a16ae033be145a622079d90d7f6d87b8c7c6a2e771e475a4ca5">
+                          <span property="persoon:gebruikteVoornaam">Tine</span>&nbsp;<span
+                            property="foaf:familyName">Heyse</span><span>, schepen</span><span>;</span>
+                        </span> </span><span typeof="mandaat:Mandataris"
+                        resource="http://data.lblod.info/id/mandatarissen/5C389D0657753A000A000304"
+                        property="besluit:heeftAanwezige">
+                        <span property="mandaat:isBestuurlijkeAliasVan" class="opendata-person"
+                          resource="http://data.lblod.info/id/personen/2c00ec27807ca0d9066208c1d603a884e1b7efe14f1452932fed219adcfdca12">
+                          <span property="persoon:gebruikteVoornaam">Astrid</span>&nbsp;<span
+                            property="foaf:familyName">De Bruycker</span><span>, schepen</span><span>;</span>
+                        </span> </span><span typeof="mandaat:Mandataris"
+                        resource="http://data.lblod.info/id/mandatarissen/5C38A88857753A000A0003EF"
+                        property="besluit:heeftAanwezige">
+                        <span property="mandaat:isBestuurlijkeAliasVan" class="opendata-person"
+                          resource="http://data.lblod.info/id/personen/519eeb451025044cc6004e9aea8ea6a5ecc12421b13880fb6ce500bb7bef09a8">
+                          <span property="persoon:gebruikteVoornaam">Sami</span>&nbsp;<span
+                            property="foaf:familyName">Souguir</span><span>, schepen</span><span>;</span>
+                        </span> </span><span typeof="mandaat:Mandataris"
+                        resource="http://data.lblod.info/id/mandatarissen/628E3EB0470F7A0008000120"
+                        property="besluit:heeftAanwezige">
+                        <span property="mandaat:isBestuurlijkeAliasVan" class="opendata-person"
+                          resource="http://data.lblod.info/id/personen/74852a4d652c8535e6e6e8733271b9988d806b9de6f744e933bed72ef29f3cc2">
+                          <span property="persoon:gebruikteVoornaam">Bram</span>&nbsp;<span
+                            property="foaf:familyName">Van Braeckevelt</span><span>, schepen</span><span>;</span>
+                        </span> </span><span typeof="mandaat:Mandataris"
+                        resource="http://data.lblod.info/id/mandatarissen/628E409F470F7A0008000130"
+                        property="besluit:heeftAanwezige">
+                        <span property="mandaat:isBestuurlijkeAliasVan" class="opendata-person"
+                          resource="http://data.lblod.info/id/personen/76403bc3415fe300e2a283c0c64ef7917793cafa0d3b1e7d08168b8434d4c7a4">
+                          <span property="persoon:gebruikteVoornaam">Isabelle</span>&nbsp;<span
+                            property="foaf:familyName">Heyndrickx</span><span>, schepen</span><span>;</span>
+                        </span> </span><span typeof="mandaat:Mandataris"
+                        resource="http://data.lblod.info/id/mandatarissen/628E3D51470F7A0008000115"
+                        property="besluit:heeftAanwezige">
+                        <span property="mandaat:isBestuurlijkeAliasVan" class="opendata-person"
+                          resource="http://data.lblod.info/id/personen/c71a5dd3-0179-4a55-bd8a-d19fe57dfb61">
+                          <span property="persoon:gebruikteVoornaam">Hafsa</span>&nbsp;<span
+                            property="foaf:familyName">El-Bazioui</span><span>, schepen</span><span>;</span>
+                        </span> </span><span typeof="mandaat:Mandataris"
+                        resource="http://data.lblod.info/id/mandatarissen/628E3CA6470F7A0008000111"
+                        property="besluit:heeftAanwezige">
+                        <span property="mandaat:isBestuurlijkeAliasVan" class="opendata-person"
+                          resource="http://data.lblod.info/id/personen/df4304505a8819f946fb9d97899e8d8dce460870560c03405da09d56087f5419">
+                          <span property="persoon:gebruikteVoornaam">Evita</span>&nbsp;<span
+                            property="foaf:familyName">Willaert</span><span>, schepen</span><span>;</span>
+                        </span> </span><span typeof="mandaat:Mandataris"
+                        resource="http://data.lblod.info/id/mandatarissen/5C3871A157753A00090003CD"
+                        property="besluit:heeftAanwezige">
+                        <span property="mandaat:isBestuurlijkeAliasVan" class="opendata-person"
+                          resource="http://data.lblod.info/id/personen/83649fb9dd8d348d071170dbd847b34ea577d5607ed736a95446eef7b29bb06b">
+                          <span property="persoon:gebruikteVoornaam">Rudy</span>&nbsp;<span
+                            property="foaf:familyName">Coddens</span><span>, schepen</span><span>;</span>
+                        </span> </span><span typeof="mandaat:Mandataris"
+                        resource="http://data.lblod.info/id/functionarissen/642579FDFE3038A9D4168D45"
+                        property="besluit:heeftAanwezige">
+                        <span property="mandaat:isBestuurlijkeAliasVan" class="opendata-person"
+                          resource="http://data.lblod.info/id/personen/642579D1FE3038A9D4168D44">
+                          <span property="persoon:gebruikteVoornaam">Liesbet</span>&nbsp;<span
+                            property="foaf:familyName">Vertriest</span><span>, waarnemend
+                            adjunct-algemeendirecteur</span>
+                        </span>
+                      </span>
+                    </div>
+
+                    <div class="h5-section">
+                      <h3>Verontschuldigd</h3>
+                      <span>
+                        <span class="opendata-person">
+                          <span>Mathias</span>&nbsp;<span>De Clercq</span><span>, burgemeester</span><span>;</span>
+                        </span> </span><span>
+                        <span class="opendata-person">
+                          <span>Mieke</span>&nbsp;<span>Hullebroeck</span><span>, algemeen directeur</span>
+                        </span>
+                      </span>
+                    </div>
+                    <div class="h5-section">
+                      <h3>Secretaris</h3>
+                      <span typeof="mandaat:Mandataris"
+                        resource="http://data.lblod.info/id/functionarissen/642579FDFE3038A9D4168D45"
+                        property="besluit:heeftSecretaris">
+                        <span property="mandaat:isBestuurlijkeAliasVan" class="opendata-person"
+                          resource="http://data.lblod.info/id/personen/642579D1FE3038A9D4168D44">
+                          <span property="persoon:gebruikteVoornaam">Liesbet</span>&nbsp;<span
+                            property="foaf:familyName">Vertriest</span><span>, waarnemend
+                            adjunct-algemeendirecteur</span>
+                        </span>
+                      </span>
+                    </div>
+                    <div class="h5-section">
+                      <h3>Voorzitter</h3>
+                      <span typeof="mandaat:Mandataris"
+                        resource="http://data.lblod.info/id/mandatarissen/5C389A0057753A000A0002D1"
+                        property="besluit:heeftVoorzitter">
+                        <span property="mandaat:isBestuurlijkeAliasVan" class="opendata-person"
+                          resource="http://data.lblod.info/id/personen/0afb06dab0146b43a2afedfc701a45d96e81d269544988c8a05246c89b3a912b">
+                          <span property="persoon:gebruikteVoornaam">Sofie</span>&nbsp;<span
+                            property="foaf:familyName">Bracke</span><span>, schepen-voorzitter</span>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div property="prov:generated" typeof="besluit:Besluit"
+                    resource="https://data.gent.be/id/besluiten/23.1109.1944.5282">
+                    <span property="prov:wasGeneratedBy" typeof="besluit:BehandelingVanAgendapunt"
+                      resource="https://data.gent.be/id/behandelingen-van-agendapunten/23.1109.1944.5282"></span>
+                    <div style="display: none">
+                      <span class="return-header" property="eli:title_short" datatype="xsd:string">2023_CBS_10861 -
+                        OMV_2023101163 R - aanvraag
+                        omgevingsvergunning voor het aanleggen van een
+                        zwembad, het bouwen van een poolhouse, het verwijderen
+                        van bestaande verharding en het aanleggen van nieuwe
+                        verharding - met openbaar onderzoek - Vogelheide, 9052
+                        Gent - Vergunning</span>
+                      <span style="display: none" property="eli:title" datatype="xsd:string">2023_CBS_10861 -
+                        OMV_2023101163 R - aanvraag
+                        omgevingsvergunning voor het aanleggen van een
+                        zwembad, het bouwen van een poolhouse, het verwijderen
+                        van bestaande verharding en het aanleggen van nieuwe
+                        verharding - met openbaar onderzoek - Vogelheide, 9052
+                        Gent - Vergunning</span>
+                      <meta property="eli:language"
+                        resource="http://publications.europa.eu/resource/authority/language/NLD"
+                        typeof="skos:Concept" />
+                      <meta property="eli:description" datatype="xsd:string"
+                        content="2023_CBS_10861 - OMV_2023101163 R - aanvraag omgevingsvergunning voor het aanleggen van een zwembad, het bouwen van een poolhouse, het verwijderen van bestaande verharding en het aanleggen van nieuwe verharding  - met openbaar onderzoek - Vogelheide, 9052 Gent - Vergunning" />
+                    </div>
+
+                    <div class="opendata-meetingitem-motivation" property="besluit:motivering" lang="nl">
+                      <h2>Motivering</h2>
+
+                      <div class="h5-section">
+                        <h3>
+                          Regelgeving waaruit blijkt dat het orgaan bevoegd is
+                        </h3>
+                        <div>
+                          <div>
+                            <div style="-aw-headerfooter-type: header-primary">
+                              <p style="
+                                    margin-top: 0pt;
+                                    margin-bottom: 0pt;
+                                    font-size: 11pt;
+                                  ">
+                                <span style="font-family: Calibri">&#xa0;</span>
+                              </p>
+                            </div>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-bottom: 0pt;
+                                  font-size: 11pt;
+                                ">
+                              <span style="font-family: Calibri">Het Decreet over het lokaal bestuur van 22
+                                december 2017, artikel 56.</span><br /><span style="font-family: Calibri">Het Decreet
+                                betreffende de
+                                omgevingsvergunning van 25 april 2014, artikel
+                                15.</span>
+                            </p>
+                            <div style="-aw-headerfooter-type: footer-primary">
+                              <p style="
+                                    margin-top: 0pt;
+                                    margin-bottom: 0pt;
+                                    font-size: 11pt;
+                                  ">
+                                <span style="font-family: Calibri">&#xa0;</span>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="h5-section">
+                        <h3>
+                          Op basis van welke regels (rechtsgronden) wordt deze
+                          beslissing genomen?
+                        </h3>
+                        <div>
+                          <div>
+                            <div style="-aw-headerfooter-type: header-primary">
+                              <p style="
+                                    margin-top: 0pt;
+                                    margin-bottom: 0pt;
+                                    font-size: 11pt;
+                                  ">
+                                <span style="font-family: Calibri">&#xa0;</span>
+                              </p>
+                            </div>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-bottom: 0pt;
+                                  font-size: 11pt;
+                                ">
+                              <span style="font-family: Calibri">Het Decreet betreffende de
+                                omgevingsvergunning van 25 april 2014,
+                                artikels 5 en 6.</span>
+                            </p>
+                            <div style="-aw-headerfooter-type: footer-primary">
+                              <p style="
+                                    margin-top: 0pt;
+                                    margin-bottom: 0pt;
+                                    font-size: 11pt;
+                                  ">
+                                <span style="font-family: Calibri">&#xa0;</span>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="h5-section">
+                        <h3>Wat gaat aan deze beslissing vooraf?</h3>
+                        <div>
+                          <div>
+                            <div>
+                              <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                <span>&nbsp;</span>
+                              </p>
+                            </div>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span style="font-weight: bold; color: #365f91">Het college van burgemeester en schepenen
+                              </span><span style="font-weight: bold; color: #365f91">verleent</span><span> </span><span
+                                style="font-weight: bold; color: #365f91">de vergunning</span><span> </span><span
+                                style="font-weight: bold; color: #365f91">en legt bij</span><span
+                                style="font-weight: bold; color: #365f91">zondere voorwaarden op</span><span>.</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span style="font-weight: bold; color: #365f91">WAT GAAT AAN DEZE BESLISSING
+                                VOORAF?</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>Emanuel Lagast - Elisabeth Muylle met als
+                                contactadres Vogelheide 20, 9052 Zwijnaarde
+                                hebben een aanvraag (</span><span>OMV_2023101163</span><span>) ingediend bij het college
+                                van burgemeester
+                                en schepenen op
+                                26</span><span>&nbsp;</span><span>juli</span><span>&nbsp;</span><span>2023.</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>De aanvraag omgevingsvergunning met
+                                stedenbouwkundige handelingen handelt
+                                over:</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&bull; </span><span>Onderwerp:</span><span style="font-weight: bold">
+                              </span><span>het aanleggen van een zwembad, het bouwen van
+                                een poolhouse, het verwijderen van bestaande
+                                verharding en het aanleggen van nieuwe
+                                verharding</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&bull; Adres: Vogelheide 20, 9052 Gent</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&bull; </span><span>Kadastrale gegevens</span><span style="font-weight: bold">:
+                              </span><span>afdeling 24 sectie A</span><span> nr. </span><span>407</span><span>B</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>Het resultaat van het ontvankelijkheids- en
+                                volledigheidsonderzoek werd verzonden op</span><span>
+                                16</span><span>&nbsp;</span><span>augustus</span><span>&nbsp;</span><span>2023.</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>De aanvraag volgde de gewone procedure.</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>Volgend verslag werd uitgebracht door de
+                                gemeentelijk omgevingsambtenaar op
+                              </span><span>9</span><span>&nbsp;</span><span>november</span><span>&nbsp;</span><span>2023</span><span>.</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-bottom: 0pt;
+                                  border-bottom: 0.75pt solid #000000;
+                                  padding-bottom: 1pt;
+                                  font-size: 12pt;
+                                ">
+                              <span style="font-weight: bold">OMSCHRIJVING AANVRAAG</span>
+                            </p>
+                            <p style="
+                                  margin-top: 12pt;
+                                  margin-left: 18pt;
+                                  margin-bottom: 0pt;
+                                  text-indent: -18pt;
+                                ">
+                              <span style="font-weight: bold">1.</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              </span><span style="font-weight: bold">BESCHRIJVING VAN DE OMGEVING, DE PLAATS EN
+                                HET PROJECT</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>Het terrein bevindt zich langs de Vogelheide
+                                in Sint-Denijs-Westrem. De omgeving kenmerkt
+                                zich door een randstedelijk verkaveld
+                                woongebied met vrijstaande woningen op zeer
+                                ruime percelen te midden van een open
+                                landschap. Het perceel uit de aanvraag is ca.
+                                4500 m&sup2; groot.</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span style="font-weight: bold; font-style: italic">Beschrijving van de aangevraagde
+                                stedenbouwkundige handelingen</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>Met deze aanvraag wordt de omgevingsaanleg op
+                                het perceel grondig aangepakt. Het bestaande
+                                tennisveld achteraan het perceel (ca. 600
+                                m&sup2;) wordt verwijderd. In de plaats wordt
+                                een zwembad (38 m&sup2;) met terras en paden
+                                (107 m&sup2;) naar een poolhouse (53 m&sup2;)
+                                aangelegd. Vooraan de woning wordt een patio
+                                (12 m&sup2;) verwijderd en wordt het bestaande
+                                terras </span><span>(66,55 m&sup2;) heraangelegd met ongeveer
+                                dezelfde oppervlakte (65 m&sup2;).</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>De inpandige garage bevindt zich achteraan de
+                                woning. De oprit wordt heraangelegd als
+                                karrespoor met sporen van 1,40 m breed en een
+                                groenstrook van 80 cm ertussen (ca. 55 m
+                                lang). De verharding achter de woning, die
+                                gebruikt wordt als parking, wordt verkleind
+                                met ca. 100 m&sup2;. In totaal nemen oprit en
+                                parking in nieuwe toestand 477 m&sup2; in, dit
+                                is 136 m&sup2; minder dan in bestaande
+                                toestand.</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>Het poolhouse bestaat uit &eacute;&eacute;n
+                                bouwlaag met kelder afgewerkt met een hellend
+                                dak. Het gelijkvloers van het poolhouse wordt
+                                ingericht als lounge- zit/leefruimte, de
+                                kelder wordt ingericht met een technische
+                                ruimte, polyvalente/hobbyruimte, toilet en
+                                doucheruimte.</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>Het gebouw wordt ingeplant op 6,37 m van de
+                                rechter perceelsgrens en 4,35 m van de
+                                achterste perceelsgrens.</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>Achter het poolhouse wordt een wadi
+                                aangelegd.
+                              </span>
+                            </p>
+                            <p style="
+                                  margin-top: 12pt;
+                                  margin-left: 18pt;
+                                  margin-bottom: 0pt;
+                                  text-indent: -18pt;
+                                ">
+                              <span style="font-weight: bold">2.</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              </span><span style="font-weight: bold">HISTORIEK</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>Volgende vergunningen, meldingen en/of
+                                weigeringen zijn bekend:
+                              </span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span style="text-decoration: underline">Stedenbouwkundige vergunningen
+                              </span>
+                            </p>
+                            <ul style="margin: 0pt" type="disc">
+                              <li style="margin-left: 27.6pt">
+                                <span>Op 20/03/1974 werd een vergunning
+                                  afgeleverd voor het bouwen van een woning
+                                  (1974 ZW 1312).</span>
+                              </li>
+                            </ul>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span style="text-decoration: underline">Verkavelingsvergunningen
+                              </span>
+                            </p>
+                            <ul style="margin: 0pt" type="disc">
+                              <li style="margin-left: 27.6pt">
+                                <span>Op 06/03/1965 werd een vergunning
+                                  afgeleverd voor een nieuwe verkaveling (1965
+                                  ZW 228/00).</span>
+                              </li>
+                            </ul>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-bottom: 0pt;
+                                  border-bottom: 0.75pt solid #000000;
+                                  padding-bottom: 1pt;
+                                  font-size: 12pt;
+                                ">
+                              <span style="font-weight: bold">BEOORDELING AANVRAAG</span>
+                            </p>
+                            <p style="
+                                  margin-top: 12pt;
+                                  margin-left: 18pt;
+                                  margin-bottom: 0pt;
+                                  text-indent: -18pt;
+                                ">
+                              <span style="font-weight: bold">3.</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              </span><span style="font-weight: bold">EXTERNE ADVIEZEN</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>Volgende externe adviezen zijn gegeven en
+                                zijn integraal raadpleegbaar op het
+                                omgevingsloket:</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-left: 36pt;
+                                  margin-bottom: 0pt;
+                                  text-indent: -18pt;
+                                ">
+                              <span>-</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                                style="font-weight: bold">Voorwaardelijk gunstig</span><span> advies van </span><span
+                                style="font-weight: bold">Deputatie</span><span> afgeleverd op
+                                11</span><span>&nbsp;</span><span>september</span><span>&nbsp;</span><span>2023 onder
+                                ref. M02\Dossiers\41685\MM:</span><br /><span style="font-style: italic">Het perceel is
+                                gelegen in het stroomgebied
+                                van de waterloop nr. O706 (2de categorie) en
+                                bevindt zich volgens de overstromingskaarten
+                                in pluviaal overstromingsgevoelig gebied met
+                                kleine overstromingskans onder
+                                klimaatverandering (deels, enkel ter hoogte
+                                van de gracht langsheen de randen van het
+                                perceel) en niet in fluviaal
+                                overstromingsgevoelig gebied.</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-left: 36pt;
+                                  margin-bottom: 0pt;
+                                ">
+                              <span style="font-style: italic">&nbsp;</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-left: 36pt;
+                                  margin-bottom: 0pt;
+                                ">
+                              <span style="
+                                    font-style: italic;
+                                    text-decoration: underline;
+                                  ">Motivering</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-left: 36pt;
+                                  margin-bottom: 0pt;
+                                ">
+                              <span style="font-style: italic">De verhardingen die in dit project voorzien
+                                worden, zullen geen schadelijke invloed hebben
+                                op de waterhuishouding in de omgeving indien
+                                voldaan wordt aan de voorwaarden vermeld bij
+                                de conclusie.</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-left: 36pt;
+                                  margin-bottom: 0pt;
+                                ">
+                              <span style="font-style: italic">&nbsp;</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-left: 36pt;
+                                  margin-bottom: 0pt;
+                                ">
+                              <span style="
+                                    font-style: italic;
+                                    text-decoration: underline;
+                                  ">Conclusie</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-left: 36pt;
+                                  margin-bottom: 0pt;
+                                ">
+                              <span style="font-style: italic">Gunstig advies wordt verleend aan de aanvraag
+                                van de heer en mevrouw Lagast-Muylle met als
+                                voorwerp &#39;het bouwen van een poolhouse,
+                                verwijderen verhardingen en aanleggen nieuwe
+                                verhardingen&#39; op een perceel gelegen te
+                                Gent, Vogelheide 20 onder de hierna vermelde
+                                voorwaarden.</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-left: 36pt;
+                                  margin-bottom: 0pt;
+                                ">
+                              <span style="font-style: italic">&nbsp;</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-left: 36pt;
+                                  margin-bottom: 0pt;
+                                ">
+                              <span style="font-style: italic">Voorwaarden inzake milderen van het effect
+                                van verhardingen:
+                              </span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-left: 36pt;
+                                  margin-bottom: 0pt;
+                                ">
+                              <span style="font-style: italic">- De bepalingen van de gewestelijke
+                                stedenbouwkundige verordening inzake
+                                hemelwaterputten, infiltratievoorzieningen,
+                                buffervoorzieningen en gescheiden lozing van
+                                afvalwater en hemelwater moeten worden
+                                nageleefd.</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-left: 36pt;
+                                  margin-bottom: 0pt;
+                                ">
+                              <span style="font-style: italic">- De bodem van de infiltratievoorziening mag
+                                niet dieper dan 70 cm onder het maaiveld
+                                worden aangelegd.</span><br /><span>&nbsp;</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-left: 36pt;
+                                  margin-bottom: 0pt;
+                                  text-indent: -18pt;
+                                ">
+                              <span>-</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                                style="font-weight: bold">Geen tijdig</span><span> advies van </span><span
+                                style="font-weight: bold">VLM</span><span>. De adviesvraag is verstuurd op
+                                16</span><span>&nbsp;</span><span>augustus</span><span>&nbsp;</span><span>2023. Op
+                              </span><br /><span>8 november 2023 is nog g&eacute;&eacute;n
+                                advies ontvangen. Omdat de decretaal
+                                omschreven adviestermijn verstreken is, kan
+                                aan de adviesvereiste voorbij gegaan
+                                worden.</span>
+                            </p>
+                            <p style="
+                                  margin-top: 12pt;
+                                  margin-left: 18pt;
+                                  margin-bottom: 0pt;
+                                  text-indent: -18pt;
+                                ">
+                              <span style="font-weight: bold">4.</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              </span><span style="font-weight: bold">TOETSING AAN WETTELIJKE EN REGLEMENTAIRE
+                                VOORSCHRIFTEN</span>
+                            </p>
+                            <p style="
+                                  margin-top: 12pt;
+                                  margin-left: 39.6pt;
+                                  margin-bottom: 0pt;
+                                  text-indent: -21.6pt;
+                                ">
+                              <span style="font-weight: bold; font-style: italic">4.1.</span><span>&nbsp;&nbsp;
+                              </span><span style="font-weight: bold; font-style: italic">Ruimtelijke uitvoeringsplannen
+                                &ndash;
+                                plannen van aanleg</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>Het project </span><span>ligt in het gewestelijk </span><span>ruimtelijk
+                                uitvoeringsplan &#39;</span><span>Afbakening grootstedelijk gebied Gent -
+                                deelproject 6C Parkbos&#39; (</span><span>definitief vastgesteld</span><span> door de
+                                Vlaamse Regering op
+                                9</span><span>&nbsp;</span><span>juli</span><span>&nbsp;</span><span>2010)</span><span>,</span><span>
+                                in de zone gedefinieerd volgens artikel
+                                7:</span><span style="font-weight: bold"> </span><span
+                                style="font-weight: bold; font-style: italic">woongebied</span><span>.</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span style="font-style: italic">De woongebieden zijn bestemd voor wonen, voor
+                                groene ruimten, voor sociaal-culturele
+                                inrichtingen, voor openbare nutsvoorzieningen,
+                                voor kleinschalige toeristische voorzieningen
+                                en voor agrarische bedrijven, voor zover deze
+                                activiteiten landschappelijk en functioneel
+                                ge&iuml;ntegreerd kunnen worden in de
+                                woonomgeving en het draagvlak van de bosrijke
+                                omgeving niet overschrijden.</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span style="font-style: italic">Volgende inrichtingsprincipes dienen
+                                gerespecteerd te worden:</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-left: 36pt;
+                                  margin-bottom: 0pt;
+                                  text-indent: -18pt;
+                                ">
+                              <span>-</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                                style="font-style: italic">[&hellip;] verbouwen, herbouwen en uitbreiden
+                                is mogelijk op voorwaarde dat </span><span style="
+                                    font-style: italic;
+                                    text-decoration: underline;
+                                  ">langs de perceelsgrenzen grenzend aan een
+                                gebied met een andere bestemming dan
+                                woongebied</span><span style="font-style: italic">, op het eigen terrein, op het
+                                ogenblik van
+                                de verbouwing, het herbouwen of de uitbreiding
+                                een dicht bebost groenscherm wordt aangelegd
+                                dat een landschappelijke inkleding garandeert
+                                in functie van het optimaal integreren van de
+                                bebouwing en activiteiten in de omgeving. Dit
+                                groenscherm bestaat uit een streekeigen
+                                heestermassief minimum 5 m breedte. Het
+                                groenscherm is verplicht opgenomen in de
+                                vergunningsaanvraag en wordt ten laatste
+                                gerealiseerd in het eerstvolgend plantseizoen
+                                na de ingebruikname van het vergunde gebouw of
+                                constructie.</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <br /><span style="text-decoration: underline">De aanvraag is </span><span style="
+                                    font-weight: bold;
+                                    text-decoration: underline;
+                                  ">niet</span><span style="text-decoration: underline">
+                                in overeenstemming met bovenstaand
+                                inrichtingsprincipe omwille van volgende
+                                redenen</span><span>:</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-left: 36pt;
+                                  margin-bottom: 0pt;
+                                ">
+                              <span>De gehele linker perceelsgrens, achterste
+                                perceelsgrens en laatste 60 m van de rechter
+                                perceelsgrens grenzen aan een gebied met een
+                                andere bestemming dan woongebied, nl. zone
+                                voor landbouw.
+                              </span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-left: 36pt;
+                                  margin-bottom: 0pt;
+                                ">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-left: 72pt;
+                                  margin-bottom: 0pt;
+                                  text-indent: -18pt;
+                                ">
+                              <span>-</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>Aan de linkerzijde
+                                wordt ter hoogte van de
+                                woning geen groenscherm voorzien. De bestaande
+                                woning, vergund voor de inwerkingtreding van
+                                het RUP, ligt deels binnen de zone voor
+                                groenscherm. Binnen deze zone wordt de patio
+                                verwijderd, maar ca. 3 m&sup2; verharding
+                                aangelegd. Ter hoogte van de parking en verder
+                                wordt een groenscherm voorzien, hetzij niet
+                                overal met een breedte van 5 m, bestaande uit
+                                een grillig haagmassief van 2 m breed tegen de
+                                perceelsgrens en voor het overige bestaande
+                                uit extensief gazon.</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-left: 72pt;
+                                  margin-bottom: 0pt;
+                                  text-indent: -18pt;
+                                ">
+                              <span>-</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>Aan de achterste
+                                perceelsgrens wordt het
+                                bestaande groenscherm aangevuld, hetzij niet
+                                overal met een breedte van 5 m. De overkapping
+                                van het poolhouse wordt deels in deze
+                                bufferzone geplaatst. Achteraan het perceel,
+                                in de bufferzone, wordt ook een wadi
+                                aangelegd.</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-left: 72pt;
+                                  margin-bottom: 0pt;
+                                  text-indent: -18pt;
+                                ">
+                              <span>-</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>Aan de rechterzijde
+                                van het perceel wordt de
+                                oprit heraangelegd. In vergunde toestand houdt
+                                de oprit een afstand van 4 m tot de
+                                perceelsgrens. Deze wordt ca. 20 cm
+                                opgeschoven naar links waardoor de oprit een
+                                afstand van 4,20 m houdt ten opzichte van de
+                                rechter perceelsgrens. In bestaande toestand
+                                is deze zone aangelegd als een groenzone. Bij
+                                de heraanleg wordt er een plantvak
+                                voorzien.</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>Overeenkomstig artikel 4.4.1 van de Vlaamse
+                                Codex Ruimtelijke Ordening kan beperkt
+                                afgeweken worden van de stedenbouwkundige
+                                voorschriften van een RUP , wat betreft de
+                                perceelsafmetingen, de afmetingen en de
+                                inplanting van de constructies, de dakvorm en
+                                de gebruikte materialen.</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span style="text-decoration: underline">De afwijkingen op de voorschriften van het
+                                RUP zijn </span><span style="
+                                    font-weight: bold;
+                                    text-decoration: underline;
+                                  ">deels</span><span style="text-decoration: underline">
+                                aanvaardbaar om volgende redenen</span><span>:</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-left: 72pt;
+                                  margin-bottom: 0pt;
+                                  text-indent: -18pt;
+                                ">
+                              <span>-</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>Het niet voorzien van
+                                een groenscherm aan de
+                                linker perceelsgrens ter hoogte van de woning
+                                is aanvaardbaar. De woning werd vergund op een
+                                afstand van </span><br /><span>3 m tot de perceelsgrens voor de
+                                inwerkingtreding van het RUP. Een groenscherm
+                                tot tegen de woning kan ook hinder en schade
+                                veroorzaken aan de woning. </span><br /><span>De groenzone aan de linkerzijde van het te
+                                verwijderen tennisveld wordt deels aangelegd
+                                als haagmassief, deels als extensief gazon. Er
+                                kan akkoord gegaan worden met de
+                                vari&euml;rende breedte van de groenzone. Er
+                                wordt immers veel extra beplanting voorzien op
+                                het perceel en langs de randen, maar deze zal
+                                volledig als streekeigen heestermassief
+                                aangelegd moeten worden.</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-left: 72pt;
+                                  margin-bottom: 0pt;
+                                  text-indent: -18pt;
+                                ">
+                              <span>-</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>Er kan akkoord gegaan
+                                worden met de
+                                vari&euml;rende breedte van de groenzone, maar
+                                zowel de wadi als het poolhouse moeten buiten
+                                de 5m-zone aangelegd worden.</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-left: 72pt;
+                                  margin-bottom: 0pt;
+                                  text-indent: -18pt;
+                                ">
+                              <span>-</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>Ook aan de
+                                rechterzijde kan er akkoord gegaan
+                                worden met de breedte van de groenzone.
+                                Ondanks de oprit volledig heraangelegd wordt
+                                er dus mogelijkheden zijn om de afstand van 5
+                                m tot de perceelsgrens te houden, moet er
+                                rekening gehouden worden dat deze de bestaande
+                                bomen op het perceel niet hindert. Het
+                                voorziene plantvak zal aangevuld moeten worden
+                                met een streekeigen heestermassief.</span>
+                            </p>
+                            <p style="
+                                  margin-top: 12pt;
+                                  margin-left: 39.6pt;
+                                  margin-bottom: 0pt;
+                                  text-indent: -21.6pt;
+                                ">
+                              <span style="font-weight: bold; font-style: italic">4.2.</span><span>&nbsp;&nbsp;
+                              </span><span style="font-weight: bold; font-style: italic">Vergunde verkavelingen</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>De aanvraag is gelegen in een goedgekeurde,
+                                niet vervallen verkaveling </span><span>(ref. nr.</span><span> 1965 ZW 228/00 van 6
+                                maart 1965). </span><span>De aanvraag heeft betrekking op lot 8. De
+                                zonering volgens deze verkaveling is </span><span style="font-style: italic">bouwzone
+                              </span><span>en</span><span style="font-style: italic">
+                                zone voor koeren en hoveningen.</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <br /><span>De aanvraag is in overeenstemming met de
+                                voorschriften van de verkaveling.</span>
+                            </p>
+                            <p style="
+                                  margin-top: 12pt;
+                                  margin-left: 39.6pt;
+                                  margin-bottom: 0pt;
+                                  text-indent: -21.6pt;
+                                ">
+                              <span style="font-weight: bold; font-style: italic">4.3.</span><span>&nbsp;&nbsp;
+                              </span><span style="font-weight: bold; font-style: italic">Verordeningen</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span style="font-weight: bold; font-style: italic">Algemeen Bouwreglement</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>De aanvraag werd getoetst aan de bepalingen
+                                van het Algemeen Bouwreglement, de
+                                stedenbouwkundige verordening van de Stad
+                                Gent, goedgekeurd door de deputatie bij
+                                besluit van
+                                16</span><span>&nbsp;</span><span>september</span><span>&nbsp;</span><span>2004 en meest
+                                recent gewijzigd bij
+                                gemeenteraadsbesluit van
+                                26</span><span>&nbsp;</span><span>september</span><span>&nbsp;</span><span>2022, van
+                                kracht sinds
+                                21</span><span>&nbsp;</span><span>november</span><span>&nbsp;</span><span>2022.</span><span>&nbsp;</span><span>
+                              </span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>Het ontwerp is in overeenstemming met dit
+                                algemeen bouwreglement.</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span style="font-weight: bold; font-style: italic">Gewestelijke verordening
+                                hemelwater</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>De aanvraag werd getoetst aan de bepalingen
+                                van het besluit van de Vlaamse Regering van
+                                1</span><span>&nbsp;</span><span>oktober</span><span>&nbsp;</span><span>2004 houdende
+                                vaststelling van een
+                                gewestelijke stedenbouwkundige verordening
+                                inzake hemelwaterputten,
+                                infiltratievoorzieningen, buffervoorzieningen
+                                en gescheiden lozing van afvalwater en
+                                hemelwater (zie waterparagraaf).</span>
+                            </p>
+                            <p style="
+                                  margin-top: 12pt;
+                                  margin-left: 39.6pt;
+                                  margin-bottom: 0pt;
+                                  text-indent: -21.6pt;
+                                ">
+                              <span style="font-weight: bold; font-style: italic">4.4.</span><span>&nbsp;&nbsp;
+                              </span><span style="font-weight: bold; font-style: italic">Uitgeruste weg</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>Het bouwperceel is gelegen aan een voldoende
+                                uitgeruste gemeenteweg.</span>
+                            </p>
+                            <p style="
+                                  margin-top: 12pt;
+                                  margin-left: 18pt;
+                                  margin-bottom: 0pt;
+                                  text-indent: -18pt;
+                                ">
+                              <span style="font-weight: bold">5.</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              </span><span style="font-weight: bold">WATERPARAGRAAF</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span style="font-style: italic">&nbsp;</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-left: 39.4pt;
+                                  margin-bottom: 0pt;
+                                  text-indent: -21.55pt;
+                                ">
+                              <span style="font-weight: bold; font-style: italic">5.1. Ligging project
+                              </span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>Het perceel is gelegen in het stroomgebied
+                                van de waterloop nr. O706 (2de
+                                categorie)</span><span> </span><span>in beheer van Provincie Oost-Vlaanderen
+                              </span><span>en bevindt zich volgens de
+                                overstromingskaarten in pluviaal
+                                overstromingsgevoelig gebied met kleine
+                                overstromingskans onder klimaatverandering
+                                (deels, enkel ter hoogte van de gracht
+                                langsheen de randen van het perceel) en niet
+                                in fluviaal overstromingsgevoelig
+                                gebied.</span><span>
+                                Het project ligt niet in de nabije omgeving
+                                van de waterloop.</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-left: 39.4pt;
+                                  margin-bottom: 0pt;
+                                  text-indent: -21.55pt;
+                                ">
+                              <span style="font-weight: bold; font-style: italic">5.2. Verenigbaarheid van het project
+                                met het
+                                watersysteem</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span style="font-weight: bold; font-style: italic">Droogte</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>Het hemelwater dat neervalt moet op eigen
+                                terrein maximaal vastgehouden worden en niet
+                                afgevoerd. Om hier concreet uitvoering aan te
+                                geven werd het project aan de gewestelijke
+                                stedenbouwkundige verordening en het algemeen
+                                bouwreglement van de stad Gent inzake
+                                hemelwater getoetst.</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>De verhardingen die in dit project voorzien
+                                worden, zullen geen schadelijke invloed hebben
+                                op&nbsp;</span><span>de waterhuishouding in de omgeving indien
+                                voldaan wordt aan de voorwaarden vermeld bij
+                                de&nbsp;</span><span>conclusie.</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span style="font-weight: bold; font-style: italic"><strong>Bodem</strong>
+                              </span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>De aanleg van de ondergrondse constructie mag
+                                er geenszins voor zorgen dat er een permanente
+                                drainage optreedt met lagere grondwaterstanden
+                                tot gevolg. Een dergelijke permanente drainage
+                                is immers in strijd met de doelstellingen van
+                                het decreet integraal waterbeleid waarin is
+                                opgenomen dat verdroging moet voorkomen
+                                worden, beperkt of ongedaan gemaakt. De
+                                ondergrondse constructie dient dan ook
+                                uitgevoerd te worden als volledig waterdichte
+                                kuip en zonder kunstmatig
+                                drainagesysteem.</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>Een grondwaterbemaling kan noodzakelijk zijn
+                                voor de bouwkundige werken of de aanleg van de
+                                openbare nutsvoorzieningen. Bij bemaling moet
+                                volgens Vlarem minstens een melding van de
+                                activiteit gebeuren. Ze kan evenwel
+                                vergunningsplichtig zijn en zelfs merplichtig
+                                naargelang de ligging, de diepte van de
+                                grondwaterverlaging en het opgepompte debiet.
+                                De akte of vergunning moet verleend zijn door
+                                de bevoegde instantie vooraleer de
+                                bemalingswerken kunnen gestart worden.</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>In een aanvraagdossier voor een vergunning of
+                                melding moeten steeds de effecten naar de
+                                omgeving onderzocht worden, op basis van de
+                                gemodelleerde debieten en het
+                                bemalingsconcept, en moet steeds vermeld
+                                worden op welke manier zal omgegaan worden met
+                                het opgepompte bemalingswater (toepassing van
+                                de bemalingscascade). De bemalingsinstallatie
+                                dient geplaatst te worden door een erkend
+                                boorbedrijf.</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span style="font-weight: bold; font-style: italic">Structuurkwaliteit en ruimte voor
+                                waterlopen</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>Het project heeft hierop geen betekenisvolle
+                                impact.</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span style="font-weight: bold; font-style: italic">Overstromingen</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>Volgens de pluviale overstromingskaart
+                                bestaat er een middelgrote overstromingskans
+                                ter hoogte van de wegenis. Indien de
+                                voorwaarden uit de gewestelijke verordening en
+                                het algemeen bouwreglement inzake hemelwater
+                                correct toegepast worden, wordt geen effect op
+                                het overstromingsregime verwacht.</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>Ernstiger overstromingen dan in het verleden
+                                zijn niet uit te sluiten en er kan geen
+                                sluitende garantie gegeven worden dat er zich
+                                op het perceel in de toekomst geen
+                                wateroverlast meer zal voordoen.</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span style="font-weight: bold; font-style: italic">Waterkwaliteit</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>Het project heeft hierop geen betekenisvolle
+                                impact.</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>&nbsp;</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-left: 39.4pt;
+                                  margin-bottom: 0pt;
+                                  text-indent: -21.55pt;
+                                ">
+                              <span style="font-weight: bold; font-style: italic">5.3. Conclusie</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>Er kan besloten worden dat voorliggende
+                                aanvraag de watertoets doorstaat.
+                              </span>
+                            </p>
+                            <p style="
+                                  margin-top: 12pt;
+                                  margin-left: 18pt;
+                                  margin-bottom: 0pt;
+                                  text-indent: -18pt;
+                                ">
+                              <span style="font-weight: bold">6.</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              </span><span style="font-weight: bold">PROJECT-M.E.R.-SCREENING</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>De aanvraag heeft geen milieueffectrapport of
+                                project-MER-screening nodig.</span>
+                            </p>
+                            <p style="
+                                  margin-top: 12pt;
+                                  margin-left: 18pt;
+                                  margin-bottom: 0pt;
+                                  text-indent: -18pt;
+                                ">
+                              <span style="font-weight: bold">7.</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              </span><span style="font-weight: bold">OPENBAAR ONDERZOEK</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span>Het openbaar onderzoek werd gehouden van 25
+                                augustus 2023 tot 23 september 2023.</span><br /><span>Gedurende dit openbaar onderzoek
+                                werden </span><span style="text-decoration: underline">geen bezwaren</span><span>
+                                ingediend.</span>
+                            </p>
+                            <p style="
+                                  margin-top: 12pt;
+                                  margin-left: 18pt;
+                                  margin-bottom: 0pt;
+                                  text-indent: -18pt;
+                                ">
+                              <span style="font-weight: bold">8.</span><span>&nbsp; &nbsp; &nbsp; &nbsp;</span><span
+                                style="font-weight: bold">OMGEVINGSTOETS</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span style="font-weight: bold; font-style: italic">Beoordeling van de goede ruimtelijke
+                                ordening&nbsp;</span><br /><span>De aanvraag betreft het aanpassen van de
+                                omgevingsaanleg bij een vrijstaande
+                                eengezinswoning. Het bestaande tennisveld, met
+                                een oppervlakte van 600 m&sup2;, wordt
+                                verwijderd. In de plaats wordt een zwembad met
+                                poolhouse geplaatst. Voor het overige worden
+                                de oprit en parking heraangelegd. Dit alles
+                                heeft tot gevolg dat de verhardingsgraad op
+                                het perceel met 577 m&sup2; verminderd (van
+                                1286 m&sup2; naar 709 m&sup2;), wat positief
+                                is. Desalniettemin wordt er wel nog steeds een
+                                aanzienlijke oppervlakte verhard. Dit in
+                                combinatie met de bebouwde oppervlakte
+                                resulteert in een terreinbezetting van
+                                ongeveer 25%, wat verhoudingsgewijs
+                                aanvaardbaar is, doch maximaal is.&nbsp;</span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <br /><span>De voorgestelde handelingen zijn ruimtelijk
+                                inpasbaar binnen de onmiddellijke omgeving en
+                                in overeenstemming met de planologische
+                                voorschriften mits het respecteren van de
+                                opgelegde bijzondere voorwaarden.</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-bottom: 0pt;
+                                  border-bottom: 0.75pt solid #000000;
+                                  padding-bottom: 1pt;
+                                  font-size: 12pt;
+                                ">
+                              <br /><span style="font-weight: bold">CONCLUSIE
+                              </span>
+                            </p>
+                            <p style="margin-top: 0pt; margin-bottom: 0pt">
+                              <span style="font-weight: bold">Voorwaardelijk gunstig</span><span>, mits voldaan wordt
+                                aan de bijzondere
+                                voorwaarden is de aanvraag in overeenstemming
+                                met de wettelijke bepalingen en verenigbaar
+                                met de goede plaatselijke aanleg.</span>
+                            </p>
+                            <div>
+                              <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                <span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="h5-section">
+                        <h3>Waarom wordt deze beslissing genomen?</h3>
+                        <div>
+                          <div>
+                            <div style="-aw-headerfooter-type: header-primary">
+                              <p style="
+                                    margin-top: 0pt;
+                                    margin-bottom: 0pt;
+                                    font-size: 11pt;
+                                  ">
+                                <span style="font-family: Calibri">&#xa0;</span>
+                              </p>
+                            </div>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-bottom: 0pt;
+                                  font-size: 11pt;
+                                ">
+                              <span style="
+                                    font-family: Calibri;
+                                    font-weight: bold;
+                                    color: #365f91;
+                                    -aw-import: ignore;
+                                  ">&#xa0;</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-bottom: 0pt;
+                                  font-size: 11pt;
+                                ">
+                              <span style="
+                                    font-family: Calibri;
+                                    font-weight: bold;
+                                    color: #365f91;
+                                  ">WAAROM WORDT DEZE BESLISSING GENOMEN?</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-bottom: 0pt;
+                                  font-size: 11pt;
+                                ">
+                              <span style="
+                                    font-family: Calibri;
+                                    -aw-import: ignore;
+                                  ">&#xa0;</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-bottom: 0pt;
+                                  font-size: 11pt;
+                                ">
+                              <span style="font-family: Calibri">Het college van burgemeester en schepenen
+                                moet over de ingediende
+                                omgevingsvergunningsaanvraag een beslissing
+                                nemen.
+                              </span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-bottom: 0pt;
+                                  font-size: 11pt;
+                                ">
+                              <span style="font-family: Calibri">Het college van burgemeester en schepenen
+                                sluit zich aan bij bovenstaand verslag van de
+                                gemeentelijk omgevingsambtenaar en neemt het
+                                tot haar eigen motivatie.</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-bottom: 0pt;
+                                  text-align: justify;
+                                  font-size: 11pt;
+                                ">
+                              <span style="
+                                    font-family: Calibri;
+                                    -aw-import: ignore;
+                                  ">&#xa0;</span>
+                            </p>
+                            <div style="-aw-headerfooter-type: footer-primary">
+                              <p style="
+                                    margin-top: 0pt;
+                                    margin-bottom: 0pt;
+                                    font-size: 11pt;
+                                  ">
+                                <span style="font-family: Calibri">&#xa0;</span>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="h5-section">
+                        <h3>Communicatie</h3>
+                        <div>
+                          <div>
+                            <div style="-aw-headerfooter-type: header-primary">
+                              <p style="
+                                    margin-top: 0pt;
+                                    margin-bottom: 0pt;
+                                    font-size: 11pt;
+                                  ">
+                                <span style="font-family: Calibri">&#xa0;</span>
+                              </p>
+                            </div>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-bottom: 0pt;
+                                  font-size: 11pt;
+                                ">
+                              <span style="
+                                    font-family: Calibri;
+                                    -aw-import: ignore;
+                                  ">&#xa0;</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-bottom: 0pt;
+                                  font-size: 8pt;
+                                ">
+                              <span style="
+                                    font-family: Calibri;
+                                    font-weight: bold;
+                                  ">Uitvoering</span><br /><span style="font-family: Calibri">Van deze
+                                omgevingsvergunning mag worden
+                                gebruikgemaakt als de aanvrager niet binnen
+                                vijfendertig</span><span style="font-family: Calibri"> dagen</span><span
+                                style="font-family: Calibri">, te rekenen vanaf de dag na de eerste dag
+                                van de aanplakking, op de hoogte is gebracht
+                                van de instelling van een schorsend
+                                administratief beroep.</span><br /><br /><span style="
+                                    font-family: Calibri;
+                                    font-weight: bold;
+                                  ">Bekendmaking</span><br /><span style="font-family: Calibri">De beslissing wordt
+                                bekendgemaakt conform
+                                Titel 3, Hoofdstuk 9, Afdeling 3 van het
+                                Omgevingsvergunningsbesluit.</span><br /><br /><span style="
+                                    font-family: Calibri;
+                                    font-weight: bold;
+                                  ">Verval van de omgevingsvergunning –
+                                uittreksel uit het decreet van 25 april 2014
+                                betreffende de omgevingsvergunning</span><br /><span style="
+                                    font-family: Calibri;
+                                    font-weight: bold;
+                                  ">Artikel 99.</span><br /><span style="font-family: Calibri">§ 1. De
+                                omgevingsvergunning vervalt van
+                                rechtswege in elk van de volgende
+                                gevallen:</span><br /><span style="font-family: Calibri">1° als de verwezenlijking van
+                                de vergunde
+                                stedenbouwkundige handelingen niet wordt
+                                gestart binnen de twee jaar na het verlenen
+                                van de definitieve omgevingsvergunning;</span><br /><span
+                                style="font-family: Calibri">2° als het uitvoeren van de vergunde
+                                stedenbouwkundige handelingen meer dan drie
+                                opeenvolgende jaren wordt onderbroken;</span><br /><span style="font-family: Calibri">3°
+                                als de vergunde gebouwen niet winddicht
+                                zijn binnen vijf jaar na het verlenen van de
+                                definitieve omgevingsvergunning;</span><br /><span style="font-family: Calibri">4° als
+                                de exploitatie van de vergunde
+                                activiteit of inrichting niet binnen vijf jaar
+                                na het verlenen van de definitieve
+                                omgevingsvergunning aanvangt.</span><br /><br /><span style="font-family: Calibri">De
+                                termijn, vermeld in het eerste lid, 1°,
+                                kan evenwel, op verzoek van de
+                                vergunninghouder, voor een periode van twee
+                                jaar verlengd worden als hij aantoont dat de
+                                niet-verwezenlijking het gevolg is van een
+                                vreemde oorzaak die hem niet kan worden
+                                toegerekend. De vergunninghouder dient de
+                                aanvraag van de verlenging, op straffe van
+                                verval, met een beveiligde zending en minstens
+                                drie maanden vóór het verstrijken van de
+                                oorspronkelijke vervaltermijn van twee jaar in
+                                bij de overheid die de vergunning heeft
+                                verleend. Die overheid weigert de aanvraag van
+                                de verlenging alleen als:</span><br /><span style="font-family: Calibri">1° er geen
+                                sprake is van een vreemde oorzaak
+                                die niet aan de vergunninghouder kan worden
+                                toegerekend;</span><br /><span style="font-family: Calibri">2° de aangevraagde en
+                                vergunde handelingen
+                                strijdig zijn met inmiddels gewijzigde
+                                stedenbouwkundige voorschriften of
+                                verkavelingsvoorschriften.</span><br /><br /><span style="font-family: Calibri">De
+                                overheid bezorgt haar beslissing uiterlijk
+                                de dag van het verstrijken van de
+                                oorspronkelijke vervaltermijn van twee jaar.
+                                Bij ontstentenis van een beslissing wordt de
+                                verlenging geacht te zijn goedgekeurd. Als de
+                                verlenging wordt goedgekeurd, worden de
+                                termijnen, vermeld in het eerste lid, 3° en
+                                4°, ook met twee jaar verlengd.</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-bottom: 0pt;
+                                  widows: 0;
+                                  orphans: 0;
+                                  font-size: 8pt;
+                                ">
+                              <span style="font-family: Calibri">Als de omgevingsvergunning uitdrukkelijk
+                                melding maakt van de verschillende fasen van
+                                het bouwproject, worden de termijnen van twee,
+                                drie of vijf jaar, vermeld in het eerste lid,
+                                gerekend per fase. Voor de tweede fase en de
+                                volgende fasen worden de termijnen van verval
+                                bijgevolg gerekend vanaf de aanvangsdatum van
+                                de fase in kwestie.</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-bottom: 0pt;
+                                  widows: 0;
+                                  orphans: 0;
+                                  font-size: 8pt;
+                                ">
+                              <span style="font-family: Calibri">§ 2. De omgevingsvergunning voor de
+                                exploitatie van een ingedeelde inrichting of
+                                activiteit vervalt van rechtswege in elk van
+                                de volgende gevallen:</span><br /><span style="font-family: Calibri">1° als de
+                                exploitatie van de vergunde
+                                activiteit of inrichting meer dan vijf
+                                opeenvolgende jaren wordt onderbroken;</span><br /><span style="font-family: Calibri">2°
+                                als de ingedeelde inrichting vernield is
+                                wegens brand of ontploffing veroorzaakt ten
+                                gevolge van de exploitatie;</span><br /><span style="font-family: Calibri">3° als de
+                                exploitatie op vrijwillige basis
+                                volledig en definitief wordt stopgezet
+                                overeenkomstig de voorwaarden en de regels,
+                                vermeld in het decreet van 9 maart 2001 tot
+                                regeling van de vrijwillige, volledige en
+                                definitieve stopzetting van de productie van
+                                alle dierlijke mest, afkomstig van een of
+                                meerdere diersoorten, en de
+                                uitvoeringsbesluiten ervan. De Vlaamse
+                                Regering kan nadere regels bepalen voor de
+                                inkennisstelling van de stopzetting.</span><br /><span style="font-family: Calibri">§ 3.
+                                Als de gevallen, vermeld in paragraaf 1,
+                                betrekking hebben op een gedeelte van het
+                                bouwproject, vervalt de omgevingsvergunning
+                                alleen voor het niet-afgewerkte gedeelte van
+                                een bouwproject. Een gedeelte is eerst
+                                afgewerkt als het, in voorkomend geval na de
+                                sloping van de niet-afgewerkte gedeelten, kan
+                                worden beschouwd als een afzonderlijke
+                                constructie die voldoet aan de bouwfysische
+                                vereisten.</span><br /><span style="font-family: Calibri">Als de gevallen, vermeld in
+                                paragraaf 1 of 2,
+                                alleen betrekking hebben op een gedeelte van
+                                de exploitatie van de ingedeelde inrichting of
+                                activiteit, vervalt de omgevingsvergunning
+                                alleen voor dat gedeelte.</span><br /><br /><span style="
+                                    font-family: Calibri;
+                                    font-weight: bold;
+                                  ">Artikel 100.</span><br /><span style="font-family: Calibri">De omgevingsvergunning
+                                blijft onverkort
+                                geldig als de exploitatie van een ingedeelde
+                                inrichting of activiteit van een project door
+                                een wijziging van de indelingslijst van klasse
+                                1 naar klasse 2 overgaat of omgekeerd.</span><br /><span style="font-family: Calibri">In
+                                geval de exploitatie van een ingedeelde
+                                inrichting of activiteit van een project door
+                                een wijziging van de indelingslijst van klasse
+                                1 of 2 naar klasse 3 overgaat, geldt de
+                                vergunning als aktename en blijven de
+                                bijzondere voorwaarden gelden.</span><br /><br /><span style="
+                                    font-family: Calibri;
+                                    font-weight: bold;
+                                  ">Artikel 101.</span><br /><span style="font-family: Calibri">De termijnen van twee,
+                                drie of vijf jaar,
+                                vermeld in artikel 99,</span><span style="font-family: Calibri">&#xa0;</span><span
+                                style="font-family: Calibri">in voorkomend geval verlengd conform artikel
+                                99, § 1 worden geschorst zolang een beroep tot
+                                vernietiging van de omgevingsvergunning
+                                aanhangig is bij de Raad voor
+                                Vergunningsbetwistingen, overeenkomstig
+                                hoofdstuk 9 behoudens indien de vergunde
+                                handelingen in strijd zijn met een vóór de
+                                definitieve uitspraak van de Raad van kracht
+                                geworden ruimtelijk uitvoeringsplan. In dat
+                                laatste geval blijft het eventuele recht op
+                                planschadevergoeding desalniettemin
+                                behouden.</span><br /><br /><span style="font-family: Calibri">De termijnen van twee,
+                                drie of vijf jaar,
+                                vermeld in artikel 99, in voorkomend geval
+                                verlengd conform artikel 99, § 1,</span><span
+                                style="font-family: Calibri">&#xa0;</span><span style="font-family: Calibri">worden
+                                geschorst tijdens het uitvoeren van de
+                                archeologische opgraving, omschreven in de
+                                bekrachtigde archeologienota overeenkomstig
+                                artikel 5.4.8 van het Onroerenderfgoeddecreet
+                                van 12 juli 2013 en in de bekrachtigde nota
+                                overeenkomstig artikel 5.4.16 van het
+                                Onroerenderfgoeddecreet van 12 juli 2013, met
+                                een maximumtermijn van een jaar vanaf de
+                                aanvangsdatum van de archeologische
+                                opgraving.</span><br /><br /><span style="font-family: Calibri">De termijnen van twee,
+                                drie of vijf jaar,
+                                vermeld in artikel 99, in voorkomend geval
+                                verlengd conform artikel 99, § 1, worden
+                                geschorst tijdens het uitvoeren van de
+                                bodemsaneringswerken van een
+                                bodemsaneringsproject waarvoor de OVAM
+                                overeenkomstig artikel 50, § 1, van het
+                                Bodemdecreet van 27 oktober 2006 een
+                                conformiteitsattest heeft afgeleverd, met een
+                                maximumtermijn van drie jaar vanaf de
+                                aanvangsdatum van de
+                                bodemsaneringswerken.</span><br /><br /><span style="font-family: Calibri">De termijnen
+                                van twee, drie of vijf jaar,
+                                vermeld in artikel 99, in voorkomend geval
+                                verlengd conform artikel 99, § 1, worden
+                                geschorst zolang een bekrachtigd
+                                stakingsbevel, zoals vermeld in titel VI van
+                                de VCRO, niet wordt ingetrokken, hetzij niet
+                                wordt opgeheven bij een in kracht van gewijsde
+                                gegane beslissing. De schorsing eindigt van
+                                rechtswege wanneer geen opheffing van het
+                                stakingsbevel wordt gevorderd of geen
+                                intrekking wordt gedaan binnen een termijn van
+                                twee jaar vanaf de bekrachtiging van het
+                                stakingsbevel.</span><br /><br /><span style="
+                                    font-family: Calibri;
+                                    font-weight: bold;
+                                  ">Beroepsmogelijkheden – uittreksel uit het
+                                decreet van 25 april 2014 betreffende de
+                                omgevingsvergunning</span><br /><span style="
+                                    font-family: Calibri;
+                                    font-weight: bold;
+                                  ">Artikel 52.</span><span style="font-family: Calibri">
+                                De Vlaamse Regering is bevoegd in laatste
+                                administratieve aanleg voor beroepen tegen
+                                uitdrukkelijke of stilzwijgende beslissingen
+                                van de deputatie in eerste administratieve
+                                aanleg.</span><br /><br /><span style="font-family: Calibri">De deputatie is voor haar
+                                ambtsgebied bevoegd
+                                in laatste administratieve aanleg voor
+                                beroepen tegen uitdrukkelijke of stilzwijgende
+                                beslissingen van het college van burgemeester
+                                en schepenen in eerste administratieve
+                                aanleg.</span><br /><br /><span style="
+                                    font-family: Calibri;
+                                    font-weight: bold;
+                                  ">Artikel 53.</span><span style="font-family: Calibri">
+                                Het beroep kan worden ingesteld door:</span><br /><span style="font-family: Calibri">1°
+                                de vergunningsaanvrager, de
+                                vergunninghouder of de exploitant;</span><br /><span style="font-family: Calibri">2° het
+                                betrokken publiek;</span><br /><span style="font-family: Calibri">3° de leidend
+                                ambtenaar van de
+                                adviesinstanties of bij zijn afwezigheid zijn
+                                gemachtigde als de adviesinstantie tijdig
+                                advies heeft verstrekt of als aan hem ten
+                                onrechte niet om advies werd verzocht;</span><br /><span style="font-family: Calibri">4°
+                                het college van burgemeester en schepenen
+                                als het tijdig advies heeft verstrekt of als
+                                het ten onrechte niet om advies werd
+                                verzocht;</span><br /><span style="font-family: Calibri">5° de leidend ambtenaar van het
+                                Departement
+                                Leefmilieu, Natuur en Energie of bij zijn
+                                afwezigheid zijn gemachtigde;</span><br /><span style="font-family: Calibri">6° de
+                                leidend ambtenaar van het Departement
+                                Ruimtelijke Ordening, Woonbeleid en Onroerend
+                                Erfgoed of bij zijn afwezigheid zijn
+                                gemachtigde.</span><br /><br /><span style="
+                                    font-family: Calibri;
+                                    font-weight: bold;
+                                  ">Artikel 54.</span><span style="font-family: Calibri">
+                                Het beroep wordt op straffe van
+                                onontvankelijkheid ingesteld binnen een
+                                termijn van dertig dagen die ingaat:</span><br /><span style="font-family: Calibri">1°
+                                de dag na de datum van de betekening van
+                                de bestreden beslissing voor die personen of
+                                instanties aan wie de beslissing betekend
+                                wordt;</span><br /><span style="font-family: Calibri">2° de dag na het verstrijken van
+                                de
+                                beslissingstermijn als de omgevingsvergunning
+                                in eerste administratieve aanleg stilzwijgend
+                                geweigerd wordt;</span><br /><span style="font-family: Calibri">3° de dag na de eerste
+                                dag van de aanplakking
+                                van de bestreden beslissing in de overige
+                                gevallen.</span><br /><br /><span style="
+                                    font-family: Calibri;
+                                    font-weight: bold;
+                                  ">Artikel 55.</span><span style="font-family: Calibri">
+                                Het beroep schorst de uitvoering van de
+                                bestreden beslissing tot de dag na de datum
+                                van de betekening van de beslissing in laatste
+                                administratieve aanleg.</span><br /><br /><span style="font-family: Calibri">In
+                                afwijking van het eerste lid werkt het
+                                beroep niet schorsend ten aanzien van:</span><br /><span style="font-family: Calibri">1°
+                                de vergunning voor de verdere exploitatie
+                                van een ingedeelde inrichting of activiteit
+                                waarvoor ten minste twaalf maanden voor de
+                                einddatum van de omgevingsvergunning een
+                                vergunningsaanvraag is ingediend;</span><br /><span style="font-family: Calibri">2° de
+                                vergunning voor de exploitatie na een
+                                proefperiode als vermeld in artikel 69;</span><br /><span
+                                style="font-family: Calibri">3° de vergunning voor de exploitatie van een
+                                ingedeelde inrichting of activiteit die
+                                vergunningsplichtig is geworden door
+                                aanvulling of wijziging van de
+                                indelingslijst.</span><br /><br /><span style="
+                                    font-family: Calibri;
+                                    font-weight: bold;
+                                  ">Artikel 56.</span><span style="font-family: Calibri">
+                                Het beroep wordt op straffe van
+                                onontvankelijkheid per beveiligde zending
+                                ingesteld bij de bevoegde overheid, vermeld in
+                                artikel 52.</span><br /><br /><span style="font-family: Calibri">Degene die het beroep
+                                instelt, bezorgt op
+                                straffe van onontvankelijkheid gelijktijdig en
+                                per beveiligde zending een afschrift van het
+                                beroepschrift aan:</span><br /><span style="font-family: Calibri">1° de
+                                vergunningsaanvrager behalve als hij
+                                zelf het beroep instelt;</span><br /><span style="font-family: Calibri">2° de deputatie
+                                als die in eerste
+                                administratieve aanleg de beslissing heeft
+                                genomen;</span><br /><span style="font-family: Calibri">3° het college van burgemeester
+                                en schepenen
+                                behalve als het zelf het beroep instelt.</span><br /><br /><span
+                                style="font-family: Calibri">De Vlaamse Regering bepaalt de bewijsstukken
+                                die bij het beroep moeten worden gevoegd opdat
+                                het op ontvankelijke wijze wordt
+                                ingesteld.</span><br /><br /><span style="
+                                    font-family: Calibri;
+                                    font-weight: bold;
+                                  ">Artikel 57.</span><span style="font-family: Calibri">
+                                De bevoegde overheid, vermeld in artikel 52,
+                                of de door haar gemachtigde ambtenaar
+                                onderzoekt het beroep op zijn ontvankelijkheid
+                                en volledigheid.</span><br /><br /><span style="font-family: Calibri">Als niet alle
+                                stukken als vermeld in artikel
+                                56, derde lid, bij het beroep zijn gevoegd,
+                                kan de bevoegde overheid of de door haar
+                                gemachtigde ambtenaar de beroepsindiener per
+                                beveiligde zending vragen om binnen een
+                                termijn van veertien dagen die ingaat de dag
+                                na de verzending van het
+                                vervolledigingsverzoek, de ontbrekende
+                                gegevens of documenten aan het beroep toe te
+                                voegen.</span><br /><br /><span style="font-family: Calibri">Als de beroepsindiener
+                                nalaat de ontbrekende
+                                gegevens of documenten binnen de termijn,
+                                vermeld in het tweede lid, aan het beroep toe
+                                te voegen, wordt het beroep als onvolledig
+                                beschouwd.</span><br /><br /><span style="
+                                    font-family: Calibri;
+                                    font-weight: bold;
+                                  ">Beroepsmogelijkheden – regeling van het
+                                besluit van de Vlaamse Regering decreet van 25
+                                april 2014 betreffende de
+                                omgevingsvergunning</span><br /><span style="font-family: Calibri">Het beroepschrift
+                                bevat op straffe van
+                                onontvankelijkheid:</span><br /><span style="font-family: Calibri">1° de naam, de
+                                hoedanigheid en het adres van
+                                de beroepsindiener;</span><br /><span style="font-family: Calibri">2° de identificatie
+                                van de bestreden
+                                beslissing en van het onroerend goed, de
+                                inrichting of exploitatie die het voorwerp
+                                uitmaakt van die beslissing;</span><br /><span style="font-family: Calibri">3° als het
+                                beroep wordt ingesteld door een
+                                lid van het betrokken publiek:</span><br /><span style="font-family: Calibri">a) een
+                                omschrijving van de gevolgen die hij
+                                ingevolge de bestreden beslissing ondervindt
+                                of waarschijnlijk ondervindt;</span><br /><span style="font-family: Calibri">b) het
+                                belang dat hij heeft bij de
+                                besluitvorming over de afgifte of bijstelling
+                                van een omgevingsvergunning of van
+                                vergunningsvoorwaarden;</span><br /><span style="font-family: Calibri">4° de redenen
+                                waarom het beroep wordt
+                                ingesteld.</span><br /><br /><span style="font-family: Calibri">Het beroepsdossier bevat
+                                de volgende
+                                bewijsstukken:</span><br /><span style="font-family: Calibri">1° in voorkomend geval,
+                                een bewijs van
+                                betaling van de dossiertaks;</span><br /><span style="font-family: Calibri">2° de
+                                overtuigingsstukken die de
+                                beroepsindiener nodig acht;</span><br /><span style="font-family: Calibri">3° in
+                                voorkomend geval, een inventaris van de
+                                overtuigingsstukken, vermeld in punt 2°.</span><br /><br /><span
+                                style="font-family: Calibri">Als de bewijsstukken, vermeld in het tweede
+                                lid, ontbreken, kan hieraan verholpen worden
+                                overeenkomstig artikel 57, tweede lid, van het
+                                decreet van 25 april 2014.</span><br /><br /><span style="font-family: Calibri">Het
+                                beroepsdossier wordt ingediend met een
+                                analoge of een digitale zending.</span><br /><br /><span
+                                style="font-family: Calibri">Het bevoegde bestuur kan bij de
+                                beroepsindiener, de vergunningsaanvrager of de
+                                overheid die in eerste administratieve aanleg
+                                bevoegd is, alle beschikbare informatie en
+                                documenten opvragen die nuttig zijn voor het
+                                dossier.</span><br /><br /><span style="font-family: Calibri">De beroepsindiener geeft,
+                                op straffe van
+                                verval, uitdrukkelijk in zijn beroepschrift
+                                aan of hij gehoord wil worden.</span><br /><br /><span style="font-family: Calibri">Als
+                                de vergunningsaanvrager gehoord wil
+                                worden, brengt hij het bevoegde bestuur
+                                daarvan uitdrukkelijk op de hoogte met een
+                                beveiligde zending uiterlijk vijftien dagen
+                                nadat hij een afschrift van het beroepschrift
+                                als vermeld in artikel 56 van het decreet van
+                                25 april 2014, heeft ontvangen, op voorwaarde
+                                dat hij niet de beroepsindiener is.</span><br /><br /><span style="
+                                    font-family: Calibri;
+                                    font-weight: bold;
+                                  ">Mededeling</span><br /><span style="font-family: Calibri">Deze gegevens kunnen
+                                worden opgeslagen in een
+                                of meer bestanden. Die bestanden kunnen zich
+                                bevinden bij de gemeente, waar u de aanvraag
+                                hebt ingediend, bij de provincie, en ook bij
+                                de Vlaamse administratie, bevoegd voor de
+                                omgevingsvergunning. Ze worden gebruikt voor
+                                de behandeling van uw dossier. Ze kunnen ook
+                                gebruikt worden voor het opmaken van
+                                statistieken en voor wetenschappelijke
+                                doeleinden. U hebt het recht om uw gegevens in
+                                deze bestanden in te kijken en zo nodig de
+                                verbetering ervan aan te vragen.</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-bottom: 0pt;
+                                  font-size: 11pt;
+                                ">
+                              <span style="
+                                    font-family: Calibri;
+                                    -aw-import: ignore;
+                                  ">&#xa0;</span>
+                            </p>
+                            <p style="
+                                  margin-top: 0pt;
+                                  margin-bottom: 0pt;
+                                  font-size: 11pt;
+                                ">
+                              <span style="
+                                    font-family: Calibri;
+                                    -aw-import: ignore;
+                                  ">&#xa0;</span>
+                            </p>
+                            <div style="-aw-headerfooter-type: footer-primary">
+                              <p style="
+                                    margin-top: 0pt;
+                                    margin-bottom: 0pt;
+                                    font-size: 11pt;
+                                  ">
+                                <span style="font-family: Calibri">&#xa0;</span>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="opendata-meetingitem-decree">
+                      <h2>Besluit</h2>
+
+                      <div class="opendata-meetingitem-organ">
+                        <span>Het college van burgemeester en schepenen
+                          beslist:</span>
+                      </div>
+                      <div property="prov:value" datatype="xsd:string">
+                        <div property="eli:has_part" typeof="besluit:Artikel"
+                          resource="https://data.gent.be/id/artikels/23.1109.0121.2297">
+                          <h3 property="eli:number" datatype="xsd:string">
+                            Artikel 1
+                          </h3>
+                          <span property="eli:language"
+                            resource="http://publications.europa.eu/resource/authority/language/NLD"
+                            typeof="skos:Concept"></span>
+                          <div property="prov:value" datatype="xsd:string">
+                            <span>
+                              <div>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>Het college van burgemeester en schepenen
+                                    verleent onder voorwaarden de
+                                    omgevingsvergunning voor het aanleggen van
+                                    een zwembad, het bouwen van een poolhouse,
+                                    het verwijderen van bestaande verharding
+                                    en het aanleggen van nieuwe verharding aan
+                                    Emanuel Lagast - Elisabeth Muylle gelegen
+                                    te Vogelheide 20, 9052 Gent.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>De door het college vergunde plannen zijn
+                                    de plannen die op de overzichtslijst
+                                    staan, die is toegevoegd als bijlage aan
+                                    deze vergunning en er integraal deel van
+                                    uitmaakt.
+                                  </span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>Plannen die niet op deze overzichtslijst
+                                    staan, maken geen deel uit van de
+                                    vergunning.
+                                  </span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>Controleer steeds of het om een
+                                    goedgekeurd plan gaat.
+                                  </span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span style="font-weight: bold">Opgelet, er kunnen voorwaarden betrekking
+                                    hebben op de plannen.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+                                </p>
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div property="prov:value" datatype="xsd:string">
+                        <div property="eli:has_part" typeof="besluit:Artikel"
+                          resource="https://data.gent.be/id/artikels/23.1109.5840.1809">
+                          <h3 property="eli:number" datatype="xsd:string">
+                            Artikel 2
+                          </h3>
+                          <span property="eli:language"
+                            resource="http://publications.europa.eu/resource/authority/language/NLD"
+                            typeof="skos:Concept"></span>
+                          <div property="prov:value" datatype="xsd:string">
+                            <span>
+                              <div>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span style="font-weight: bold">Legt volgende voorwaarden op:</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>&nbsp;</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span style="text-decoration: underline">Groenzone</span>
+                                </p>
+                                <p style="
+                                      margin-top: 0pt;
+                                      margin-left: 36pt;
+                                      margin-bottom: 0pt;
+                                      text-indent: -18pt;
+                                    ">
+                                  <span>-</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>Het extensief
+                                    gazon aan de linkerzijde
+                                    van het perceel moet aangelegd worden als
+                                    een streekeigen heestermassief.
+                                  </span>
+                                </p>
+                                <p style="
+                                      margin-top: 0pt;
+                                      margin-left: 36pt;
+                                      margin-bottom: 0pt;
+                                      text-indent: -18pt;
+                                    ">
+                                  <span>-</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>De wadi mag niet
+                                    aangelegd worden binnen
+                                    de 5 m-zone bepaalt volgens het
+                                    gewestelijk RUP.</span>
+                                </p>
+                                <p style="
+                                      margin-top: 0pt;
+                                      margin-left: 36pt;
+                                      margin-bottom: 0pt;
+                                      text-indent: -18pt;
+                                    ">
+                                  <span>-</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>Het poolhouse
+                                    (dak en omliggende
+                                    verharding inbegrepen) mag niet geplaatst
+                                    worden binnen de 5 m-zone bepaalt volgens
+                                    het gewestelijk RUP.</span>
+                                </p>
+                                <p style="
+                                      margin-top: 0pt;
+                                      margin-left: 36pt;
+                                      margin-bottom: 0pt;
+                                      text-indent: -18pt;
+                                    ">
+                                  <span>-</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>Het plantvak aan
+                                    de rechterzijde van het
+                                    perceel, ter hoogte van de grens met het
+                                    agrarisch gebied, moet aangelegd worden
+                                    als een streekeigen heestermassief.
+                                  </span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>&nbsp;</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span style="
+                                        font-weight: bold;
+                                        text-decoration: underline;
+                                      ">Voorwaarden inzake milderen van het
+                                    effect van verhardingen</span><span>:</span>
+                                </p>
+                                <p style="
+                                      margin-top: 0pt;
+                                      margin-left: 36pt;
+                                      margin-bottom: 0pt;
+                                      text-indent: -18pt;
+                                    ">
+                                  <span>-</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>De bepalingen van
+                                    de gewestelijke
+                                    stedenbouwkundige verordening inzake
+                                    hemelwaterputten,
+                                    infiltratievoorzieningen,
+                                    buffervoorzieningen en gescheiden lozing
+                                    van afvalwater en hemelwater moeten worden
+                                    nageleefd.</span>
+                                </p>
+                                <p style="
+                                      margin-top: 0pt;
+                                      margin-left: 36pt;
+                                      margin-bottom: 0pt;
+                                      text-indent: -18pt;
+                                    ">
+                                  <span>-</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>De bodem van de
+                                    infiltratievoorziening
+                                    mag niet dieper dan 70 cm onder het
+                                    maaiveld worden aangelegd.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span style="font-weight: bold">&nbsp;</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span style="text-decoration: underline">Riolering</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span style="font-weight: bold">Het rioleringsplan is niet compleet (geen
+                                    intekening tot aan de perceelsgrens - geen
+                                    intekening van de putten - geen volledig
+                                    plan), gezien de heraanleg van de tuin
+                                    dient voldaan te worden aan onderstaande
+                                    voorwaarden. Het plan is in deze zin aan
+                                    te passen.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <br /><span>De afvoer van het regen- en afvalwater
+                                    moeten op kosten en op risico van de
+                                    bouwheer, binnen zijn eigen terrein
+                                    uitgevoerd worden. Het afvoeren kan hetzij
+                                    door natuurlijke afloop, hetzij door het
+                                    oppompen in overeenstemming met de
+                                    diepteligging van de te maken
+                                    rioolaansluiting. Indien er een bestaande
+                                    aansluiting of een wachtaansluiting
+                                    aanwezig is, is de diepteligging hiervan
+                                    bindend. De wachtaansluitingen mogen niet
+                                    dieper dan 70 cm onder het maaiveld
+                                    zitten.</span><br /><span>De bijzondere aandacht van de bouwheer
+                                    wordt gevestigd op het feit dat het
+                                    waterpeil in de toekomstige
+                                    straatriolering kan stijgen tot gemiddeld
+                                    50 cm onder het straatniveau. De bouwheer
+                                    moet hier dan ook rekening mee houden bij
+                                    de aanleg van (en de aansluitingen op)
+                                    zijn binnenhuisriolering. Het Stadsbestuur
+                                    kan onder geen enkele voorwaarde
+                                    aansprakelijk gesteld worden voor schade
+                                    door wateroverlast die een gevolg is van
+                                    een onoordeelkundige aanleg van de
+                                    binnenhuisriolering.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>&nbsp;</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>De bijzondere aandacht van de bouwheer
+                                    wordt erop gevestigd dat er in de
+                                    Vogelheide nog geen riolering aanwezig is
+                                    die aangesloten is op een waterzuivering.
+                                    De aanvrager kan zich nooit op het
+                                    Stadsbestuur beroepen, bij moeilijkheden
+                                    die zich zouden kunnen voordoen ten
+                                    gevolge van een ontbrekende riolering. </span><br /><span>Bij een toekomstige aanleg
+                                    van de
+                                    riolering, wordt de rioolvertakking door
+                                    Farys geplaatst. De buis waarop Farys de
+                                    aansluiting naar de openbare riolering
+                                    realiseert, moet zo geplaatst worden dat
+                                    de uitvoering van een spie/mofverbinding
+                                    of krimpmofverbinding mogelijk is.</span><br /><span>Die buis moet voorzien zijn van
+                                    een BENOR
+                                    - merk en van het volgende materiaaltype
+                                    zijn:</span><br /><span>-ofwel gr&eacute;sbuis volgens norm NBN
+                                    EN 295 met een inwendige diameter van 150
+                                    millimeter</span><br /><span>-ofwel PVC-buis voor riolering volgens
+                                    norm NBN T42-108 met inwendige diameter
+                                    van 160 millimeter.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>&nbsp;</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>Door de aanleg van gescheiden
+                                    rioleringsstelsels, zowel op openbaar als
+                                    op privaat domein, kan er sneller
+                                    geurhinder ontstaan als gevolg van het
+                                    geconcentreerde (onverdunde)
+                                    afvalwater.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>De private riolering dient daarom
+                                    volledig op privaat domein geurdicht
+                                    afgeschermd te worden van openbare
+                                    riolering.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>Het tegengaan van geurhinder als gevolg
+                                    van de eigen private riolering dient ook
+                                    volledig op privaat domein aangepakt te
+                                    worden. Het is niet toegestaan hiertoe
+                                    ingrepen te voorzien in het openbaar
+                                    domein. Om geurhinder als gevolg van de
+                                    eigen private riolering te reduceren
+                                    werden er enkele richtlijnen opgesteld,
+                                    die u via deze link kan terugvinden: </span><a
+                                    href="http://www.farys.be/richtlijnengeurhinder" style="text-decoration: none"><span
+                                      style="
+                                          text-decoration: underline;
+                                          color: #0000ff;
+                                        ">http://www.farys.be/richtlijnengeurhinder</span></a><span style="
+                                        text-decoration: underline;
+                                        color: #0000ff;
+                                      ">.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>&nbsp;</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>Voor de toekomstige aansluiting van de
+                                    priv&eacute;waterafvoer op het openbaar
+                                    rioleringsstelsel moet u een aanvraag
+                                    indienen. Dit kan via de website: </span><a
+                                    href="http://www.farys.be/rioolaansluiting-aanvragen"
+                                    style="text-decoration: none"><span style="
+                                          text-decoration: underline;
+                                          color: #0000ff;
+                                        ">www.farys.be/rioolaansluiting-aanvragen</span></a><span style="
+                                        text-decoration: underline;
+                                        color: #0000ff;
+                                      ">
+                                  </span><span>(voor telefonische info: 078 35 35
+                                    99).</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>&nbsp;</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span style="font-weight: bold">De aansluiting op het rioleringsnet is
+                                    verplicht. FARYS|TMVW voert het gedeelte
+                                    van de werken op het openbaar domein uit.
+                                    Als er een bestaande aansluiting aanwezig
+                                    is (bv een aansluiting op een gracht of
+                                    ingebuisde gracht), dan moet u deze
+                                    verplicht gebruiken. Zowel de positie als
+                                    de diepte van deze aansluiting zijn
+                                    bindend.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>&nbsp;</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>De aanvrager moet zich voor de aanleg van
+                                    de priv&eacute;waterafvoer houden aan de
+                                    bepalingen van het Bijzonder
+                                    Waterverkoopreglement huisaansluitingen.
+                                    Dit reglement is terug te vinden op </span><a
+                                    href="http://www.farys.be/wettelijke-bepalingen" style="text-decoration: none"><span
+                                      style="
+                                          text-decoration: underline;
+                                          color: #0000ff;
+                                        ">www.farys.be/wettelijke-bepalingen</span></a><span style="
+                                        text-decoration: underline;
+                                        color: #0000ff;
+                                      ">.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>&nbsp;</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>De priv&eacute;waterafvoer mag enkel
+                                    geplaatst worden na goedkeuring van
+                                    FARYS|TMVW: tijdens een technische
+                                    evaluatie ter plaatse worden zowel het
+                                    aansluitpunt als de diepte van de
+                                    aansluiting bekeken.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span style="font-weight: bold">&nbsp;</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span style="font-weight: bold">De interne riolering moet zo ontworpen
+                                    worden dat een toekomstige aansluiting op
+                                    een gescheiden stelsel mogelijk is ( d.i.
+                                    afzonderlijke aansluitingen voor
+                                    regenwater en afvalwater). De
+                                    afvalwaterleiding moet hierbij
+                                    doorgetrokken worden als wachtleiding tot
+                                    het openbaar domein.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>Indien het niet mogelijk is dat het
+                                    regenwater ter plaatse infiltreert of in
+                                    een gracht loost voorzien dan ook de
+                                    wachtleiding voor regenwater naar het
+                                    openbaar domein.</span><br /><span>(Bij een toekomstige aanleg van het
+                                    openbaar domein zal de riolering
+                                    gescheiden worden. Na deze aanleg mag er
+                                    enkel nog fecaal water in de septische put
+                                    lozen.)</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>&nbsp;</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>De keuring van de priv&eacute;waterafvoer
+                                    is verplicht volgens het Algemeen
+                                    Waterverkoopreglement. Meer informatie
+                                    vind je op </span><a href="http://www.farys.be/keuring-privewaterafvoer"
+                                    style="text-decoration: none"><span style="
+                                          text-decoration: underline;
+                                          color: #0000ff;
+                                        ">www.farys.be/keuring-privewaterafvoer</span></a><span style="
+                                        text-decoration: underline;
+                                        color: #0000ff;
+                                      ">.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span style="font-weight: bold">&nbsp;</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>Er is enkel in de vorm van tekst sprake
+                                    van een septische put, deze wordt niet
+                                    weergegeven op het plan. Er moet blijvend
+                                    voorzien worden in een septische put, alle
+                                    afvalwater en alle afvoeren van toiletten
+                                    dienen hierop aan te sluiten (zie
+                                    VLAREM).</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>Bij een toekomstige aanleg van het
+                                    openbaar domein zal de riolering
+                                    gescheiden worden en zal dit voor de
+                                    aangelanden eveneens opgelegd worden. Na
+                                    deze aanleg mag er enkel nog fecaal water
+                                    in de septische put lozen.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>&nbsp;</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>De regenwaterafvoer (RWA) van het nieuwe
+                                    poolhouse mag in geen geval aangesloten
+                                    worden op de vuilwaterleiding (DWA) van
+                                    het interne, gescheiden
+                                    rioleringsstelsel.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>Deze dient te infiltreren, aangesloten te
+                                    worden op de regenwaterput of op de
+                                    interne RWA leiding.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>&nbsp;</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>De overloop/leegloop van het
+                                    buitenzwembad dient op de
+                                    regenwaterleiding of RWA aangesloten te
+                                    worden (bij leegloop moet de
+                                    chloordosering op tijd stoppen),
+                                    terugspoelwater/de backwash van de filter
+                                    moet op de vuilwaterleiding of DWA
+                                    aangesloten te worden.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>&nbsp;</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span style="text-decoration: underline">Oprit</span><br /><span
+                                    style="font-weight: bold">Er zal slechts &eacute;&eacute;n oprit
+                                    met een breedte van maximum 3 m op het
+                                    openbaar domein worden toegestaan.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span style="font-weight: bold">&nbsp;</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>Het is de bouwheer niet toegestaan om
+                                    zelf een oprit op het openbaar domein aan
+                                    te leggen.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>Na het be&euml;indigen van de werken zal
+                                    de oprit aangelegd worden door Stad Gent
+                                    op kosten van de bouwheer volgens het
+                                    geldende retributiereglement. Opritten op
+                                    openbaar domein, die niet aangelegd zijn
+                                    door de stad kunnen worden opgebroken. De
+                                    Stad bepaalt het materiaal van de oprit.
+                                    De oprit dient, na de werken, verplicht
+                                    aangevraagd te worden, het
+                                    aanvraagformulier kan u downloaden via de
+                                    website </span><a href="http://www.stad.gent" style="text-decoration: none"><span
+                                      style="
+                                          text-decoration: underline;
+                                          color: #0000ff;
+                                        ">www.stad.gent</span></a><span>
+                                    (typ trottoirs en opritten in het
+                                    zoekveld).</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>Dit document dient bezorgd te worden aan
+                                    de Dienst Wegen, Bruggen en Waterlopen,
+                                    Administratief Centrum, Woodrow
+                                    Wilsonplein 1, 9000 Gent, tel.:
+                                    09/266</span><span>&nbsp;</span><span>79</span><span>&nbsp;</span><span>00, via
+                                    mail: </span><a href="mailto:tdwegen@stad.gent" style="text-decoration: none"><span
+                                      style="
+                                          text-decoration: underline;
+                                          color: #0000ff;
+                                        ">tdwegen@stad.gent</span></a><span>
+                                    of met de post; Dienst Wegen, Bruggen en
+                                    Waterlopen, Botermarkt 1, 9000 Gent.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span style="color: #ff0000">&nbsp;</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span style="font-weight: bold">De openbare, groene bermen mogen in geen
+                                    geval verhard worden of voorzien van
+                                    andere private materialen door de
+                                    bouwheer. Ook halfverhardingen/steenslag -
+                                    zowel nieuwe als bestaande - zijn niet
+                                    toegelaten. In het geval van inbreuken kan
+                                    de stad deze verhardingen/materialen
+                                    opbreken op kosten van de bouwheer.</span><br /><span
+                                    style="font-weight: bold">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                    &nbsp;</span>
+                                </p>
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div property="prov:value" datatype="xsd:string">
+                        <div property="eli:has_part" typeof="besluit:Artikel"
+                          resource="https://data.gent.be/id/artikels/23.1109.4502.4434">
+                          <h3 property="eli:number" datatype="xsd:string">
+                            Artikel 3
+                          </h3>
+                          <span property="eli:language"
+                            resource="http://publications.europa.eu/resource/authority/language/NLD"
+                            typeof="skos:Concept"></span>
+                          <div property="prov:value" datatype="xsd:string">
+                            <span>
+                              <div>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span style="font-weight: bold">Wijst de aanvrager op volgende
+                                    aandachtspunten</span><span>:</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span style="text-decoration: underline">Openbaar domein</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>De bouwheer/vergunninghouder is steeds
+                                    verantwoordelijk voor beschadigingen aan
+                                    de inrichting van het openbaar domein,
+                                    groenaanleg, bermen, trottoirs,
+                                    boordstenen, (straat)kolken en de rijweg,
+                                    die te wijten zijn aan de bouwactiviteit.
+                                    De dienst Wegen, Bruggen en Waterlopen
+                                    herstelt deze beschadigingen op kosten van
+                                    de bouwheer/vergunninghouder.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>&nbsp;</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>De bouwheer/vergunninghouder moet voor de
+                                    aanvang van de werken een tegensprekelijke
+                                    plaatsbeschrijving opmaken van de
+                                    omliggende trottoirs en wegenis met
+                                    bijzondere aandacht voor de
+                                    (straat)kolken.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>Deze dient bezorgd te worden aan de
+                                    dienst Wegen, Bruggen en Waterlopen, via
+                                    afgifte op het Administratief Centrum,
+                                    Woodrow Wilsonplein 1, 9000 Gent, tel.:
+                                    09/266.79.00, via e-mail: </span><a href="mailto:tdwegen@stad.gent"
+                                    style="text-decoration: none"><span style="
+                                          text-decoration: underline;
+                                          color: #0000ff;
+                                        ">tdwegen@stad.gent</span></a><span>
+                                    of met de post aan Stad Gent t.a.v. Dienst
+                                    Wegen, Bruggen en Waterlopen, Botermarkt
+                                    1, 9000 Gent.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>Deze dient ten laatste twee weken voor
+                                    aanvang van de werken verstuurd of
+                                    afgegeven te worden, indien deze
+                                    laattijdig ingediend wordt kan deze niet
+                                    als tegensprekelijk beschouwd
+                                    worden.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>U kan dit door een architect of landmeter
+                                    laten doen maar u mag dit ook zelf
+                                    opnemen. (U maakt een aantal algemene
+                                    foto&rsquo;s vergezeld van
+                                    detailfoto&rsquo;s met reeds aanwezige
+                                    schade aan het openbaar domein. Bij elke
+                                    foto zet u een beschrijving en u voegt een
+                                    plannetje toe met aanduiding van de
+                                    positie van de foto&rsquo;s).</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>&nbsp;</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>De bijzondere aandacht van de bouwheer
+                                    wordt erop gevestigd dat de constructies
+                                    opgericht worden in een gebied met
+                                    risico&#39;s tot pluviaal overstromen. De
+                                    bouwheer moet de nodige maatregelen
+                                    treffen om wateroverlast te voorkomen. Het
+                                    Stadsbestuur kan onder geen enkele
+                                    voorwaarde aansprakelijk gesteld worden
+                                    voor schade door wateroverlast ten gevolge
+                                    van een overstroming.</span><br /><span>Hogere waterpeilen dan in het verleden
+                                    zijn niet uit te sluiten. Er is dan ook
+                                    geen enkele garantie dat het perceel in de
+                                    toekomst gespaard zal blijven van
+                                    wateroverlast.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>&nbsp;</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>De </span><span style="font-weight: bold">hydrantaanduiding</span><span> dient
+                                    behouden te blijven.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>&nbsp;</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span style="text-decoration: underline">Bodem</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>De aanleg van de ondergrondse constructie
+                                    mag er geenszins voor zorgen dat er een
+                                    permanente drainage optreedt met lagere
+                                    grondwaterstanden tot gevolg. Een
+                                    dergelijke permanente drainage is immers
+                                    in strijd met de doelstellingen van het
+                                    decreet integraal waterbeleid waarin is
+                                    opgenomen dat verdroging moet voorkomen
+                                    worden, beperkt of ongedaan gemaakt. De
+                                    ondergrondse constructie dient dan ook
+                                    uitgevoerd te worden als volledig
+                                    waterdichte kuip en zonder kunstmatig
+                                    drainagesysteem.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>&nbsp;</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>Een grondwaterbemaling kan noodzakelijk
+                                    zijn voor de bouwkundige werken of de
+                                    aanleg van de openbare nutsvoorzieningen.
+                                    Bij bemaling moet volgens Vlarem minstens
+                                    een melding van de activiteit gebeuren. Ze
+                                    kan evenwel vergunningsplichtig zijn en
+                                    zelfs merplichtig naargelang de ligging,
+                                    de diepte van de grondwaterverlaging en
+                                    het opgepompte debiet. De akte of
+                                    vergunning moet verleend zijn door de
+                                    bevoegde instantie vooraleer de
+                                    bemalingswerken kunnen gestart
+                                    worden.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>&nbsp;</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>In een aanvraagdossier voor een
+                                    vergunning of melding moeten steeds de
+                                    effecten naar de omgeving onderzocht
+                                    worden, op basis van de gemodelleerde
+                                    debieten en het bemalingsconcept, en moet
+                                    steeds vermeld worden op welke manier zal
+                                    omgegaan worden met het opgepompte
+                                    bemalingswater (toepassing van de
+                                    bemalingscascade). De bemalingsinstallatie
+                                    dient geplaatst te worden door een erkend
+                                    boorbedrijf.</span>
+                                </p>
+                                <p style="margin-top: 0pt; margin-bottom: 0pt">
+                                  <span>&nbsp; &nbsp; &nbsp; &nbsp;
+                                    &nbsp;&nbsp;</span>
+                                </p>
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="row" vocab="http://data.vlaanderen.be/ns/besluit#"
+        prefix="eli: http://data.europa.eu/eli/ontology# dct: http://purl.org/dc/terms/ foaf: http://xmlns.com/foaf/0.1/ besluit: http://data.vlaanderen.be/ns/besluit# prov: http://www.w3.org/ns/prov#"
+        property="prov:generated" typeof="besluit:Besluit"
+        resource="https://data.gent.be/id/besluiten/23.1109.1944.5282">
+        <!-- Attachments when lblodLink is not empty -->
+        <div class="col-12">
+          <h2 class="attachments">Bijlagen</h2>
+          <ul class="attachments">
+            <li class="attachment">
+              <i class="fas fa-download"></i>
+
+              <a href="/document/654d407ab855b06b9bd8757b" typeof="foaf:Document" property="eli:related_to"
+                rev="dct:isPartOf">OMV_2023101163_Lijst plannenset.pdf</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="container">
+      <div class="copyright">
+        &copy;&nbsp;<a href="https://www.greenvalleybelgium.be" target="_blank">Green Valley Belgium</a>
+      </div>
+      <div class="contact"></div>
+    </div>
+  </footer>
+  <script>
+    var $webcastIndex = 0;
+    var $webcasts = [];
+    var $webcastPosition = "Webcast {0} van {1}";
+  </script>
+</body>
+
+</html>
