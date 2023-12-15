@@ -208,9 +208,9 @@ export default class RDFaProcessor extends URIResolver {
       if (node.ownerDocument.doctype) {
         if (
           node.ownerDocument.doctype.publicId ==
-            "-//W3C//DTD XHTML+RDFa 1.0//EN" &&
+          "-//W3C//DTD XHTML+RDFa 1.0//EN" &&
           node.ownerDocument.doctype.systemId ==
-            "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd"
+          "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd"
         ) {
           console.log(
             "WARNING: RDF 1.0 is not supported.  Defaulting to HTML5 mode.",
@@ -218,9 +218,9 @@ export default class RDFaProcessor extends URIResolver {
           this.setHTMLContext();
         } else if (
           node.ownerDocument.doctype.publicId ==
-            "-//W3C//DTD XHTML+RDFa 1.1//EN" &&
+          "-//W3C//DTD XHTML+RDFa 1.1//EN" &&
           node.ownerDocument.doctype.systemId ==
-            "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-2.dtd"
+          "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-2.dtd"
         ) {
           this.setXHTMLContext();
         } else {
@@ -329,11 +329,11 @@ export default class RDFaProcessor extends URIResolver {
       "http://www.w3.org/1999/xhtml/vocab#transformation";
   }
 
-  init() {}
+  init() { }
 
-  newSubjectOrigin(origin, subject) {}
+  newSubjectOrigin(origin, subject) { }
 
-  addTriple(origin, subject, predicate, object) {}
+  addTriple(origin, subject, predicate, object) { }
 
   process(node, options) {
     if (node.nodeType == Node.DOCUMENT_NODE) {
@@ -344,13 +344,16 @@ export default class RDFaProcessor extends URIResolver {
     }
     var queue = [];
     // Fix for Firefox that includes the hash in the base URI
-    var removeHash = function (baseURI) {
+    var removeHash = function(baseURI) {
       var hash = baseURI.indexOf("#");
       if (hash >= 0) {
         baseURI = baseURI.substring(0, hash);
       }
       if (options && options.baseURIMap) {
         baseURI = options.baseURIMap(baseURI);
+      }
+      if (baseURI == "about:blank") {
+        baseURI = options.baseURI;
       }
       return baseURI;
     };
@@ -864,18 +867,18 @@ export default class RDFaProcessor extends URIResolver {
             datatypeAtt.value == ""
               ? RDFaProcessor.PlainLiteralURI
               : this.parseTermOrCURIEOrAbsURI(
-                  datatypeAtt.value,
-                  vocabulary,
-                  context.terms,
-                  prefixes,
-                  base,
-                );
+                datatypeAtt.value,
+                vocabulary,
+                context.terms,
+                prefixes,
+                base,
+              );
           if (datetimeAtt && !contentAtt) {
             content = datetimeAtt.value;
           } else {
             content =
               datatype == RDFaProcessor.XMLLiteralURI ||
-              datatype == RDFaProcessor.HTMLLiteralURI
+                datatype == RDFaProcessor.HTMLLiteralURI
                 ? null
                 : contentAtt
                   ? contentAtt.value
@@ -943,10 +946,10 @@ export default class RDFaProcessor extends URIResolver {
                   datatype == RDFaProcessor.HTMLLiteralURI
                   ? { type: datatype, value: current.childNodes }
                   : {
-                      type: datatype ? datatype : RDFaProcessor.PlainLiteralURI,
-                      value: content,
-                      language: language,
-                    },
+                    type: datatype ? datatype : RDFaProcessor.PlainLiteralURI,
+                    value: content,
+                    language: language,
+                  },
               );
             } else {
               if (
@@ -1073,7 +1076,7 @@ export default class RDFaProcessor extends URIResolver {
     }
   }
 
-  copyProperties() {}
+  copyProperties() { }
 
   push(parent, subject) {
     return {
@@ -1108,7 +1111,7 @@ RDFaProcessor.NCNAME = new RegExp(
   "^" + RDFaProcessor.nameStartChar + RDFaProcessor.nameChar + "*$",
 );
 
-RDFaProcessor.trim = function (str) {
+RDFaProcessor.trim = function(str) {
   return str.replace(/^\s\s*/, "").replace(/\s\s*$/, "");
 };
 
@@ -1144,7 +1147,7 @@ RDFaProcessor.dateTimeTypes = [
   },
 ];
 
-RDFaProcessor.deriveDateTimeType = function (value) {
+RDFaProcessor.deriveDateTimeType = function(value) {
   for (var i = 0; i < RDFaProcessor.dateTimeTypes.length; i++) {
     //console.log("Checking "+value+" against "+RDFaProcessor.dateTimeTypes[i].type);
     var matched = RDFaProcessor.dateTimeTypes[i].pattern.exec(value);
