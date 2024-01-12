@@ -1,0 +1,940 @@
+<!doctype html>
+<html lang="nl">
+
+<head>
+  <title>Raadpleegomgeving - Open Data - Besluitenlijst</title>
+
+  <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="_ctx" />
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" />
+
+  <link rel="stylesheet" href="/lib/datatables/css/datatables.min.css" />
+  <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/lib/fontawesome/css/all.min.css" />
+  <link rel="stylesheet" href="/lib/datetimepicker/css/bootstrap-datetimepicker.min.css" />
+  <link rel="stylesheet" href="/lib/select2/css/select2.min.css" />
+  <link rel="stylesheet" href="/lib/select2/css/select2-bootstrap4.min.css" />
+  <link rel="stylesheet" href="/lib/select2/css/select2-readonly.css" />
+  <link rel="stylesheet" href="/lib/bootstrap-multiselect/css/bootstrap-multiselect.min.css" />
+  <link rel="stylesheet" href="/consult.css" />
+
+  <!-- GVSUP-1791 - remove when IE11 is not used anymore -->
+  <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+
+  <script src="/lib/less/less.min.js"></script>
+  <script src="/lib/jquery/jquery-3.4.1.min.js"></script>
+  <script src="/lib/jquery-mustache/jquery.mustache.js"></script>
+  <script src="/lib/jquery-pagination/jquery-pagination.js"></script>
+  <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/lib/bootbox/bootbox.min.js"></script>
+  <script src="/lib/underscore/underscore.min.js"></script>
+  <script src="/lib/datatables/js/datatables.min.js"></script>
+  <script src="/lib/moment/moment-with-locales.min.js"></script>
+  <script src="/lib/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+  <script src="/lib/select2/js/select2.min.js"></script>
+  <script src="/lib/select2/i18n/select2.nl.js"></script>
+  <script src="/lib/bootstrap-multiselect/js/bootstrap-multiselect.js"></script>
+  <script src="//sdk.companywebcast.com/sdk/player/client.js"></script>
+
+  <!-- Matomo -->
+
+  <!-- End Matomo Code -->
+
+  <script>
+    var _contextPath = "";
+    $(document).ready(function () {
+      var _ctxContent = $("meta[name=_ctx]").attr("content");
+      _contextPath = _ctxContent ? _ctxContent : "";
+    });
+  </script>
+
+  <script src="/js/consult.js"></script>
+</head>
+
+<body>
+  <nav>
+    <div class="container">
+      <div class="logo">
+        <a class="navi-logo" href="/"><img
+            src="data:image/png;base64, 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"
+            alt="Logo Raadpleegomgeving" /></a>
+      </div>
+      <div class="menu">
+        <span class="menu-item">
+          <a href="/"><i class="fal fa-home"></i><span class="d-none d-lg-inline-block">Startpagina</span></a>
+        </span>
+        <span class="menu-item">
+          <a href="/zittingen/lijst" class="calendar-link"><i class="fal fa-calendar-alt"></i><span
+              class="d-none d-lg-inline-block">Kalender</span></a>
+        </span>
+        <span class="menu-item">
+          <a href="/bekendmakingen"><i class="far fa-bell"></i><span
+              class="d-none d-lg-inline-block">Bekendmakingen</span></a>
+        </span>
+
+        <span class="menu-item d-lg-none">
+          <a href="/zoeken"><i class="far fa-search"></i><span class="d-none d-lg-inline-block">Zoeken</span></a>
+        </span>
+        <div class="search menu-item d-none d-lg-inline-block">
+          <label for="search-field" class="sr-only">Zoeken</label>
+          <input type="text" autocomplete="off" id="search-field" />
+          <i class="far fa-search"></i>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <section>
+    <div class="container">
+      <a href="/zittingen/20.1210.4748.1749" id="return-link"><span class="sr-only">Terug</span><i
+          class="fal fa-arrow-circle-left"></i></a>
+      <div vocab="http://data.vlaanderen.be/ns/besluit#"
+        prefix="eli: http://data.europa.eu/eli/ontology# besluitDocumentType: https://data.vlaanderen.be/id/concept/BesluitDocumentType/ foaf: http://xmlns.com/foaf/0.1/"
+        resource="#" typeof="foaf:Document">
+        <div typeof="foaf:Document besluitDocumentType:3fa67785-ffdc-4b30-8880-2b99d97b4dee"
+          resource="https://data.leopoldsburg.be/id/lblod/besluitenlijst/20.1210.4748.1749">
+          <span property="eli:date_publication" datatype="xsd:date" content="2021-05-04"></span>
+        </div>
+      </div>
+      <div class="publication-date">Gepubliceerd op 04/05/2021</div>
+
+      <div>
+        <div class="opendata-html" vocab="http://data.vlaanderen.be/ns/besluit#"
+          prefix="eli: http://data.europa.eu/eli/ontology# prov: http://www.w3.org/ns/prov# mandaat: http://data.vlaanderen.be/ns/mandaat# persoon: https://data.vlaanderen.be/ns/persoon# org: http://www.w3.org/ns/org# besluit: http://data.vlaanderen.be/ns/besluit# skos: http://www.w3.org/2004/02/skos/core#"
+          resource="#" typeof="foaf:Document">
+          <div class="opendata-meeting" typeof="besluit:Zitting" resource="https://data.leopoldsburg.be
+/zittingen/20.1210.4748.1749/agenda">
+            <h1 class="return-header" property="dc:title" datatype="xsd:string">
+              <span>Besluitenlijst&nbsp;</span>
+              <span class="organ" property="http://data.vlaanderen.be/ns/besluit#isGehoudenDoor"
+                typeof="http://data.vlaanderen.be/ns/besluit#Bestuursorgaan"
+                resource="http://data.lblod.info/id/bestuursorganen/44550c2d35e5a3d70f3de7a0941897c03d7c61050b214e15149eb4700a915def">College
+                van Burgemeester en Schepenen</span>
+            </h1>
+            <div class="opendata-meetinginformation">
+              <span class="opendata-meetingdate" property="besluit:geplandeStart" datatype="xsd:dateTime"
+                content="2021-04-26T17:00:00.000+02:00">ma 26/04/2021 - 17:00</span>
+              <span class="opendata-meetinglocation" property="prov:atLocation" datatype="xsd:string">Vergaderzaal
+                Heppen</span>
+              <span class="opendata-meetingstarttime" property="prov:startedAtTime" datatype="xsd:dateTime"
+                content="2021-04-26T17:01:00.000+02:00"></span>
+              <span class="opendata-meetingendtime" property="prov:endedAtTime" datatype="xsd:dateTime"
+                content="2021-04-26T18:44:00.000+02:00"></span>
+            </div>
+            <div class="opendata-meeting-items">
+              <ul>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0423.4297.8727">
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    De Oogst - Afhaalontbijt op zondag 09 mei 2021 (moederdag)
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Behandeld</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0423.0575.7277">
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    Sciensano - Oproep lokale gezondheidsenquête
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Behandeld</span>
+                  </div>
+                  <span class="summary" property="dc:description" datatype="xsd:string">
+                    <p>
+                      Het college vraagt Ben Colaers een analyse van de lokale
+                      inzet (personele en financi&euml;le middelen) na te gaan
+                      en het punt opnieuw te agenderen.
+                    </p>
+                  </span>
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0423.4297.8727" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0426.4847.2679">
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    Antwoorden op binnengekomen klachten via ABB
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Behandeld</span>
+                  </div>
+                  <span class="summary" property="dc:description" datatype="xsd:string">
+                    <p>
+                      Het college nam kennis van de binnegekomen klachten en
+                      formuleerde de krijtlijnen voor een antwoord op volgende
+                      klachten:
+                    </p>
+                    <ul>
+                      <li>
+                        Klacht bij de provinciegouverneur tegen-besluit
+                        burgemeester Leopoldsburg <br />(gevaarlijke honden -
+                        maatregelen inzake veiligheid-goedkeuring)
+                      </li>
+                      <li>
+                        Op 1 maart 2021 (notulen CBS 1 maart 2021, 115-116,
+                        punt 44) beslist het college van burgemeester en
+                        schepenen om de start van de wijkwerking uit te
+                        stellen, het budget dat hiervoor voorzien was in 2021
+                        in te zetten om in elke wijk een culturele activiteit
+                        in de vorm van straatanimatie te organiseren, en de
+                        laatste wijk alsnog aan bod te laten komen in 2026
+                        voor de toekenning van het wijkbudget.
+                      </li>
+                      <li>
+                        Het indienen van een afwijkingsaanvraag voor het
+                        bestaand recyclagepark door de wd. burgemeester en de
+                        wd. algemeen directeur is niet gebaseerd op een
+                        formele beslissing van het college van burgemeester en
+                        schepenen.
+                      </li>
+                    </ul>
+                  </span>
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0423.0575.7277" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0423.3267.3317">
+                  <div class="position">
+                    <span class="label">1.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00463 - Notulen vorige vergadering - Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0426.4847.2679" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0420.8556.1880">
+                  <div class="position">
+                    <span class="label">2.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00464 - Projectdefinitie - Liberation Garden -
+                    bouw en inrichting - Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0423.3267.3317" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0423.6221.6273">
+                  <div class="position">
+                    <span class="label">3.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00503 - Budgethouderschap cultuurprogrammatie en
+                    –promotie (Periode 2021) - Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0420.8556.1880" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0421.8571.2485">
+                  <div class="position">
+                    <span class="label">4.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00465 - Personeel - kwartaalrapport 2021/1 -
+                    ziekteverzuim gemeten volgens de Bradfordfactor -
+                    Kennisneming
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Kennis genomen</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="false"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0423.6221.6273" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0421.9256.4726">
+                  <div class="position">
+                    <span class="label">5.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00466 - Personeel - aanvraag tot het volgen van
+                    een opleiding in het kader van de verplichte vorming
+                    milieucoördinator - Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="false"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0421.8571.2485" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0421.9244.0550">
+                  <div class="position">
+                    <span class="label">6.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00467 - Personeel - indiensttreding van een
+                    administratief medewerker - Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="false"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0421.9256.4726" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0420.9765.5945">
+                  <div class="position">
+                    <span class="label">7.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00468 - Raamovereenkomst en
+                    verwerkersovereenkomst Callexcell NV
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0421.9244.0550" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0421.9473.2092">
+                  <div class="position">
+                    <span class="label">8.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00469 - 473.11 Vaststelling van de vorderingen +
+                    473.21 Betaalbaarstelling van de betalingsbevelen + 473.21
+                    Goedkeuring van de bestelbonnen - Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0420.9765.5945" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.2663.6308">
+                  <div class="position">
+                    <span class="label">9.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00470 - Financiën - 484.07 - Oninbaar verklaring
+                    diverse opbrengsten - Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="false"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0421.9473.2092" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.3421.6373">
+                  <div class="position">
+                    <span class="label">10.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00471 - 484.06 - Fiscaal bezwaarschrift tegen de
+                    belasting op de inzameling en de verwerking van
+                    huishoudelijke afvalstoffen 2021 - Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.2663.6308" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.4429.0460">
+                  <div class="position">
+                    <span class="label">11.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00472 - 484.06 - Fiscaal bezwaarschrift tegen de
+                    belasting op de inzameling en de verwerking van
+                    huishoudelijke afvalstoffen 2021 - Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.3421.6373" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.8789.1320">
+                  <div class="position">
+                    <span class="label">12.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00473 - 484.06 - Vraag naar vrijstelling voor de
+                    belasting op de inzameling en de verwerking van
+                    huishoudelijke afvalstoffen 2021 - Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.4429.0460" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.0841.7772">
+                  <div class="position">
+                    <span class="label">13.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00474 - Betaling factuur De Watergroep -
+                    verbruiksadres: Bergstraat 9, 3970 Leopoldsburg -
+                    Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.8789.1320" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0418.6474.9824">
+                  <div class="position">
+                    <span class="label">14.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00475 - Academie voor Beeldende Kunsten
+                    Heusden-Zolder - Tussenkomst Leopoldsburg in de werking -
+                    afrekening 2020 - Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.0841.7772" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.0188.6892">
+                  <div class="position">
+                    <span class="label">15.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00476 - Opzeggen bankrekening Projectvereniging
+                    CultuurCentraal - Kennisneming
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Kennis genomen</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0418.6474.9824" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0423.0360.6173">
+                  <div class="position">
+                    <span class="label">16.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00477 - Notulen vergadering kerkbestuur
+                    Sint-Blasius - 15-03-2021 - Kennisneming
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Kennis genomen</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.0188.6892" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.0355.6891">
+                  <div class="position">
+                    <span class="label">17.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00478 - Analyse data omgeving naar SharePoint
+                    (dataopslag in cloud binnen Microsoft Office 365) -
+                    Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0423.0360.6173" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0423.4117.6320">
+                  <div class="position">
+                    <span class="label">18.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00479 - Richtlijnen corona-maatregelen -
+                    toepassing op de dienst Burgerzaken - Kennisneming
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Kennis genomen</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.0355.6891" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.0539.0643">
+                  <div class="position">
+                    <span class="label">19.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00480 - Markt - schorsing abonnement P17 -
+                    Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0423.4117.6320" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.3203.4745">
+                  <div class="position">
+                    <span class="label">20.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00481 - Omgevingsvergunning voor het bouwen van
+                    een woning - Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.0539.0643" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.9556.9721">
+                  <div class="position">
+                    <span class="label">21.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00482 - Omgevingsvergunning voor het bouwen van
+                    twee woningen in halfopen bebouwing met tuinbergingen en
+                    carports - Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.3203.4745" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0421.6912.9879">
+                  <div class="position">
+                    <span class="label">22.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00483 - Omgevingsvergunning voor het plaatsen van
+                    een bijgebouw en de regularisatie van een tuinhuis -
+                    Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.9556.9721" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0421.3353.4509">
+                  <div class="position">
+                    <span class="label">23.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00484 - Omgevingsvergunning voor het uitbreiden
+                    van een woning met fotostudio en babywellness -
+                    Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0421.6912.9879" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0421.0478.5794">
+                  <div class="position">
+                    <span class="label">24.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00485 - Weigering van omgevingsvergunning voor
+                    het bouwen van 25 woningen
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0421.3353.4509" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0421.1536.9532">
+                  <div class="position">
+                    <span class="label">25.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00486 - Weigering van omgevingsvergunning voor de
+                    regularisatie van een bijgebouw
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0421.0478.5794" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.2351.0885">
+                  <div class="position">
+                    <span class="label">26.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00487 - Omgevingsvergunning voor het aanleggen
+                    van verharding - Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0421.1536.9532" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0421.3554.1705">
+                  <div class="position">
+                    <span class="label">27.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00488 - Omgevingsvergunning tot het verkavelen
+                    van gronden gelegen te 3971 Leopoldsburg, Hoekstraat -
+                    Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.2351.0885" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0421.9057.0324">
+                  <div class="position">
+                    <span class="label">28.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00489 - Omgevingsvergunning voor het kappen van
+                    een boom - Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0421.3554.1705" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.2152.3362">
+                  <div class="position">
+                    <span class="label">29.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00490 - Omgevingsvergunning voor de exploitatie
+                    van een schildersbedrijf (hernieuwing) - Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0421.9057.0324" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0421.9240.1853">
+                  <div class="position">
+                    <span class="label">30.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00491 - Toekennen busnummers aan de
+                    nieuwbouwproject met handelspand en appartementen -
+                    Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.2152.3362" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0420.5337.5920">
+                  <div class="position">
+                    <span class="label">31.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00492 - Beroepschrift tegen omgevingsvergunning -
+                    Kennisneming
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Kennis genomen</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0421.9240.1853" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0420.3104.4126">
+                  <div class="position">
+                    <span class="label">32.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00493 - Beroepschrift tegen omgevingsvergunning -
+                    Kennisneming
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Kennis genomen</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0420.5337.5920" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0419.4015.1527">
+                  <div class="position">
+                    <span class="label">33.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00494 - Uitvoering overeenkomst omtrent
+                    sterilisatie/castratie zwerfkatten en huiskatten -
+                    Kennisneming
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Kennis genomen</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0420.3104.4126" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.6827.6223">
+                  <div class="position">
+                    <span class="label">34.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00495 - Subsidies investeringen
+                    verkeersveiligheid - Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0419.4015.1527" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.4736.6030">
+                  <div class="position">
+                    <span class="label">35.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00496 - 862.4/2021-001 - Bestrijding
+                    processierupsen dienstjaar 2021 - Goedkeuring gunning -
+                    Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.6827.6223" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.0346.8083">
+                  <div class="position">
+                    <span class="label">36.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00497 - 861/2021-001 - Afbraak zaal Zandberg -
+                    Goedkeuring gunning en lastvoorwaarden - Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.4736.6030" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0421.7845.8488">
+                  <div class="position">
+                    <span class="label">37.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00498 - aanstelling vrijwilligers 2021 voor de
+                    werkingen van de sportdienst (3) - Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.0346.8083" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.3124.2193">
+                  <div class="position">
+                    <span class="label">38.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00499 - Aanvragen cafetaria &#39;t Geleeg ikv
+                    heropening horeca op 8 mei - Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0421.7845.8488" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.2042.9572">
+                  <div class="position">
+                    <span class="label">39.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00500 - Aanvraag ondersteuning projecten van
+                    tennisvereniging MTC Leopoldsburg - Kennisneming
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Kennis genomen</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.3124.2193" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.1925.4409">
+                  <div class="position">
+                    <span class="label">40.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00501 - Investeringstoelage Voetbalvereniging
+                    K.esk Leopoldsburg - Kennisneming
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Kennis genomen</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.2042.9572" />
+                </li>
+                <li property="besluit:behandelt" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0415.8321.2834">
+                  <div class="position">
+                    <span class="label">41.</span>
+                  </div>
+                  <h2 class="title" property="dc:title" datatype="xsd:string">
+                    2021_CBS_00502 - Vergunning evenement - KOS Centrum
+                    Leopoldsburg - 2 oktober 2021 - Goedkeuring
+                  </h2>
+                  <div class="positive opendata-meetingitem-decision">
+                    <span>Goedgekeurd</span>
+                  </div>
+
+                  <span property="besluit:geplandOpenbaar" datatype="xsd:boolean" content="true"></span>
+                  <meta property="besluit:aangebrachtNa" typeof="besluit:Agendapunt" resource="https://data.leopoldsburg.be
+/id/agendapunten/21.0422.1925.4409" />
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="container">
+      <div class="copyright">
+        &copy;&nbsp;<a href="https://www.greenvalleybelgium.be" target="_blank">Green Valley Belgium</a>
+      </div>
+      <div class="contact"></div>
+    </div>
+  </footer>
+  <script>
+    (function ($) {
+      $(document).ready(function () {
+        $("#return-link").prependTo($("h1.return-header"));
+        $(".publication-date").prependTo(
+          $("div.opendata-meetinginformation"),
+        );
+      });
+    })(jQuery);
+  </script>
+</body>
+
+</html>

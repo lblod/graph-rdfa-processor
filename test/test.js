@@ -23,8 +23,8 @@ describe("getRDFaGraph", function() {
     assert.equal(graph.toString(), expected);
   });
 
-  it("whatever", () => {
-    let ht = readFileSync("./bug4.html");
+  it.only("whatever", () => {
+    let ht = readFileSync("./bug6.html");
     let { document } = jsdom(ht).defaultView.window;
 
     let graph = getRDFaGraph(document, {
