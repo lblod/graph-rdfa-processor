@@ -461,6 +461,7 @@ export class RDFaPredicate {
           '"""' +
           value
             .replace(/([^\\]|^)(\\)(?!\\)/g, "$1\\\\")
+            .replace(/\\\\\\/g, "\\\\\\\\\\\\")
             .replace(/"""/g, '\\"\\"\\"') +
           '"""^^<http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral>';
       } else if (
@@ -475,6 +476,7 @@ export class RDFaPredicate {
             '"""' +
             this.objects[i].value[0].parentNode.innerHTML
               .replace(/([^\\]|^)(\\)(?!\\)/g, "$1\\\\")
+              .replace(/\\\\\\/g, "\\\\\\\\\\\\")
               .replace(/"""/g, '\\"\\"\\"') +
             '"""^^<http://www.w3.org/1999/02/22-rdf-syntax-ns#HTML>';
         }
@@ -484,12 +486,19 @@ export class RDFaPredicate {
         if (l.indexOf("\n") >= 0 || l.indexOf("\r") >= 0) {
           s +=
             '"""' +
-            l.replace(/([^\\]|^)(\\)(?!\\)/g, "$1\\\\").replace(/"/g, '\\"') +
+            l
+              .replace(/([^\\]|^)(\\)(?!\\)/g, "$1\\\\")
+              .replace(/\\\\\\/g, "\\\\\\\\\\\\")
+              .replace(/"/g, '\\"') +
             '"""';
         } else {
           s +=
             '"' +
-            l.replace(/([^\\]|^)(\\)(?!\\)/g, "$1\\\\").replace(/"/g, '\\"') +
+            l
+              .replace(/\\\\\\/g, "\\\\\\\\\\\\")
+              .replace(/([^\\]|^)(\\)(?!\\)/g, "$1\\\\")
+              .replace(/\\\\\\/g, "\\\\\\\\\\\\")
+              .replace(/"/g, '\\"') +
             '"';
         }
         if (

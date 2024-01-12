@@ -1,0 +1,1956 @@
+<!doctype html>
+<html lang="nl">
+
+<head>
+  <title>Raadpleegomgeving - Open Data - Agendapunt</title>
+
+  <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="_ctx" />
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" />
+
+  <link rel="stylesheet" href="/lib/datatables/css/datatables.min.css" />
+  <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/lib/fontawesome/css/all.min.css" />
+  <link rel="stylesheet" href="/lib/datetimepicker/css/bootstrap-datetimepicker.min.css" />
+  <link rel="stylesheet" href="/lib/select2/css/select2.min.css" />
+  <link rel="stylesheet" href="/lib/select2/css/select2-bootstrap4.min.css" />
+  <link rel="stylesheet" href="/lib/select2/css/select2-readonly.css" />
+  <link rel="stylesheet" href="/lib/bootstrap-multiselect/css/bootstrap-multiselect.min.css" />
+  <link rel="stylesheet" href="/consult.css" />
+
+  <!-- GVSUP-1791 - remove when IE11 is not used anymore -->
+  <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+
+  <script src="/lib/less/less.min.js"></script>
+  <script src="/lib/jquery/jquery-3.4.1.min.js"></script>
+  <script src="/lib/jquery-mustache/jquery.mustache.js"></script>
+  <script src="/lib/jquery-pagination/jquery-pagination.js"></script>
+  <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/lib/bootbox/bootbox.min.js"></script>
+  <script src="/lib/underscore/underscore.min.js"></script>
+  <script src="/lib/datatables/js/datatables.min.js"></script>
+  <script src="/lib/moment/moment-with-locales.min.js"></script>
+  <script src="/lib/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+  <script src="/lib/select2/js/select2.min.js"></script>
+  <script src="/lib/select2/i18n/select2.nl.js"></script>
+  <script src="/lib/bootstrap-multiselect/js/bootstrap-multiselect.js"></script>
+  <script src="//sdk.companywebcast.com/sdk/player/client.js"></script>
+
+  <!-- Matomo -->
+
+  <!-- End Matomo Code -->
+
+  <script>
+    var _contextPath = "";
+    $(document).ready(function () {
+      var _ctxContent = $("meta[name=_ctx]").attr("content");
+      _contextPath = _ctxContent ? _ctxContent : "";
+    });
+  </script>
+
+  <script src="/js/consult.js"></script>
+  <script src="/js/meetingitem.js"></script>
+</head>
+
+<body>
+  <nav>
+    <div class="container">
+      <div class="logo">
+        <a class="navi-logo" href="/"><img
+            src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAKQAAABGCAYAAABCOT/IAAANgUlEQVR42u2dCXRTVRqA0zZJ23SDtBQGyqI4yCiiI+rIqIAo6+jRM4IL4jYHORyVGUfGQY8HhRFo8pI2XSilbCIgSxUoi4wwIOPCogKyqchS7CBgS0tZpHSh/PP/96alyXsveWnTNKH3Hv7T9i3/fffe7/3/f7eHTieSSMGcoMwcD6VxPVtEqrb1BACnVOGxxMbrytP1hOlCglryOpq8A/lL/JNQnAAtItVboT5dqcJjbRqvKy8CIFUnJJjFkTRAAClEACmAFCKAFEAKIAWQQoITyDMPAJwdrS7ljwgghQQQyMrV4DHV/CCAFCKAFOJnWToI2+yiq6wZLYAMOJBWA4AtGn8a8e+w1gvk8qHytl33fBACWXonxpGD1aXsvtABMrMdwNrnAPbOAzi1C+BSGT5bLT0g/kOp/hXLdBjgyMcAX76LVgPLZ4sSQIpetp+BfP9ugIMrAC5Xg8+p8hzAvgUAaXECSAFkE4HMTAb4bim3gE1NOV0FkALIJgC5sC/AhZPeQSOXfbkSpcozuDM6CyAFkI0EcsmDvJeo6ILPAuzBGHLVE6i3B+/QpIYDWDAPR1uABXcBbHgZ4McC7LBVXL0vu6MAUgDZCCDn3gJQdV5hNOASwOfvYCwYr11XOj7zxvEA5UcBsjoIIAWQPgJJPeLT38sr9vzPAPN/37ShIateACmA9BHIz9+WVyoN7eTdGCQNH9bMusMEkEEDJLlXig/dU8ETLQfge3cC7JyBZdiLL0Y5DyXKC/kQ1JpnAKTIpulf3A/g2znoFb7jZachqrLDfGRh5QgeFwsgWwhIivXc08/bWmb2JSMR4IcPvQ83UWz6wQDf9Wd3Ajj6ifcRhJID+FLcIYBsESD/94W8QlePCjyMM1LQSh3SPr5ZW817/Fr1U/hBMbHWRCMFywYLIAMKJM2i1NbIG9qXHrU/RMJO1S+7lWd7Cjdyq1ZRKj9P46Dz+2gIS2g54BH5/aSTdFMeSmEL5Z97gwAyYEAuuldemRS3Bdo6fjFF/hwUQzacdiRot06TX3fyG4z5vIQXu3LdR/VR11TX+XZ7LF43U67/yPpWAuS5MQAXM+VSeyJwQK59Vl6ZB1cGeD2gWT7+uX+RB7hy5M+8bIj69TR1Wes2F/9VmnqPm8WwbvDOv70VAHlphYbpuWYGctNr8jxpRU8ggfzkJXnIQJ0P1Y5PO+6qtQL8xWS5G/a04GPWb/kKJheA7QLIgAC5ZaICkPObBtiWNwB+LXaVub3VryeX2DAd/9J7Hj996noPzb2rjQqc2ul67Y8aPEDJfu1hjADSj0D+52/yPGkuuilAfjlVrlPV5SFEFWWu1x5aywH2JAc/kuehNEVJ8+3u7nrf+971uwNPOtTGPq8ZIE93Byi9xYv0aloe3oAseEp5DC5QQNKiDH+lBXcqD/X4K6kto7vme9n+FG9A0uCvbHyvBiC9bWCAzO3uP2CWDFJYYNzXf/pp8YkAspmBJDfUcKlYXaLpuVADcumQ5gVSbbxTAOnnmRraByObOtweGCBpqtA9Hd8GkP+Q70L7ftz1z75JeVyxMfppcD1kgCzByriYgT+7hh6Qq59WtggrHwtApyZcPkNy4iv/DSnZYzAEueyq//C6a335WRJWqtPK1OzHzkqP0AKS3Pb54/JKvViMgXyXZgYS5dgmeY+W9vT4C5jiffKV7zbTNQyk+/DN5SL1La7BCCTJuheUrWTpQd+h9BVIpcH5HTb/AbPdKte/+fVrGMhzY4lCt/HDSoALU7grDwUgaS5YbVkWWcqVI7UvR/MVSBo/pG0SLvWH9bnizxqf3UsZ83o695C7bcv44H6Nq94jfAdy4ystHEOexV7plUsKq1GOIbAvI5jJwQ0k62AkeV7+dfJrgPVj1Kf1KOinuLN4j29AknztUBh+Qih3SHyqUAlCWg9J8860CMNb2Q58oLxSiFbK0wJlpa0Xy4fxDhDtJ/IVyMINPH6lcMhbeNBsvewzg7ASVbaP1paha1/ErWnZvRhnXsdjz2ACki1E6MzdtOfpI7T+p/gqm6L/YidkB76QP3Grpjpkcrv3ZXBqLwNts6UFwwew/vYv5DFnw9mdynLe+B73mbdX39pL1rLoM66b5sSpTDTfXZfOFXm2wov7q7R5DZd/j2vBYR+afaks0LgA9PvgA7Ju9uTgCv+N31EnwtuaQuZae/i2gNbXmI0mAdynKbWm5cM91FeifHrSZRlddhCMQ5Y/ClC9q3Efm2ppIOvko0cw1NjXeBBPH+AdFiWXqLpqHC30T5u150FWmSxbVnuNq8Z78NBDayLrTMvdHF5mrr6dra7j2OZgGRjHhjjzJ3TVy7DizoYekHWLH8glUaOU/iDvHDT8isW54wCHVmMPdgIfkG5KnvnDua6qC8oQ0uobWqyrxfLK4s9wgFUjeSdOaZaK3CyFI59N0v7VDVrou3uW8ysebtuIN/8jGGdq0KyfGYgP+CpfhHtpCf6cGQJAug80x3LYaKU59VLpsyu0gIGON8sn//R8fSLLbwBfiWP348erJCPvhdMuRHrx5tzctDFK6tjRB7pI16wbOPxi6lB8sFR8QVcAKUQAKYAUQAoghQggBZACSAGkEAGkAFIAKYAUIoAUQArxFciSdvdBceKqkJc50QUg6YUEs2S276UTSSSRRBJJJJFEEkkkkUQS6RpNME3XGywRj8PkyeEh8bzpKdEgJXTXfL0UORQsun6y49N1/cESOYT9DrowsJtvop/sb0fC9ZDXx1R/bVryrWA1PQozOiUKYnxtsJyuvwOLYQek6gdqun66bhoCWQM7xxr8+hzvdYsCR/I9fi+fFDkTUsMuQ073zpqutxr3Qapunex4qm49ntvDr4l6hm8+ix0JuSmdmH4pMo+ds8U+ieeuYB2dgnTzUMgfGQEOc1/I0kUK2rQ0QPZv7mCVO103okWBlIzvY4Mf83v5bPF/AFvUW7BlgN5vQKYndgIpahpkJLdnwJF+zMdZjkVg0dNutDAmtti/8tXiOrOgrRFAgoRvvUW/A2Ur2OIe9gQkNsQ7IEUvg7k3myGnXQdssAVgDd+PjVIAtra9nA08EaSYDLBG5oIlfB9al3+BNfp1/H0XnlvPGtcW/wrq/BmPVeCxj9GyDHbJM68P5hUpsfstxpXgaNONw2aajQ0+FZ91A9iisxXLZzGOxvzWQn5+BNcTZeHPYVxFrlYZyLBSVg6rcR3mdZvcQhruYM+Z2b4XbJmsZ/otxlGQZn4My3EC9V9k5zOSXsRn+965l3sj2ONfkuVnN73E68LwKUhx93D9kRNAMs1gcEuGzaESHvkdSMho25u7n5g3sFIy8fcqyErurghkWvxkPF8J9oRBLKayGrbj8SNoOcZgBe9hLmth7xjUvYzpIX0EIG+cTVjh0/B4LQMko10/FjZY9aVgjx0HM7u0dbVyUZNQZwnC9zg28Fd4/ze84fQH8fhpZq3S44eqWPQpkBp+mYMT9Sa7nuvZjnp2KQJpCT+EP+lahCuixFmOq0BadMOc3zPvBzvzDEx/qu4dcCTdDpJ+J96D5TCNY8BKUfl8o1fMa5CW1MMVxvhhrL7tprGoewnmVw6Obm3w+oV4vBrDgAyE9C+t1kLimz4RK+IKyhqwhG3iG51MY2RA1m+yip7Ig/oO3fi10eN5RceO4G4qtj8D0mr4kVtf03DnfwD/R6elKUZQZ9e7OhWXzWPcsJN4bwE22nf82453JTIgrVHLvYQYDYA0bEM9p5ie1LAD/BuUvZPVXDa+CKOd/xNEXy1AOu9fgvkUXn2Zol9Vc9lo9XOwnit4ucK28jpMGMyAtBqOtXqXjYBN4LsH48eDPeZpJu5vNbOQ2ACScRtagqPsjc7s2MUJ5D95RceM4kG/+W4XIJlFaAik8ZQmIK2GrWBF61v3TCTYq20EkJ+jnkIXPWj9VIHEF4x1UBxdrm86kPFmhQ5XFtZlJaTFPV//PFnmFAFkHZDontFyXMRK2o0VKyEs6yC/b7Siy86+8TruLjFexBiHxUiW8FKwRL2L5wvRJe5mAb9WIK3G+dxNIZjoUmVxFoFhNeSjtcxA4G31LtsJJLq2h9A9LvYIJLlGZtmNH6IuB+pJU3HZRfhceWi1fsW/F/IYMmI1Pl8F2KP/7hOQkullZ54rMOZ9yyUvR1xf5rKths+w3DZ8AfJZ+NOqgbS3vddZYY/yvxP6YGXMRlmKFvMVyL/Z6OZmHsbjmbx3GTsQr8tmsZI1KQ6BeJtBY42aCukpZqd1ewEbYhL7Pct8E7seLY7TtU9Dq/AUb7g2t+E5jKMMWXUdovo82bhfzDPsvNUwl+JWZ6dmEqTHvcDvZy/CYU9A8jzRCvF85uELMkRutdBa0XnJgB2KmGepnM7j9+HxZZjni2A38nLkpNwgA5Lut8VOvlpf7ZOxwzOP5ZeW8IAsv7Q296Mu7AwaFuOzPcdebsnwbEMdrQdGtBCQqt+Lb+klSOvYObTLEvkhDb+4HMsfGc3GIS0RFc3RU6WXFXJv7cTibqv+TTFm05TKJKsjmaaga0qrG0ML6fKQZXFas/ryWY1Fzv8HMbd5vItpDLOO1DvOSLpRUCWSl/g4qSNNG9ZN8TWLhbQbe1LHTtS2SK02/R8KvbtFYOIigwAAAABJRU5ErkJggg=="
+            alt="Logo Raadpleegomgeving" /></a>
+      </div>
+      <div class="menu">
+        <span class="menu-item">
+          <a href="/"><i class="fal fa-home"></i><span class="d-none d-lg-inline-block">Startpagina</span></a>
+        </span>
+        <span class="menu-item">
+          <a href="/zittingen/lijst" class="calendar-link"><i class="fal fa-calendar-alt"></i><span
+              class="d-none d-lg-inline-block">Kalender</span></a>
+        </span>
+
+        <span class="menu-item d-lg-none">
+          <a href="/zoeken"><i class="far fa-search"></i><span class="d-none d-lg-inline-block">Zoeken</span></a>
+        </span>
+        <div class="search menu-item d-none d-lg-inline-block">
+          <label for="search-field" class="sr-only">Zoeken</label>
+          <input type="text" autocomplete="off" id="search-field" />
+          <i class="far fa-search"></i>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <a href="/zittingen/20.1104.8610.0981" id="return-link"><span class="sr-only">Terug</span><i
+              class="fal fa-arrow-circle-left"></i></a>
+          <div vocab="http://data.vlaanderen.be/ns/besluit#"
+            prefix="eli: http://data.europa.eu/eli/ontology# prov: http://www.w3.org/ns/prov# besluit: http://data.vlaanderen.be/ns/besluit# foaf: http://xmlns.com/foaf/0.1/"
+            resource="#" typeof="foaf:Document">
+            <div property="prov:generated" typeof="besluit:Besluit"
+              resource="https://data.geel.be/id/besluiten/21.1004.9293.5782">
+              <span property="eli:date_publication" datatype="xsd:date" content="2021-10-12"></span>
+            </div>
+          </div>
+          <div class="publication-decision-date">
+            <div class="publication-date">Gepubliceerd op 12/10/2021</div>
+          </div>
+          <div id="meetingitem-document" class="meetingitem-document">
+            <i class="far fa-download"></i>
+            <a href="/document/616550e6bb21ff00013e1953">Besluit</a>
+          </div>
+          <div>
+            <div vocab="http://data.vlaanderen.be/ns/besluit#"
+              prefix="lblod: http://data.lblod.info/vocabularies/lblod/ eli: http://data.europa.eu/eli/ontology# prov: http://www.w3.org/ns/prov# mandaat: http://data.vlaanderen.be/ns/mandaat# besluit: http://data.vlaanderen.be/ns/besluit# generiek: http://data.vlaanderen.be/ns/generiek# person: http://www.w3.org/ns/person# persoon: https://data.vlaanderen.be/ns/persoon# dct: http://purl.org/dc/terms/ skos: http://www.w3.org/2004/02/skos/core# org: http://www.w3.org/ns/org# foaf: http://xmlns.com/foaf/0.1/ ext: http://mu.semte.ch/vocabularies/ext/ besluitType: https://data.vlaanderen.be/id/concept/BesluitType/ lblodBesluit: http://lblod.data.gift/vocabularies/besluit/ elod: http://linkedeconomy.org/ontology#"
+              resource="#" typeof="foaf:Document">
+              <div typeof="besluit:Zitting" resource="https://data.geel.be/id/zittingen/20.1104.8610.0981">
+                <span property="besluit:geplandeStart" datatype="xsd:dateTime"
+                  content="2021-10-04T13:00:00.000+02:00"></span>
+                <span property="prov:atLocation" datatype="xsd:string" content="2021-10-04 14:14:36.241"></span>
+                <span property="prov:startedAtTime" datatype="xsd:dateTime"
+                  content="2021-10-04T14:14:36.241+02:00"></span>
+                <span property="prov:endedAtTime" datatype="xsd:dateTime"
+                  content="2021-10-04T17:13:52.322+02:00"></span>
+
+                <span property="besluit:behandelt" typeof="besluit:Agendapunt"
+                  resource="https://data.geel.be/id/agendapunten/21.1004.9293.5782"></span>
+                <div class="opendata-meetingitem" property="ext:behandelt" typeof="besluit:BehandelingVanAgendapunt"
+                  resource="https://data.geel.be/id/behandelingen-van-agendapunten/21.1004.9293.5782">
+                  <span property="besluit:openbaar" datatype="xsd:boolean" content="true"></span>
+                  <span property="dc:subject" typeof="besluit:Agendapunt"
+                    resource="https://data.geel.be/id/agendapunten/21.1004.9293.5782">
+                    <h1 class="return-header">
+                      2021_CBS_02688 - omgevingsvergunning _ 2021003390 BVDB _
+                      Het slopen van de bestaande bebouwing en het oprichten
+                      van een nieuwe ééngezinswoning - Aardseweg 140 -
+                      Vergunning
+                    </h1>
+                  </span>
+
+                  <div class="opendata-meetinginformation">
+                    <div property="dc:title" class="opendata-meetingorgan" datatype="xsd:string">
+                      <span property="besluit:isGehoudenDoor" typeof="besluit:Bestuursorgaan"
+                        resource="http://data.lblod.info/id/bestuursorganen/84cce9b41548abf3e73e8e88146d14baab60b9d72221954c21302dec544886bd">
+                        <span property="skos:prefLabel">College van Burgemeester en Schepenen</span>
+                        <span property="mandaat:isTijdspecialisatieVan" typeof="besluit:Bestuursorgaan"
+                          resource="http://data.lblod.info/id/bestuursorganen/4e77a820c25008e7fbc20e239c5497f863658404ebe2937d062e374a47a979e4">
+                          <span property="skos:prefLabel" content="College van Burgemeester en Schepenen"></span>
+                        </span>
+                      </span>
+                    </div>
+                    <div>
+                      <span class="opendata-meetingdate">ma 04/10/2021 - 13:00</span>
+                      <span class="opendata-meetinglocation">1.14</span>
+                    </div>
+
+                    <div typeof="besluit:Stemming" class="positive opendata-meetingitem-decision">
+                      <span property="besluit:gevolg" lang="nl">Goedgekeurd</span>
+                    </div>
+                  </div>
+
+                  <div class="opendata-meetingitem-composition" property="ext:aanwezigenTable">
+                    <h2>Samenstelling</h2>
+
+                    <div class="h5-section">
+                      <h3>Aanwezig</h3>
+                      <span typeof="mandaat:Mandataris"
+                        resource="http://data.lblod.info/id/mandatarissen/87433cb5-8602-4578-ad91-1138f6a849d8"
+                        property="besluit:heeftAanwezige">
+                        <span property="mandaat:isBestuurlijkeAliasVan" class="opendata-person"
+                          resource="http://data.lblod.info/id/personen/59b364b71d36ecacbb294fb57aecb3f0e922377607c3eca39c2a91fb590dac04">
+                          <span property="persoon:gebruikteVoornaam">Vera</span>&nbsp;<span
+                            property="foaf:familyName">Celis</span><span>;</span>
+                        </span> </span><span typeof="mandaat:Mandataris"
+                        resource="http://data.lblod.info/id/mandatarissen/5C41C79557753A000900016C"
+                        property="besluit:heeftAanwezige">
+                        <span property="mandaat:isBestuurlijkeAliasVan" class="opendata-person"
+                          resource="http://data.lblod.info/id/personen/029100c9bdbbeb5f0a68928023a5217dc4259edc85757570ca33ba7ef8ae447c">
+                          <span property="persoon:gebruikteVoornaam">Nadine</span>&nbsp;<span
+                            property="foaf:familyName">Laeremans</span><span>;</span>
+                        </span> </span><span typeof="mandaat:Mandataris"
+                        resource="http://data.lblod.info/id/mandatarissen/5C41C0D257753A000900013F"
+                        property="besluit:heeftAanwezige">
+                        <span property="mandaat:isBestuurlijkeAliasVan" class="opendata-person"
+                          resource="http://data.lblod.info/id/personen/eee44cc4134d1941e3eb25f5c776ed55473fbe08d7c49092c6517cad3b3dd9b2">
+                          <span property="persoon:gebruikteVoornaam">Griet</span>&nbsp;<span
+                            property="foaf:familyName">Smaers</span><span>;</span>
+                        </span> </span><span typeof="mandaat:Mandataris"
+                        resource="http://data.lblod.info/id/mandatarissen/5C41C65157753A0009000161"
+                        property="besluit:heeftAanwezige">
+                        <span property="mandaat:isBestuurlijkeAliasVan" class="opendata-person"
+                          resource="http://data.lblod.info/id/personen/c1b293161b99382f7ca996527e71b0efb00202aaa4b6cb19aedbb3f618c8b0df">
+                          <span property="persoon:gebruikteVoornaam">Bart</span>&nbsp;<span
+                            property="foaf:familyName">Julliams</span><span>;</span>
+                        </span> </span><span typeof="mandaat:Mandataris"
+                        resource="http://data.lblod.info/id/mandatarissen/5C41C80C57753A0009000172"
+                        property="besluit:heeftAanwezige">
+                        <span property="mandaat:isBestuurlijkeAliasVan" class="opendata-person"
+                          resource="http://data.lblod.info/id/personen/85b0dab1-453d-4e02-a608-2f986f285eab">
+                          <span property="persoon:gebruikteVoornaam">Tom</span>&nbsp;<span
+                            property="foaf:familyName">Corstjens</span><span>;</span>
+                        </span> </span><span typeof="mandaat:Mandataris"
+                        resource="http://data.lblod.info/id/mandatarissen/5C41C88C57753A000900017B"
+                        property="besluit:heeftAanwezige">
+                        <span property="mandaat:isBestuurlijkeAliasVan" class="opendata-person"
+                          resource="http://data.lblod.info/id/personen/dc83dc31415f32f857f6bd3a27693b22970bdb8108bd5f8111ba0356141e87e8">
+                          <span property="persoon:gebruikteVoornaam">Marlon</span>&nbsp;<span
+                            property="foaf:familyName">Pareijn</span><span>;</span>
+                        </span> </span><span typeof="mandaat:Mandataris"
+                        resource="http://data.lblod.info/id/mandatarissen/60DE994ACA2C910008000047"
+                        property="besluit:heeftAanwezige">
+                        <span property="mandaat:isBestuurlijkeAliasVan" class="opendata-person"
+                          resource="http://data.lblod.info/id/personen/ce263bc56e752b27c414bc9e56add6e9b915ad716dad7cba886b3c6d1974472d">
+                          <span property="persoon:gebruikteVoornaam">Pieter</span>&nbsp;<span
+                            property="foaf:familyName">Cowé</span><span>;</span>
+                        </span> </span><span typeof="mandaat:Mandataris"
+                        resource="http://data.lblod.info/id/functionarissen/60B4B2B7CA2C910008000093"
+                        property="besluit:heeftAanwezige">
+                        <span property="mandaat:isBestuurlijkeAliasVan" class="opendata-person"
+                          resource="http://data.lblod.info/id/persoon/027b3fd5-8bca-4dd8-aa49-7bd9d45d8630">
+                          <span property="persoon:gebruikteVoornaam">Francois</span>&nbsp;<span
+                            property="foaf:familyName">Mylle</span><span>, Algemeen Directeur</span>
+                        </span>
+                      </span>
+                    </div>
+                    <div class="h5-section">
+                      <h3>Afwezig</h3>
+                      <span typeof="mandaat:Mandataris"
+                        resource="http://data.lblod.info/id/mandatarissen/61372B5FE5754600080000D2"
+                        property="ext:heeftAfwezigeBijAgendapunt">
+                        <span property="mandaat:isBestuurlijkeAliasVan" class="opendata-person"
+                          resource="http://data.lblod.info/id/personen/b6f2e56da069d218365b6c7870cbe9b2f852b340b11c516d001bcb9613721dbf">
+                          <span property="persoon:gebruikteVoornaam">Luc</span>&nbsp;<span
+                            property="foaf:familyName">Van Laer</span>
+                        </span>
+                      </span>
+                    </div>
+
+                    <div class="h5-section">
+                      <h3>Secretaris</h3>
+                      <span typeof="mandaat:Mandataris"
+                        resource="http://data.lblod.info/id/functionarissen/60B4B2B7CA2C910008000093"
+                        property="besluit:heeftSecretaris">
+                        <span property="mandaat:isBestuurlijkeAliasVan" class="opendata-person"
+                          resource="http://data.lblod.info/id/persoon/027b3fd5-8bca-4dd8-aa49-7bd9d45d8630">
+                          <span property="persoon:gebruikteVoornaam">Francois</span>&nbsp;<span
+                            property="foaf:familyName">Mylle</span><span>, Algemeen Directeur</span>
+                        </span>
+                      </span>
+                    </div>
+                    <div class="h5-section">
+                      <h3>Voorzitter</h3>
+                      <span typeof="mandaat:Mandataris"
+                        resource="http://data.lblod.info/id/mandatarissen/87433cb5-8602-4578-ad91-1138f6a849d8"
+                        property="besluit:heeftVoorzitter">
+                        <span property="mandaat:isBestuurlijkeAliasVan" class="opendata-person"
+                          resource="http://data.lblod.info/id/personen/59b364b71d36ecacbb294fb57aecb3f0e922377607c3eca39c2a91fb590dac04">
+                          <span property="persoon:gebruikteVoornaam">Vera</span>&nbsp;<span
+                            property="foaf:familyName">Celis</span>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div property="prov:generated" typeof="besluit:Besluit"
+                    resource="https://data.geel.be/id/besluiten/21.1004.9293.5782">
+                    <span property="prov:wasGeneratedBy" typeof="besluit:BehandelingVanAgendapunt"
+                      resource="https://data.geel.be/id/behandelingen-van-agendapunten/21.1004.9293.5782"></span>
+                    <div style="display: none">
+                      <span class="return-header" property="eli:title_short" datatype="xsd:string">2021_CBS_02688 -
+                        omgevingsvergunning _ 2021003390
+                        BVDB _ Het slopen van de bestaande bebouwing en het
+                        oprichten van een nieuwe ééngezinswoning - Aardseweg
+                        140 - Vergunning</span>
+                      <span style="display: none" property="eli:title" datatype="xsd:string">2021_CBS_02688 -
+                        omgevingsvergunning _ 2021003390
+                        BVDB _ Het slopen van de bestaande bebouwing en het
+                        oprichten van een nieuwe ééngezinswoning - Aardseweg
+                        140 - Vergunning</span>
+                      <meta property="eli:language"
+                        resource="http://publications.europa.eu/resource/authority/language/NLD"
+                        typeof="skos:Concept" />
+                      <meta property="eli:description" datatype="xsd:string"
+                        content="2021_CBS_02688 - omgevingsvergunning _ 2021003390 BVDB _ Het slopen van de bestaande bebouwing en het oprichten van een nieuwe ééngezinswoning - Aardseweg 140 - Vergunning" />
+                    </div>
+
+                    <div class="opendata-meetingitem-motivation" property="besluit:motivering" lang="nl">
+                      <h2>Motivering</h2>
+
+                      <div class="h5-section">
+                        <h3>Aanleiding en context</h3>
+                        <div>
+                          <span style="background-color: rgb(255, 255, 255)">UITERSTE BESLISSINGSDATUM VOOR DIT DOSSIER:
+                            04/10/2021</span>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><br /></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Verslag van de omgevingsambtenaar</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>Dossiernummer omgevingsloket:
+                                OMV_2021103734</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>Dossiernummer gemeente:
+                                202100390</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">De gemeente Geel heeft op 23 juni 2021
+                              een
+                              aanvraag ontvangen voor het slopen van de
+                              bestaande bebouwing en het oprichten van een
+                              nieuwe &eacute;&eacute;ngezinswoning.. De
+                              aanvraag werd op 5 augustus 2021 volledig en
+                              ontvankelijk verklaard.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>Gegevens van de
+                                aanvrager</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">mevrouw An Dierckx wonende te
+                              Spinnerstraat 13
+                              te 2480 Dessel en de heer Gunther Claes wonende
+                              te Spinnerstraat 13 te 2480 Dessel</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>Gegevens van de
+                                &nbsp;ligging</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Administratieve ligging: Aardseweg
+                              140</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Kadastrale ligging: afdeling 2 sectie
+                              A&nbsp;nrs.&nbsp;751S en 751R</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>Verslag</strong></span>
+                          </p>
+                          <ol>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)"><strong><u>Stedenbouwkundige
+                                    basisgegevens</u></strong></span>
+                            </li>
+                          </ol>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong><u>Ligging volgens de plannen van
+                                  aanleg,
+                                  uitvoeringsplannen, verkavelingen.</u></strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">De aanvraag is volgens het gewestplan
+                              gewestplan Herentals-Mol goedgekeurd op 28 juli
+                              1978 gelegen in:</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>woongebied met landelijk
+                                karakter</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">de woongebieden met een landelijk
+                              karakter zijn
+                              bestemd voor woningbouw in het algemeen en
+                              tevens voor landbouwbedrijven;</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>agrarisch gebied</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">De agrarische gebieden zijn bestemd voor
+                              de
+                              landbouw in de ruime zin. Behoudens bijzondere
+                              bepalingen mogen de agrarische gebieden enkel
+                              bevatten de voor het bedrijf noodzakelijke
+                              gebouwen, de woning van de exploitanten,
+                              benevens verblijfsgelegenheid voor zover deze
+                              een integrerend deel van een leefbaar bedrijf
+                              uitmaakt, en eveneens para-agrarische bedrijven.
+                              Gebouwen bestemd voor niet aan de grond gebonden
+                              agrarische bedrijven met industrieel karakter of
+                              voor intensieve veeteelt, mogen slechts
+                              opgericht worden op ten minste 300 m van een
+                              woongebied of op ten minste 100 m van een
+                              woonuitbreidingsgebied, tenzij het een
+                              woongebied met landelijk karakter betreft. De
+                              afstand van 300 en 100 m geldt evenwel niet in
+                              geval van uitbreiding van bestaande bedrijven.
+                              De overschakeling naar bosgebied is toegestaan
+                              overeenkomstig de bepalingen van artikel 35 van
+                              het Veldwetboek, betreffende de afbakening van
+                              de landbouw- en bosgebieden.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Ligging volgens BPA + bijhorende
+                              voorschriften
+                              :</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">De aanvraag is niet gelegen in een
+                              bijzonder
+                              plan van aanleg.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Ligging volgens RUP + bijhorende
+                              voorschriften
+                              :</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">De aanvraag is volgens het ruimtelijk
+                              uitvoeringsplan RUP zonevreemde woningen
+                              goedgekeurd op 29 januari 2009gelegen in
+                              overdruk zonevreemde woningen II</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">De aanvraag is niet gelegen binnen de
+                              grenzen
+                              van een behoorlijk vergunde en niet vervallen
+                              verkaveling</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong><u>Bepaling van het plan dat van
+                                  toepassing is
+                                  op de aanvraag</u></strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">De aanvraag is gesitueerd in een
+                              ruimtelijk
+                              uitvoeringsplan. De aanvraag dient getoetst te
+                              worden aan de bepalingen van het ruimtelijke
+                              uitvoeringsplan.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>&nbsp;</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong><u>Overeenstemming met dit
+                                  plan</u></strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">De aanvraag is in overeenstemming met dit
+                              plan
+                              en met de stedenbouwkundige voorschriften.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>&nbsp;</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong><u>Afwijkings- en
+                                  uitzonderingsbepalingen</u></strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">\\\</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>&nbsp;</strong></span>
+                          </p>
+                          <p>
+                            <span
+                              style="background-color: rgb(255, 255, 255)"><strong><u>Verordeningen</u></strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">gemeentelijke stedenbouwkundige
+                              verordening -
+                              inzake parkeren en stallen van auto&#39;s en
+                              fietsen goedgekeurd op
+                              25&nbsp;juni&nbsp;2018.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">gewestelijke stedenbouwkundige
+                              verordening
+                              toegankelijkheid goedgekeurd op
+                              5&nbsp;juni&nbsp;2009.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">algemene bouwverordening inzake
+                              weekendverblijven goedgekeurd op
+                              8&nbsp;juli&nbsp;2005.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">gewestelijke stedenbouwkundige
+                              verordening
+                              hemelwaterputten, infiltratievoorzieningen en
+                              vertraagde afvoer van hemelwater goedgekeurd op
+                              23&nbsp;juni&nbsp;2006.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">algemene bouwverordening inzake wegen
+                              voor
+                              voetgangersverkeer goedgekeurd op
+                              29&nbsp;april&nbsp;1997.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">gemeentelijke stedenbouwkundige
+                              verordening -
+                              basisverordening goedgekeurd op
+                              12&nbsp;mei&nbsp;2012.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">gemeentelijke stedenbouwkundige
+                              verordening -
+                              verkavelingen goedgekeurd op
+                              12&nbsp;mei&nbsp;2012.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <ol>
+                            <li>
+                              <span
+                                style="background-color: rgb(255, 255, 255)"><strong><u>Historiek</u></strong></span>
+                            </li>
+                          </ol>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Volgende vergunningen en/of weigeringen
+                              werden
+                              verleend:</span>
+                          </p>
+                          <ul type="disc">
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Stedenbouwkundige vergunning (04810)
+                                voor&nbsp;nieuwbouw land- en tuinbouw&nbsp;-
+                                goedgekeurd op&nbsp;05/01/1970.</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Stedenbouwkundige vergunning (01868)
+                                voor&nbsp;nieuwbouw land- en tuinbouw&nbsp;-
+                                goedgekeurd op&nbsp;25/05/1959.</span>
+                            </li>
+                          </ul>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <ol>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)"><strong><u>Beschrijving van de omgeving
+                                    en de
+                                    aanvraag</u></strong></span>
+                            </li>
+                          </ol>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Het bouwterrein is gelegen aan de
+                              gemeenteweg
+                              Aardseweg te Ten Aard, Geel. Het terrein is
+                              gelegen in woongebied met landelijk karakter (en
+                              agrarisch gebied achteraan het perceel) volgens
+                              het gewestplan. De omliggende percelen zijn
+                              eveneens gelegen in woongebied met landelijk
+                              karakter en agrarisch gebied. De aanvraag
+                              betreft het slopen van bestaande
+                              &eacute;&eacute;ngezinswoning en bijgebouwen en
+                              het herbouwen van een eengezinswoning.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">De aanvraag omvat de sloop van de
+                              niet-vergunde
+                              constructies op het terrein. Het betreft enkele
+                              bijgebouwen die verspreid op het terrein
+                              aanwezig zijn met de aanduiding van positie en
+                              oppervlaktes op het inplantingsplan
+                              (BA_ALGEMEEN_I_B_01). Het tweede luik van de
+                              aanvraag betreft de sloop en herbouw van de
+                              bestaande &eacute;&eacute;ngezinswoning op het
+                              perceel. De bestaande woning bestrijkt een
+                              horizontale dakoppervlakte van 200,1 m&sup2; en
+                              zal volledig gesloopt worden. Op het perceel zal
+                              een nieuwe &eacute;&eacute;ngezinswoning worden
+                              opgetrokken. De kroonlijsthoogte is ten hoogste
+                              4m67 ten opzichte van de nulpas (respectievelijk
+                              4m77 ten opzichte van het maaiveld). De
+                              horizontale dakoppervlakte van de woning is
+                              255,1m&sup2;. Het betreft een
+                              &eacute;&eacute;ngezinswoning met vijf
+                              slaapkamers. Naast de woning wordt een overdekte
+                              carport voorzien, welke ruimte biedt aan
+                              &eacute;&eacute;n voertuig. In de woning zelf
+                              wordt een inpandige garage ingericht.
+                              Verhardingen blijven beperkt tot de toegang naar
+                              de garage en carport, voordeur, het
+                              terras.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">De verhardingen worden omrand door
+                              groenaanleg
+                              en worden uitgevoerd in waterdoorlatende
+                              materialen of waterdichte vlakken welke naar de
+                              tuin afwateren. De aanvraag voorziet een
+                              regenwaterput van 10.000 liter. Er moet minimaal
+                              een infiltratievoorziening geplaatst worden met
+                              een opslagvolume van 5.402,5 liter en een
+                              oppervlakte van 8,65 m2.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <ol>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)"><strong><u>Openbaar
+                                    onderzoek</u></strong></span>
+                            </li>
+                          </ol>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">De aanvraag werd getoetst aan de criteria
+                              van
+                              artikels 11 t.e.m. 14 van het Besluit van de
+                              Vlaamse Regering tot uitvoering van het decreet
+                              van 25 april 2014 betreffende de
+                              omgevingsvergunning.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">De aanvraag moet niet openbaar gemaakt
+                              worden.
+                              De vereenvoudigde vergunningsprocedure wordt
+                              gevolgd.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <ol>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)"><strong><u>Adviezen</u></strong></span>
+                            </li>
+                          </ol>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Op 19 augustus 2021 werd het advies
+                              ontvangen
+                              van&nbsp;Openbare Werken</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">De aanpassing aan de gracht verkleint het
+                              overwelfd oppervlakte, wat een positief effect
+                              heeft op het watersysteem.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">De aanpassingen aan de overwelvingen
+                              dient
+                              uitgevoerd te worden door de stad, dit kan
+                              aangevraagt worden op de stedelijke website
+                              onder aanpassingen openbaar domein.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong><u>Advies:</u>&nbsp;volledig
+                                gunstig</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <ol>
+                            <li>
+                              <span
+                                style="background-color: rgb(255, 255, 255)"><strong><u>Project-MER</u></strong></span>
+                            </li>
+                          </ol>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">\\\</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <ol>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)"><strong><u>Inhoudelijke beoordeling van
+                                    het dossier
+                                    door het college van burgemeester en
+                                    schepenen</u></strong></span>
+                            </li>
+                          </ol>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>&nbsp;</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>Wegenis</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">In toepassing op de artikelen 4.3.5. tot
+                              en met
+                              4.3.8. van de Vlaamse Codex Ruimtelijke Ordening
+                              kan gesteld worden dat de aanvraag gelegen is
+                              langs een voldoende uitgeruste openbare weg. De
+                              aanvraag beoogt niet de oprichting van een
+                              bedrijfswoning</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>&nbsp;</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>Watertoets</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Hoofdstuk III, afdeling I, artikel 8 van
+                              het
+                              decreet van 18 juli 2003 betreffende het
+                              algemeen waterbeleid (Belgisch Staatsblad 14
+                              november 2003) legt bepaalde verplichtingen op,
+                              die de watertoets worden genoemd. Deze
+                              watertoets houdt in dat de eventuele schadelijke
+                              effecten van het innemen van ruimte ten koste
+                              van de watersystemen worden ingeschat. Het
+                              betrokken goed is niet gelegen binnen een
+                              overstromingsgevoelige zone. Er dringen zich in
+                              het kader van de watertoets geen maatregelen op
+                              inzake overstromingsvrij bouwen of beperkingen
+                              inzake de inname van komberging.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><u>&nbsp;</u></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><u>Gewestelijke verordening
+                                hemelwater:&nbsp;</u></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">De aanvraag betreft aanleg/uitbreiding
+                              van
+                              verharding waarbij de nieuwe oppervlakte
+                              &gt;40m&sup2; en valt dus onder de gewestelijke
+                              verordening hemelwater</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">hemelwaterput:&nbsp;</span>
+                          </p>
+                          <ul>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">5000 liter verplicht, de aanvraag
+                                voorziet
+                                een put van 10000 liter</span>
+                            </li>
+                          </ul>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">infiltratievoorziening:</span>
+                          </p>
+                          <ul type="disc">
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">5402,50 liter met een oppervlakte van
+                                8,644
+                                m&sup2;. De aanvraag voorziet een
+                                infiltratievoorziening van 7500 liter van
+                                9m&sup2;</span>
+                            </li>
+                          </ul>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>&nbsp;</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>Mer-screening</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Bij het ontvankelijkheids- en
+                              volledigheidsonderzoek werd reeds vastgesteld
+                              dat de milieueffecten niet aanzienlijk zijn.
+                              Bijgevolg was de opmaak van een
+                              milieueffectenrapport niet vereist.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>&nbsp;</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>&nbsp;</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>Natuurtoets</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Niet van toepassing</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>&nbsp;</strong></span>
+                          </p>
+                          <p>
+                            <span
+                              style="background-color: rgb(255, 255, 255)"><strong>Erfgoed-/archeologietoets</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Niet van toepassing</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>&nbsp;</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>Mobiliteit</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Het mobiliteitsprofiel van het perceel
+                              wijzigt
+                              niet in voorliggende aanvraag. De aanvraag
+                              voorziet het oprichten van een carport in de
+                              zijtuinzone. Naast de woning wordt een overdekte
+                              carport voorzien, welke ruimte biedt aan
+                              &eacute;&eacute;n voertuig. In de woning zelf
+                              wordt een inpandige garage ingericht.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>&nbsp;</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>Toegankelijkheid</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Het gebouw is niet toegankelijk voor
+                              publiek
+                              waardoor niet voldaan dient te worden aan
+                              voorzieningen om de integrale toegankelijkheid
+                              te bereiken.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>&nbsp;</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>Decreet grond- en
+                                pandenbeleid</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Niet van toepassing</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>&nbsp;</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>Scheidingsmuren</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">De aanvraag heeft geen betrekking op de
+                              oprichting, uitbreiding, afbraak van
+                              scheidingsmuren of muren die in aanmerking komen
+                              voor gemene eigendom.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>&nbsp;</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>Milieuaspecten</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Niet van toepassing</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>Toetsing aan de goede ruimtelijke
+                                ordening</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Deze beoordeling &ndash; als uitvoering
+                              van
+                              art. 1.1.4 van de Vlaamse Codex Ruimtelijke
+                              Ordening gericht op een duurzame ruimtelijke
+                              ontwikkeling en met oog voor de ruimtelijke
+                              draagkracht, de gevolgen voor het leefmilieu en
+                              de culturele, economische, esthetische en
+                              sociale gevolgen - houdt rekening met de
+                              volgende criteria als uitvoering van art. 4.3.1
+                              van de codex:&nbsp;</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <ol>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Functionele inpasbaarheid</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Mobiliteitsimpact</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Schaal, ruimtegebruik en
+                                bouwdichtheid</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Visueel-vormelijke elementen</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Cultuurhistorische aspecten</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Bodemreli&euml;f</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Hinderaspecten</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Gezondheid en gebruiksgenot</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Bespreking bezwaren</span>
+                            </li>
+                          </ol>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <ol>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)"><u>Functionele inpasbaarheid</u></span>
+                            </li>
+                          </ol>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Voorliggende aanvraag voorziet&nbsp;het
+                              slopen
+                              van de bestaande bebouwing en het bouwen van een
+                              &eacute;&eacute;ngezinswoning in woongebied met
+                              landelijk karakter.&nbsp;Deze handelingen zijn
+                              functioneel inpasbaar in deze
+                              gewestplanbestemming</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <ol>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)"><u>Mobiliteitsimpact</u></span>
+                            </li>
+                          </ol>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Het mobiliteitsprofiel van het perceel
+                              wijzigt
+                              niet in voorliggende aanvraag.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <ol>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)"><u>Schaal, ruimtegebruik en
+                                  bouwdichtheid</u></span>
+                            </li>
+                          </ol>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Het bouwterrein is gelegen aan de
+                              gemeenteweg
+                              Aardseweg te Ten Aard, Geel. Het terrein is
+                              gelegen in woongebied met landelijk karakter (en
+                              agrarisch gebied achteraan het perceel) volgens
+                              het gewestplan. De omliggende percelen zijn
+                              eveneens gelegen in woongebied met landelijk
+                              karakter en agrarisch gebied. De aanvraag
+                              betreft het slopen van bestaande
+                              &eacute;&eacute;ngezinswoning en bijgebouwen en
+                              het herbouwen van een eengezinswoning.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">De aanvraag omvat de sloop van de
+                              niet-vergunde
+                              constructies op het terrein. Het betreft enkele
+                              bijgebouwen die verspreid op het terrein
+                              aanwezig zijn met de aanduiding van positie en
+                              oppervlaktes op het inplantingsplan
+                              (BA_ALGEMEEN_I_B_01). Het tweede luik van de
+                              aanvraag betreft de sloop en herbouw van de
+                              bestaande &eacute;&eacute;ngezinswoning op het
+                              perceel. De bestaande woning bestrijkt een
+                              horizontale dakoppervlakte van 200,1 m&sup2; en
+                              zal volledig gesloopt worden. Op het perceel zal
+                              een nieuwe &eacute;&eacute;ngezinswoning worden
+                              opgetrokken. De kroonlijsthoogte is ten hoogste
+                              4m67 ten opzichte van de nulpas (respectievelijk
+                              4m77 ten opzichte van het maaiveld). De
+                              horizontale dakoppervlakte van de woning is
+                              255,1m&sup2;. Het betreft een
+                              &eacute;&eacute;ngezinswoning met vijf
+                              slaapkamers. Naast de woning wordt een overdekte
+                              carport voorzien, welke ruimte biedt aan
+                              &eacute;&eacute;n voertuig. In de woning zelf
+                              wordt een inpandige garage ingericht.
+                              Verhardingen blijven beperkt tot de toegang naar
+                              de garage en carport, voordeur, het
+                              terras.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">De verhardingen worden omrand door
+                              groenaanleg
+                              en worden uitgevoerd in waterdoorlatende
+                              materialen of waterdichte vlakken welke naar de
+                              tuin afwateren. De aanvraag voorziet een
+                              regenwaterput van 10.000 liter. Er moet minimaal
+                              een infiltratievoorziening geplaatst worden met
+                              een opslagvolume van 5.402,5 liter en een
+                              oppervlakte van 8,65 m2.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <ol>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)"><u>Visueel-vormelijke
+                                  elementen</u></span>
+                            </li>
+                          </ol>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Het hoofdgebouw wordt afgewerkt in
+                              degelijke en
+                              hedendaagse materialen.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <ol>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)"><u>Cultuurhistorische
+                                  aspecten</u></span>
+                            </li>
+                          </ol>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">De aanvraag is niet gelegen in een
+                              beschermd
+                              landschap of cultuur-historisch landschap. De
+                              aanvraag paalt niet aan een beschermd
+                              monument.&nbsp;</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <ol>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)"><u>Bodemreli&euml;f</u></span>
+                            </li>
+                          </ol>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Op de perceelsgrenzen dient het
+                              maaiveldniveau
+                              aan te sluiten op dat van de aangrenzende
+                              percelen. Het op het terrein opgevangen
+                              hemelwater mag in geen geval afwateren naar de
+                              buren of het openbaar domein.&nbsp;</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <ol>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)"><u>Hinderaspecten</u></span>
+                            </li>
+                          </ol>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">De werken zullen tijdelijk bijkomend
+                              verkeer en
+                              hinder genereren.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <ol>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)"><u>Gezondheid en
+                                  gebruiksgenot</u></span>
+                            </li>
+                          </ol>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Niet van toepassing.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <ol>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)"><u>Bespreking bezwaren</u></span>
+                            </li>
+                          </ol>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Overeenkomstig de criteria van artikels
+                              11
+                              t.e.m. 14 van het Besluit van de Vlaamse
+                              Regering tot uitvoering van het decreet van 25
+                              april 2014 betreffende de omgevingsvergunning is
+                              de vereenvoudigde procedure van toepassing en
+                              moet de aanvraag niet openbaar gemaakt
+                              worden.&nbsp;</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>&nbsp;</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong><u>Resultaten openbaar
+                                  onderzoek</u></strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Er diende over de aanvraag geen openbaar
+                              onderzoek gehouden te worden.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Niet van toepassing.</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong><u>Bespreking
+                                  adviezen</u></strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">De omgevingsambtenaar heeft kennis
+                              genomen van
+                              het volgend advies en beoordeeld deze als
+                              volgt:</span>
+                          </p>
+                          <ul type="disc">
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)"><strong>&nbsp;Het advies van Openbare
+                                  Werken&nbsp;afgeleverd op 19 augustus 2021
+                                  is gunstig:</strong></span>
+                            </li>
+                          </ul>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong>&nbsp;</strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><em>De aanpassing aan de gracht verkleint
+                                het
+                                overwelfd oppervlakte, wat een positief effect
+                                heeft op het watersysteem.</em></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><em>De aanpassingen aan de overwelvingen
+                                dient
+                                uitgevoerd te worden door de stad, dit kan
+                                aangevraagt worden op de stedelijke website
+                                onder aanpassingen openbaar domein.</em></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong><em>Advies
+                                  riolering</em></strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><em>Het perceel is gelegen in collectief
+                                geoptimaliseerd buitengebied. Er is een
+                                gescheiden rioleringsstelsel aanwezig op
+                                openbaar domein (afvalwaterleiding en
+                                gracht).&nbsp;</em></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><em>Bij de sloop dient men de bestaande
+                                aansluitingen op te zoeken en te herbruiken.
+                                De huisaansluitputjes RWA en DWA zijn aanwezig
+                                op het perceel. Er is 1 huisaansluitputje RWA
+                                en 2 huisaansluitputjes DWA. Zie document
+                                &quot;20211007_Advies_Riolering_LocatieHuisaansluitputjes&quot;</em></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><em>Men dient te zorgen voor een
+                                gescheiden
+                                stelsel van droogweerafvoer (DWA) en
+                                regenwaterafvoer (RWA) op zijn perceel tot aan
+                                de rooilijn.&nbsp;</em></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><em>De afvoerbuizen voor het regenwater
+                                (grijs)
+                                en het huishoudelijk afvalwater (oranje)
+                                dienen een diameter te hebben van max.
+                                160mm.</em></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><em>De afvoerbuis voor het regenwater
+                                moet worden
+                                aangesloten op het aanwezige huisaansluitputje
+                                RWA als men een noodoverloop voorziet vanuit
+                                de infiltratievoorziening. De afvoerbuis van
+                                het huishoudelijk afvalwater moet aangesloten
+                                worden op &eacute;&eacute;n van de
+                                &nbsp;aanwezige huisaansluitputjes DWA. Het
+                                andere huisaansluitputje DWA moet goed worden
+                                afgesloten.</em></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><em>Putten (hemelwaterput, septische put)
+                                dienen
+                                bij plaatsing in de bouwvrije voortuinstrook,
+                                worden voorzien op minimum 8 meter uit de
+                                wegas en met een minimum van 2 meter uit de
+                                rooilijn.</em></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><em>Voor het afvalwater voorziet men een
+                                gescheiden stelsel van fecaal water (toilet)
+                                en grijs water (douche, lavabo, &hellip;) tot
+                                buiten de woning wat een gunstig concept is.
+                                Men mag, zoals op plan is voorzien, een
+                                septische put plaatsen. Dit is echter niet
+                                verplicht. Op de septische put mag enkel het
+                                fecale water aangesloten worden, het grijs
+                                water moet rechtstreeks naar de riolering
+                                gaan. Men voorziet een dubbele sifonput waar
+                                het grijs en het fecaal water samenkomen om
+                                geurhinder te vermijden.</em></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><em>Volgens de Gewestelijke
+                                stedenbouwkundige
+                                verordening inzake hemelwater is men verplicht
+                                om een hemelwaterput en een
+                                infiltratievoorziening te plaatsen. De
+                                plaatsing en het gebruik dient te gebeuren
+                                uiterlijk bij de ingebruikname van het gebouw
+                                of verharding.</em></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><em>De hemelwaterput moet aan volgende
+                                voorwaarden voldoen:</em></span>
+                          </p>
+                          <ul>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">De hemelwaterput dient te voldoen aan
+                                de code
+                                van de goede praktijk voor hemelwaterputten en
+                                infiltratievoorzieningen.</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Het volume van de hemelwaterput moet
+                                minimum
+                                5000L bedragen. Men voorziet een volume
+                                van10.000L.</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Men dient de afvoeren van het volledige
+                                dak
+                                (met carport) hier op aan te sluiten.</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">De hemelwaterput moet voorzien worden
+                                van een
+                                pomp in functie van herbruik. Er moeten
+                                minstens 2 aftappunten aangesloten worden op
+                                de hemelwaterput, waarvan &eacute;&eacute;n
+                                aftappunt voor de spoeling van toiletten. Men
+                                voorziet herbruik voor toiletten en
+                                buitenkranen.</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">De overloop van de hemelwaterput dient
+                                te
+                                worden aangesloten op de
+                                infiltratievoorziening.</span>
+                            </li>
+                          </ul>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><em>De infiltratievoorziening moet aan
+                                volgende
+                                voorwaarden voldoen:</em></span>
+                          </p>
+                          <ul>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Het volume van de
+                                infiltratievoorziening
+                                dient minimum 5402L te bedragen.</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">De infiltratieoppervlakte van de
+                                infiltratievoorziening dient minimum
+                                8,65m&sup2; te bedragen.</span>
+                            </li>
+                          </ul>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><em>Men voorziet een noodoverloop naar de
+                                gracht.
+                                Dit is geen verplichting maar wordt wel
+                                toegestaan.</em></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><em>Het is verplicht v&oacute;&oacute;r
+                                de eerste
+                                ingebruikname van de priv&eacute;waterafvoer
+                                deze te laten keuren door een erkende
+                                VLARIO-deskundige. Hierbij wordt nagegaan of
+                                de scheiding van hemelwater en afvalwater
+                                wordt nageleefd. Zonder keuringsattest van de
+                                erkende deskundige mag de
+                                priv&eacute;waterafvoer niet worden
+                                aangesloten op het openbaar
+                                rioleringsstelsel.</em></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong><em>Advies toegang tot het
+                                  perceel</em></strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><em>In de bestaande situatie zijn er 2
+                                toegangen
+                                (auto-inrit en tuinpaadje). Men wenst in de
+                                nieuwe situatie ook 2 toegangen maar de
+                                breedtes worden gewijzigd. Het is toegestaan
+                                om 2 toegangen te voorzien met samen een
+                                maximale breedte van 6m (onder voorbehoud van
+                                wijzigingen in de regelgeving). Voor de
+                                aanpassingen van het openbaar domein dient men
+                                een aanvraag te doen. De kosten van deze
+                                aanpassingen zijn ten laste van de
+                                aanvrager.</em></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">De gestelde voorwaarden wordt opgenomen
+                              in het
+                              verslag</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong><u>Conclusie</u></strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Uit bovenstaande motivering blijkt dat de
+                              aanvraag deels in overeenstemming is met de
+                              wettelijke&nbsp;</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">bepalingen inzake ruimtelijke ordening
+                              zoals
+                              bepaald in artiek 4.3.1. V.C.R.O. Het
+                              voorgestelde&nbsp;</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">ontwerp is verenigbaar met de goede
+                              plaatselijke ruimtelijke ordening en met zijn
+                              onmiddelijke&nbsp;</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">omgeving mits het naleven van volgende
+                              voorwaarden:</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong><u>Stedenbouwkundig
+                                  Advies&nbsp;</u></strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Er wordt een
+                              <u>voorwaardelijk gunstig</u> advies
+                              gegeven</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <p>
+                            <span
+                              style="background-color: rgb(255, 255, 255)"><strong><u>Voorwaarden:</u></strong></span>
+                          </p>
+                          <ul class="decimal_type">
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Er mogen geen gesloopte materialen
+                                vreemd aan
+                                de ondergrond op/in de bodem
+                                achterblijven</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">De sloping van de woning kan uitgevoerd
+                                worden overeenkomstig de aanduidingen van het
+                                goedgekeurde plan.</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Indien er asbest aanwezig is op de
+                                werf,
+                                dient bij de sloop en verwijdering van het
+                                asbesthoudend materiaal de bepalingen van
+                                Vlarem II Hfdst. 6.4. opgevolgd te worden
+                                (www.asbestinfo.be).</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">De nodige maatregelen dienen getroffen
+                                om de
+                                verkeersveiligheid optimaal te
+                                verzekeren.</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Indien de werken gepaard gaan met
+                                grondverzet
+                                dienen de voorschriften opgenomen in het
+                                Vlarebo, het Vlaams reglement betreffende
+                                bodemsanering en bodembescherming opgevolgd te
+                                worden. Dit houdt ondermeer in dat bij bodem
+                                afkomstig van een ontgraving groter dan 250
+                                m&sup3; of afkomstig van een verdachte grond,
+                                een technisch verslag moet worden opgemaakt en
+                                het transport moet vergezeld zijn van de
+                                nodige transportdocumenten omschreven in
+                                Vlarebo art. 183.</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Er mogen geen werken uitgevoerd worden
+                                op het
+                                openbaar domein zonder voorafgaandelijke
+                                toelating en onder de vooropgestelde
+                                voorwaarden van het stadsbestuur.</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">De aanpassingen aan de overwelvingen
+                                dient
+                                uitgevoerd te worden door de stad, dit kan
+                                aangevraagd worden op de stedelijke website
+                                onder aanpassingen openbaar domein.</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">De openbare weg dient rein gehouden in
+                                de
+                                nabijheid van de bouwwerken ingevolge de
+                                Politiecodex.</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Op de perceelsgrenzen dient het
+                                maaiveldniveau aan te sluiten op dat van de
+                                aangrenzende percelen. Het op het terrein
+                                opgevangen hemelwater mag in geen geval
+                                afwateren naar de buren of het openbaar
+                                domein.&nbsp;</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">De vergunning heeft betrekking op de
+                                aangevraagde werken. Er wordt geen uitspraak
+                                gedaan over eventuele andere onvergunde
+                                constructies op het terrein.</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">De werken dienen uitgevoerd
+                                overeenkomstig
+                                het goedgekeurde dossier.</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Deze vergunning stelt de aanvrager niet
+                                vrij
+                                van het aanvragen en verkrijgen van eventuele
+                                andere vergunningen en/of machtigingen, indien
+                                deze nodig zouden zijn.</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Er dient voldaan te worden aan het
+                                decreet
+                                houdende de beveiliging van woningen door
+                                optische rookmelders van 1 juni 2021.</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Er dient te worden voldaan aan de
+                                gewestelijke verordening inzake breedband
+                                vastgesteld bij besluit van de Vlaamse
+                                Regering van 9 juni 2017.</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Er dient voldaan te worden aan de
+                                gewestelijke verordening inzake
+                                hemelwaterputten, infiltratievoorzieningen,
+                                buffervoorzieningen en gescheiden lozing van
+                                afvalwater en hemelwater, vastgesteld bij het
+                                besluit van de Vlaamse Regering van 5 juli
+                                2013.</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Er zorg voor te dragen dat bij het
+                                aanvoeren
+                                der materialen en het uitvoeren der werken
+                                geen schade wordt aangebracht aan de wegenis
+                                en zijn bijhorigheden. Elke schade zal op
+                                kosten van de bouwheer hersteld worden.</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">De woning moet voldoen aan de
+                                EPB-eisen.&nbsp;</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">De kosten voor het uitvoeren van
+                                aanpassingswerken aan het openbaar domein of
+                                het verplaatsen van nutsvoorzieningen zijn ten
+                                laste van de bouwheer.&nbsp;</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Bij de sloop dient men de bestaande
+                                aansluitingen op te zoeken en te
+                                herbruiken.&nbsp;</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Men dient te zorgen voor een gescheiden
+                                stelsel van droogweerafvoer (DWA) en
+                                regenwaterafvoer (RWA) op zijn perceel tot aan
+                                de rooilijn.&nbsp;</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">De afvoerbuizen voor het regenwater
+                                (grijs)
+                                en het huishoudelijk afvalwater (oranje)
+                                dienen een diameter te hebben van max.
+                                160mm.</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">De afvoerbuis voor het regenwater moet
+                                worden
+                                aangesloten op het aanwezige huisaansluitputje
+                                RWA als men een noodoverloop voorziet vanuit
+                                de infiltratievoorziening.&nbsp;</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">De afvoerbuis van het huishoudelijk
+                                afvalwater moet aangesloten worden op
+                                &eacute;&eacute;n van de &nbsp; aanwezige
+                                huisaansluitputjes DWA. Het andere
+                                huisaansluitputje DWA moet goed worden
+                                afgesloten.</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Putten (hemelwaterput, septische put)
+                                dienen
+                                bij plaatsing in de bouwvrije voortuinstrook,
+                                worden voorzien op minimum 8 meter uit de
+                                wegas en met een minimum van 2 meter uit de
+                                rooilijn.</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Op de niet-verplichte septische put mag
+                                enkel
+                                het fecale water aangesloten worden, het grijs
+                                water moet rechtstreeks naar de riolering
+                                gaan.&nbsp;</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Volgens de Gewestelijke
+                                stedenbouwkundige
+                                verordening inzake hemelwater is men verplicht
+                                om een hemelwaterput en een
+                                infiltratievoorziening te plaatsen. De
+                                plaatsing en het gebruik dient te gebeuren
+                                uiterlijk bij de ingebruikname van het gebouw
+                                of verharding.</span>
+                            </li>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">De hemelwaterput moet aan volgende
+                                voorwaarden voldoen:</span>
+                            </li>
+                            <ol>
+                              <li>
+                                <span style="background-color: rgb(255, 255, 255)">De hemelwaterput dient te voldoen aan
+                                  de
+                                  code van de goede praktijk voor
+                                  hemelwaterputten en
+                                  infiltratievoorzieningen.</span>
+                              </li>
+                              <li>
+                                <span style="background-color: rgb(255, 255, 255)">Het volume van de hemelwaterput moet
+                                  minimum 5000L bedragen.&nbsp;</span>
+                              </li>
+                              <li>
+                                <span style="background-color: rgb(255, 255, 255)">Men dient de afvoeren van het
+                                  volledige dak
+                                  (met carport) hier op aan te sluiten.</span>
+                              </li>
+                              <li>
+                                <span style="background-color: rgb(255, 255, 255)">De hemelwaterput moet voorzien worden
+                                  van
+                                  een pomp in functie van herbruik. Er moeten
+                                  minstens 2 aftappunten aangesloten worden op
+                                  de hemelwaterput, waarvan &eacute;&eacute;n
+                                  aftappunt voor de spoeling van
+                                  toiletten.&nbsp;</span>
+                              </li>
+                              <li>
+                                <span style="background-color: rgb(255, 255, 255)">De overloop van de hemelwaterput
+                                  dient te
+                                  worden aangesloten op de
+                                  infiltratievoorziening.</span>
+                              </li>
+                            </ol>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">De infiltratievoorziening moet aan
+                                volgende
+                                voorwaarden voldoen:</span>
+                            </li>
+                            <ol>
+                              <li>
+                                <span style="background-color: rgb(255, 255, 255)">Het volume van de
+                                  infiltratievoorziening
+                                  dient minimum 5402L te bedragen.</span>
+                              </li>
+                              <li>
+                                <span style="background-color: rgb(255, 255, 255)">De infiltratieoppervlakte van de
+                                  infiltratievoorziening dient minimum
+                                  8,65m&sup2; te bedragen.</span>
+                              </li>
+                            </ol>
+                            <li>
+                              <span style="background-color: rgb(255, 255, 255)">Het is verplicht v&oacute;&oacute;r de
+                                eerste
+                                ingebruikname van de priv&eacute;waterafvoer
+                                deze te laten keuren door een erkende
+                                VLARIO-deskundige. Hierbij wordt nagegaan of
+                                de scheiding van hemelwater en afvalwater
+                                wordt nageleefd. Zonder keuringsattest van de
+                                erkende deskundige mag de
+                                priv&eacute;waterafvoer niet worden
+                                aangesloten op het openbaar
+                                rioleringsstelsel.</span>
+                            </li>
+                          </ul>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong><u>&nbsp;</u></strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)"><strong><u>Lasten</u></strong></span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">Niet van toepassing</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                          <p>
+                            <span style="background-color: rgb(255, 255, 255)">&nbsp;</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="opendata-meetingitem-decree">
+                      <h2>Besluit</h2>
+
+                      <div class="opendata-meetingitem-organ">
+                        <span>Het college van burgemeester en schepenen
+                          beslist:</span>
+                      </div>
+                      <div property="prov:value" datatype="xsd:string">
+                        <div property="eli:has_part" typeof="besluit:Artikel"
+                          resource="https://data.geel.be/id/artikels/21.0930.4173.1947">
+                          <h3 property="eli:number" datatype="xsd:string">
+                            Artikel 1
+                          </h3>
+                          <span property="eli:language"
+                            resource="http://publications.europa.eu/resource/authority/language/NLD"
+                            typeof="skos:Concept"></span>
+                          <div property="prov:value" datatype="http://www.w3.org/2000/01/rdf-schema#Literal">
+                            <span>
+                              <p>
+                                Het college van burgemeester en schepenen
+                                sluit zich aan bij het verslag van de
+                                gemeentelijke omgevingsambtenaar.
+                              </p>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div property="prov:value" datatype="xsd:string">
+                        <div property="eli:has_part" typeof="besluit:Artikel"
+                          resource="https://data.geel.be/id/artikels/21.0930.2916.4452">
+                          <h3 property="eli:number" datatype="xsd:string">
+                            Artikel 2
+                          </h3>
+                          <span property="eli:language"
+                            resource="http://publications.europa.eu/resource/authority/language/NLD"
+                            typeof="skos:Concept"></span>
+                          <div property="prov:value" datatype="http://www.w3.org/2000/01/rdf-schema#Literal">
+                            <span>
+                              <p>
+                                Het college van burgemeester en schepenen
+                                beslist de aanvraag tot omgevingsvergunning
+                                goed te keuren en de vergunning af te leveren
+                                aan de aanvrager, die ertoe gehouden is
+                                volgende voorwaarden strikt na te leven:
+                              </p>
+                              <ul type="disc">
+                                <li>
+                                  Er mogen geen gesloopte materialen vreemd
+                                  aan de ondergrond op/in de bodem
+                                  achterblijven
+                                </li>
+                                <li>
+                                  De sloping van de woning kan uitgevoerd
+                                  worden overeenkomstig de aanduidingen van
+                                  het goedgekeurde plan.
+                                </li>
+                                <li>
+                                  Indien er asbest aanwezig is op de werf,
+                                  dient bij de sloop en verwijdering van het
+                                  asbesthoudend materiaal de bepalingen van
+                                  Vlarem II Hfdst. 6.4. opgevolgd te worden
+                                  (<a href="http://www.asbestinfo.be">www.asbestinfo.be</a>).
+                                </li>
+                                <li>
+                                  De nodige maatregelen dienen getroffen om de
+                                  verkeersveiligheid optimaal te verzekeren.
+                                </li>
+                                <li>
+                                  Indien de werken gepaard gaan met
+                                  grondverzet dienen de voorschriften
+                                  opgenomen in het Vlarebo, het Vlaams
+                                  reglement betreffende bodemsanering en
+                                  bodembescherming opgevolgd te worden. Dit
+                                  houdt ondermeer in dat bij bodem afkomstig
+                                  van een ontgraving groter dan 250 m&sup3; of
+                                  afkomstig van een verdachte grond, een
+                                  technisch verslag moet worden opgemaakt en
+                                  het transport moet vergezeld zijn van de
+                                  nodige transportdocumenten omschreven in
+                                  Vlarebo art. 183.
+                                </li>
+                                <li>
+                                  Er mogen geen werken uitgevoerd worden op
+                                  het openbaar domein zonder voorafgaandelijke
+                                  toelating en onder de vooropgestelde
+                                  voorwaarden van het stadsbestuur.
+                                </li>
+                                <li>
+                                  De aanpassingen aan de overwelvingen dient
+                                  uitgevoerd te worden door de stad, dit kan
+                                  aangevraagd worden op de stedelijke website
+                                  onder aanpassingen openbaar domein.
+                                </li>
+                                <li>
+                                  De openbare weg dient rein gehouden in de
+                                  nabijheid van de bouwwerken ingevolge de
+                                  Politiecodex.
+                                </li>
+                                <li>
+                                  Op de perceelsgrenzen dient het
+                                  maaiveldniveau aan te sluiten op dat van de
+                                  aangrenzende percelen. Het op het terrein
+                                  opgevangen hemelwater mag in geen geval
+                                  afwateren naar de buren of het openbaar
+                                  domein.&nbsp;
+                                </li>
+                                <li>
+                                  De vergunning heeft betrekking op de
+                                  aangevraagde werken. Er wordt geen uitspraak
+                                  gedaan over eventuele andere onvergunde
+                                  constructies op het terrein.
+                                </li>
+                                <li>
+                                  De werken dienen uitgevoerd overeenkomstig
+                                  het goedgekeurde dossier.
+                                </li>
+                                <li>
+                                  Deze vergunning stelt de aanvrager niet vrij
+                                  van het aanvragen en verkrijgen van
+                                  eventuele andere vergunningen en/of
+                                  machtigingen, indien deze nodig zouden zijn.
+                                </li>
+                                <li>
+                                  Er dient voldaan te worden aan het decreet
+                                  houdende de beveiliging van woningen door
+                                  optische rookmelders van 1 juni 2021.
+                                </li>
+                                <li>
+                                  Er dient te worden voldaan aan de
+                                  gewestelijke verordening inzake breedband
+                                  vastgesteld bij besluit van de Vlaamse
+                                  Regering van 9 juni 2017.
+                                </li>
+                                <li>
+                                  Er dient voldaan te worden aan de
+                                  gewestelijke verordening inzake
+                                  hemelwaterputten, infiltratievoorzieningen,
+                                  buffervoorzieningen en gescheiden lozing van
+                                  afvalwater en hemelwater, vastgesteld bij
+                                  het besluit van de Vlaamse Regering van 5
+                                  juli 2013.
+                                </li>
+                                <li>
+                                  Er zorg voor te dragen dat bij het aanvoeren
+                                  der materialen en het uitvoeren der werken
+                                  geen schade wordt aangebracht aan de wegenis
+                                  en zijn bijhorigheden. Elke schade zal op
+                                  kosten van de bouwheer hersteld worden.
+                                </li>
+                                <li>
+                                  De woning moet voldoen aan de
+                                  EPB-eisen.&nbsp;
+                                </li>
+                                <li>
+                                  De kosten voor het uitvoeren van
+                                  aanpassingswerken aan het openbaar domein of
+                                  het verplaatsen van nutsvoorzieningen zijn
+                                  ten laste van de bouwheer.&nbsp;
+                                </li>
+                                <li>
+                                  Bij de sloop dient men de bestaande
+                                  aansluitingen op te zoeken en te
+                                  herbruiken.&nbsp;
+                                </li>
+                                <li>
+                                  Men dient te zorgen voor een gescheiden
+                                  stelsel van droogweerafvoer (DWA) en
+                                  regenwaterafvoer (RWA) op zijn perceel tot
+                                  aan de rooilijn.&nbsp;
+                                </li>
+                                <li>
+                                  De afvoerbuizen voor het regenwater (grijs)
+                                  en het huishoudelijk afvalwater (oranje)
+                                  dienen een diameter te hebben van max.
+                                  160mm.
+                                </li>
+                                <li>
+                                  De afvoerbuis voor het regenwater moet
+                                  worden aangesloten op het aanwezige
+                                  huisaansluitputje RWA als men een
+                                  noodoverloop voorziet vanuit de
+                                  infiltratievoorziening.&nbsp;
+                                </li>
+                                <li>
+                                  De afvoerbuis van het huishoudelijk
+                                  afvalwater moet aangesloten worden op
+                                  &eacute;&eacute;n van de &nbsp; aanwezige
+                                  huisaansluitputjes DWA. Het andere
+                                  huisaansluitputje DWA moet goed worden
+                                  afgesloten.
+                                </li>
+                                <li>
+                                  Putten (hemelwaterput, septische put) dienen
+                                  bij plaatsing in de bouwvrije
+                                  voortuinstrook, worden voorzien op minimum 8
+                                  meter uit de wegas en met een minimum van 2
+                                  meter uit de rooilijn.
+                                </li>
+                                <li>
+                                  Op de niet-verplichte septische put mag
+                                  enkel het fecale water aangesloten worden,
+                                  het grijs water moet rechtstreeks naar de
+                                  riolering gaan.&nbsp;
+                                </li>
+                                <li>
+                                  Volgens de Gewestelijke stedenbouwkundige
+                                  verordening inzake hemelwater is men
+                                  verplicht om een hemelwaterput en een
+                                  infiltratievoorziening te plaatsen. De
+                                  plaatsing en het gebruik dient te gebeuren
+                                  uiterlijk bij de ingebruikname van het
+                                  gebouw of verharding.
+                                </li>
+                                <li>
+                                  De hemelwaterput moet aan volgende
+                                  voorwaarden voldoen:
+                                </li>
+                              </ul>
+                              <ol>
+                                <li style="margin-left: 40px">
+                                  De hemelwaterput dient te voldoen aan de
+                                  code van de goede praktijk voor
+                                  hemelwaterputten en
+                                  infiltratievoorzieningen.
+                                </li>
+                                <li style="margin-left: 40px">
+                                  Het volume van de hemelwaterput moet minimum
+                                  5000L bedragen.&nbsp;
+                                </li>
+                                <li style="margin-left: 40px">
+                                  Men dient de afvoeren van het volledige dak
+                                  (met carport) hier op aan te sluiten.
+                                </li>
+                                <li style="margin-left: 40px">
+                                  De hemelwaterput moet voorzien worden van
+                                  een pomp in functie van herbruik. Er moeten
+                                  minstens 2 aftappunten aangesloten worden op
+                                  de hemelwaterput, waarvan &eacute;&eacute;n
+                                  aftappunt voor de spoeling van
+                                  toiletten.&nbsp;
+                                </li>
+                                <li style="margin-left: 40px">
+                                  De overloop van de hemelwaterput dient te
+                                  worden aangesloten op de
+                                  infiltratievoorziening.
+                                </li>
+                              </ol>
+                              <ul type="disc">
+                                <li>
+                                  De infiltratievoorziening moet aan volgende
+                                  voorwaarden voldoen:
+                                </li>
+                              </ul>
+                              <ol start="1" type="1">
+                                <li style="margin-left: 40px">
+                                  Het volume van de infiltratievoorziening
+                                  dient minimum 5402L te bedragen.
+                                </li>
+                                <li style="margin-left: 40px">
+                                  De infiltratieoppervlakte van de
+                                  infiltratievoorziening dient minimum
+                                  8,65m&sup2; te bedragen.
+                                </li>
+                              </ol>
+                              <ul type="disc">
+                                <li>
+                                  Het is verplicht v&oacute;&oacute;r de
+                                  eerste ingebruikname van de
+                                  priv&eacute;waterafvoer deze te laten keuren
+                                  door een erkende VLARIO-deskundige. Hierbij
+                                  wordt nagegaan of de scheiding van
+                                  hemelwater en afvalwater wordt nageleefd.
+                                  Zonder keuringsattest van de erkende
+                                  deskundige mag de priv&eacute;waterafvoer
+                                  niet worden aangesloten op het openbaar
+                                  rioleringsstelsel.
+                                </li>
+                              </ul>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="container">
+      <div class="copyright">
+        &copy;&nbsp;<a href="https://www.greenvalleybelgium.be" target="_blank">Green Valley Belgium</a>
+      </div>
+      <div class="contact"></div>
+    </div>
+  </footer>
+  <script>
+    var $webcastIndex = 0;
+    var $webcasts = [];
+    var $webcastPosition = "Webcast {0} van {1}";
+  </script>
+</body>
+
+</html>
