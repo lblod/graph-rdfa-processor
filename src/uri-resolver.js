@@ -1,6 +1,6 @@
 export default class URIResolver {
   parseURI(uri) {
-    uri = uri.replace("\n", ""); // bugfix: sometimes there is a \n in the uri...
+    uri = uri.replace("\n", "").replace(" ", "%20"); // bugfix: sometimes there is a \n in the uri...
     var match = URIResolver.SCHEME.exec(uri);
     if (!match) {
       throw new Error("Bad URI value, no scheme: " + uri);
@@ -16,7 +16,7 @@ export default class URIResolver {
     } else {
       parsed.isGeneric = false;
     }
-    parsed.normalize = function() {
+    parsed.normalize = function () {
       if (!this.isGeneric) {
         return;
       }
@@ -66,7 +66,7 @@ export default class URIResolver {
       this.spec = this.scheme + ":" + this.schemeSpecificPart;
     };
 
-    parsed.resolve = function(href) {
+    parsed.resolve = function (href) {
       if (!href) {
         return this.spec;
       }
@@ -119,7 +119,7 @@ export default class URIResolver {
       }
     };
 
-    parsed.relativeTo = function(otherURI) {
+    parsed.relativeTo = function (otherURI) {
       if (otherURI.scheme != this.scheme) {
         return this.spec;
       }
