@@ -24,7 +24,7 @@ describe("getRDFaGraph", function () {
   });
 
   it.only("test bug", () => {
-    let ht = readFileSync("./bug8.html");
+    let ht = readFileSync("./bug12.html");
     let { document } = jsdom(ht).defaultView.window;
 
     let graph = getRDFaGraph(document, {

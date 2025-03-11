@@ -3035,6 +3035,11 @@ xml-name-validator@^2.0.1:
   resolved "https://registry.npmjs.org/xml-name-validator/-/xml-name-validator-2.0.1.tgz"
   integrity sha1-TYuPHszTQZqjYgYb7O9RXh5VljU=
 
+xmlserializer@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.npmjs.org/xmlserializer/-/xmlserializer-0.6.1.tgz"
+  integrity sha512-FNb0eEqqUUbnuvxuHqNuKH8qCGKqxu+558Zi8UzOoQk8Z9LdvpONK+v7m3gpKVHrk5Aq+0nNLsKxu/6OYh7Umw==
+
 "y18n@^3.2.1 || ^4.0.0", y18n@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npmjs.org/y18n/-/y18n-4.0.0.tgz"

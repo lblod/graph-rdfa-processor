@@ -43,5 +43,8 @@
     "babel-plugin-add-module-exports": "^1.0.2",
     "jsdom": "^9.11.0",
     "mocha": "^6.2.0"
+  },
+  "dependencies": {
+    "xmlserializer": "^0.6.1"
   }
 }
