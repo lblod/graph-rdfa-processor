@@ -3,48 +3,48 @@ import assert from "assert";
 import getRDFaGraph from "../src";
 import { readFileSync, writeFileSync } from "fs";
 describe("getRDFaGraph", function () {
-  let html = `<div typeof="rdfs:Class" resource="http://schema.org/CreativeWork">
+    let html = `<div typeof="rdfs:Class" resource="http://schema.org/CreativeWork">
         <span class="h" property="rdfs:label">CreativeWork</span>
         <span property="rdfs:comment">The most generic kind of creative work, including books, movies, photographs, software programs, etc.</span>
         <span>Subclass of: <a property="rdfs:subClassOf" href="http://schema.org/Thing">Thing</a></span>
         <span>Source:  <a property="dc:source" href="http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews">rNews</a></span>
      </div>`;
 
-  let expected = `<http://schema.org/CreativeWork> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class>;
+    let expected = `<http://schema.org/CreativeWork> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class>;
  <http://www.w3.org/2000/01/rdf-schema#label> "CreativeWork";
  <http://www.w3.org/2000/01/rdf-schema#comment> "The most generic kind of creative work, including books, movies, photographs, software programs, etc.";
  <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://schema.org/Thing>;
  <http://purl.org/dc/terms/source> <http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews> .
 `;
 
-  it("should getRDFaGraph from a document", function () {
-    let { document } = jsdom(html).defaultView.window;
-    let graph = getRDFaGraph(document, { baseURI: "http://localhost" });
-    assert.equal(graph.toString(), expected);
-  });
-
-  it.only("test bug", () => {
-    let ht = readFileSync("./bug12.html");
-    let { document } = jsdom(ht).defaultView.window;
-
-    let graph = getRDFaGraph(document, {
-      baseURI: "http://localhost",
-      specialHtmlPredicates: [
-        {
-          source: "http://www.w3.org/ns/prov#value",
-          target:
-            "http://lblod.data.gift/vocabularies/besluit/extractedDecisionContent",
-        },
-      ],
+    it("should getRDFaGraph from a document", function () {
+        let { document } = jsdom(html).defaultView.window;
+        let graph = getRDFaGraph(document, { baseURI: "http://localhost" });
+        assert.equal(graph.toString(), expected);
     });
-    writeFileSync("/tmp/x.ttl", graph.toString(), "utf8");
-  });
 
-  it("should getRDFaGraph from a node", function () {
-    let { document } = jsdom(html).defaultView.window;
-    let graph = getRDFaGraph(document.getElementsByTagName("div")[0], {
-      baseURI: "http://localhost",
+    it.only("test bug", () => {
+        let ht = readFileSync("./bug13.html");
+        let { document } = jsdom(ht).defaultView.window;
+
+        let graph = getRDFaGraph(document, {
+            baseURI: "http://localhost",
+            specialHtmlPredicates: [
+                {
+                    source: "http://www.w3.org/ns/prov#value",
+                    target:
+                        "http://lblod.data.gift/vocabularies/besluit/extractedDecisionContent",
+                },
+            ],
+        });
+        writeFileSync("/tmp/x.ttl", graph.toString(), "utf8");
     });
-    assert.equal(graph.toString(), expected);
-  });
+
+    it("should getRDFaGraph from a node", function () {
+        let { document } = jsdom(html).defaultView.window;
+        let graph = getRDFaGraph(document.getElementsByTagName("div")[0], {
+            baseURI: "http://localhost",
+        });
+        assert.equal(graph.toString(), expected);
+    });
 });
