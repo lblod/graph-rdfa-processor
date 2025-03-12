@@ -1,6 +1,6 @@
 {
   "name": "@lblod/graph-rdfa-processor",
-  "version": "2.1.9",
+  "version": "2.1.10",
   "description": "Green turtle GraphRdfaProcessor extracted and available as a commonJS module",
   "main": "dist/index.js",
   "module": "src/index.js",
